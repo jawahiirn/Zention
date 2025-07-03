@@ -15,6 +15,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Zention',
   description: 'Your every little workspace managed in a little space',
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/logo.svg',
+        href: '/logo.svg',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/logo-dark.svg',
+        href: '/logo-dark.svg',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

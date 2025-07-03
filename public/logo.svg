@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <!-- Outer black circle ring -->
+    <circle cx="256" cy="256" r="240" fill="#000000" stroke="#FFFFFF" stroke-width="32" />
+
+    <!-- Centered white "Z" -->
+    <text x="50%" y="65%" text-anchor="middle" fill="#FFFFFF" font-size="250" font-family="Georgia, serif" font-weight="bold">
+        Z
+    </text>
+</svg>
