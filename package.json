@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@eslint/js": "^9.30.1",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -41,7 +42,9 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
+    "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.525.0",
     "next": "15.3.4",
@@ -55,6 +58,7 @@
     "recharts": "^3.0.2",
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
+    "typescript-eslint": "^8.35.1",
     "vaul": "^1.1.2",
     "zod": "^3.25.71"
   },
