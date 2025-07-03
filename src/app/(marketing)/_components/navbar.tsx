@@ -3,6 +3,7 @@
 import { useScrollTop } from '@/hooks/useScrollTop';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/app/(marketing)/_components/Logo';
+import { ModeToggle } from '@/components/mode-toggle';
 
 export const Navbar = () => {
   const scrolled = useScrollTop();
@@ -20,6 +21,7 @@ export const Navbar = () => {
         }
       >
         Login
+        <ModeToggle />
       </div>
     </nav>
   );
