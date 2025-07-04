@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.32.4",
     "@eslint/js": "^9.30.1",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-accordion": "^1.2.11",
@@ -40,6 +41,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "convex": "^1.25.2",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "eslint-plugin-prettier": "^5.5.1",

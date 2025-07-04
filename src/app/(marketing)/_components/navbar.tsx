@@ -2,11 +2,18 @@
 
 import { useScrollTop } from '@/hooks/useScrollTop';
 import { cn } from '@/lib/utils';
-import { Logo } from '@/app/(marketing)/_components/Logo';
+import { Logo } from './Logo';
 import { ModeToggle } from '@/components/mode-toggle';
+import { useConvexAuth } from 'convex/react';
+import { SignInButton, UserButton } from '@clerk/clerk-react';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/spinner';
+import Link from 'next/link';
 
 export const Navbar = () => {
+  const { isAuthenticated, isLoading } = useConvexAuth();
   const scrolled = useScrollTop();
+
   return (
     <nav
       className={cn(
@@ -15,13 +22,32 @@ export const Navbar = () => {
       )}
     >
       <Logo />
-      <div
-        className={
-          'md:ml-auto w-full flex items-center gap-x-2 md:justify-end justify-between'
-        }
-      >
-        Login
-        <ModeToggle />
+      <div className="flex w-full items-center justify-end md:ml-auto">
+        <div className="flex items-center gap-x-2">
+          {isLoading && <Spinner />}
+          {!isLoading && !isAuthenticated && (
+            <>
+              <SignInButton mode="modal">
+                <Button variant="ghost" size="sm">
+                  Log In
+                </Button>
+              </SignInButton>
+              <SignInButton mode="modal">
+                <Button size="sm">Get Zention Free</Button>
+              </SignInButton>
+            </>
+          )}
+
+          {isAuthenticated && !isLoading && (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/documents"> Enter Zention </Link>
+              </Button>
+              <UserButton />
+            </>
+          )}
+          <ModeToggle />
+        </div>
       </div>
     </nav>
   );
