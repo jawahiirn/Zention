@@ -16,7 +16,7 @@ export const Heading = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="max-w-3xl space-y-6 text-center mx-auto px-4 py-10"
+      className="max-w-fullspace-y-6 text-center mx-auto px-4"
     >
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
         🧠 Your ideas, documents & plans unified. <br />
