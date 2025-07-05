@@ -1,12 +1,13 @@
 'use client';
 
-import { Skeleton } from '@/components/ui/skeleton';
+import React from 'react';
+import { useRouter } from 'next/navigation';
 import { api } from '../../../../convex/_generated/api';
 import { Id } from '../../../../convex/_generated/dataModel';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import { useMutation } from 'convex/react';
+import { useUser } from '@clerk/clerk-react';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuSeparator,
@@ -14,6 +15,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   ChevronDown,
   ChevronRight,
@@ -22,7 +24,6 @@ import {
   Plus,
   Trash,
 } from 'lucide-react';
-import { useUser } from '@clerk/clerk-react';
 
 interface ItemProps {
   id?: Id<'documents'>;
@@ -99,14 +100,14 @@ export const Item = ({
       role="button"
       style={{ paddingLeft: level ? `${level * 12 + 12}px` : '12px' }}
       className={cn(
-        'group flex min-h-[1.6875rem] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5',
+        'group cursor-pointer flex min-h-[1.6875rem] w-full items-center py-1 pr-3 text-sm font-medium text-muted-foreground hover:bg-primary/5',
         active && 'bg-primary/5 text-primary'
       )}
     >
       {!!id && (
         <div
           role="button"
-          className="mr-1 h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+          className="mr-1 xx-2 h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
           onClick={onDocExpand}
         >
           <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
