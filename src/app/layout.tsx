@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/teme-provider';
 import './globals.css';
-import { ConvexClientProvider } from '@/components/providers/convex-provider';
+import { ConvexClientProvider } from './providers/convex-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
