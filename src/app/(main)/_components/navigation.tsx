@@ -18,7 +18,7 @@ import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
 
 export const Navigation = () => {
-  const documents = useQuery(api.documents.get);
+  const documents = useQuery(api.documents.get, { parentDocument: undefined });
   const create = useMutation(api.documents.create);
 
   const pathname = usePathname();
