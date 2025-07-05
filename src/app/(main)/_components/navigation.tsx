@@ -14,11 +14,11 @@ import { UserItem } from '@/app/(main)/_components/user-item';
 import { Item } from '@/app/(main)/_components/item';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
-import { useMutation, useQuery } from 'convex/react';
+import { useMutation } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
+import { DocumentList } from '@/app/(main)/_components/document-list';
 
 export const Navigation = () => {
-  const documents = useQuery(api.documents.get, { parentDocument: undefined });
   const create = useMutation(api.documents.create);
 
   const pathname = usePathname();
@@ -137,8 +137,7 @@ export const Navigation = () => {
           <Item onClick={onCreateDocument} label="New page" icon={PlusCircle} />
         </div>
         <div className={'mt-4'}>
-          {documents &&
-            documents.map((doc, index) => <p key={index}>{doc.title}</p>)}
+          <DocumentList />
         </div>
         <div
           onMouseDown={onMouseDown}
