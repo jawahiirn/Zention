@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { useMutation } from 'convex/react';
+import { TrashBox } from './trash-box';
 import { api } from '../../../../convex/_generated/api';
 import { DocumentList } from '@/app/(main)/_components/document-list';
 
@@ -154,7 +155,7 @@ export const Navigation = () => {
               side={isMobile ? 'bottom' : 'right'}
               className="w-72 p-0"
             >
-              {/*<TrashBox />*/} Trashbox
+              <TrashBox />
             </PopoverContent>
           </Popover>
         </div>
