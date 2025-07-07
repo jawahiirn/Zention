@@ -11,6 +11,7 @@ import {
   Trash,
 } from 'lucide-react';
 import { useSearch } from '@/hooks/use-search';
+import { useSettings } from '@/hooks/use-settings';
 import { useMediaQuery } from 'usehooks-ts';
 import { usePathname } from 'next/navigation';
 import { UserItem } from '@/app/(main)/_components/user-item';
@@ -29,6 +30,7 @@ import { DocumentList } from '@/app/(main)/_components/document-list';
 
 export const Navigation = () => {
   const create = useMutation(api.documents.create);
+  const settings = useSettings();
 
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -145,9 +147,13 @@ export const Navigation = () => {
             label="Search"
             icon={Search}
             isSearch
-            onClick={useSearch().onOpen}
+            onClick={settings.onOpen}
           />
-          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          <Item
+            label="Settings"
+            icon={Settings}
+            onClick={useSettings().onOpen}
+          />
           <Item onClick={onCreateDocument} label="New page" icon={PlusCircle} />
         </div>
         <div className={'mt-4'}>

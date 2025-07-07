@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/teme-provider';
+import { ModalProvider } from '@/app/providers/modal-provider';
 import { ConvexClientProvider } from './providers/convex-provider';
 import { Toaster } from 'sonner';
 import './globals.css';
@@ -53,6 +54,7 @@ export default function RootLayout({
             storageKey={'zention-theme'}
           >
             <Toaster position={'bottom-left'} />
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
