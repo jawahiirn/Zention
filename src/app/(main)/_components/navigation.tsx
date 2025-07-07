@@ -31,6 +31,7 @@ import { DocumentList } from '@/app/(main)/_components/document-list';
 export const Navigation = () => {
   const create = useMutation(api.documents.create);
   const settings = useSettings();
+  const search = useSearch();
 
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -143,17 +144,8 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item
-            label="Search"
-            icon={Search}
-            isSearch
-            onClick={settings.onOpen}
-          />
-          <Item
-            label="Settings"
-            icon={Settings}
-            onClick={useSettings().onOpen}
-          />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={onCreateDocument} label="New page" icon={PlusCircle} />
         </div>
         <div className={'mt-4'}>
