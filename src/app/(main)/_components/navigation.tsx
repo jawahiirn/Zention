@@ -10,6 +10,7 @@ import {
   Plus,
   Trash,
 } from 'lucide-react';
+import { useSearch } from '@/hooks/use-search';
 import { useMediaQuery } from 'usehooks-ts';
 import { usePathname } from 'next/navigation';
 import { UserItem } from '@/app/(main)/_components/user-item';
@@ -140,7 +141,12 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item
+            label="Search"
+            icon={Search}
+            isSearch
+            onClick={useSearch().onOpen}
+          />
           <Item label="Settings" icon={Settings} onClick={() => {}} />
           <Item onClick={onCreateDocument} label="New page" icon={PlusCircle} />
         </div>
