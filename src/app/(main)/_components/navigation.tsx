@@ -180,7 +180,7 @@ export const Navigation = () => {
         )}
         ref={navbarRef}
       >
-        {!!params.documentId ? (
+        {params.documentId ? (
           <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
         ) : (
           <nav
