@@ -311,7 +311,7 @@ export const removeCoverImage = mutation({
     }
 
     if (existingDocument.userId !== userId) {
-      throw new Error('User Unauthorized');
+      throw new Error('Unauthorized');
     }
 
     return await ctx.db.patch(args.id, {
