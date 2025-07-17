@@ -6,6 +6,7 @@ import { Id } from '../../../../../../convex/_generated/dataModel';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Toolbar } from '@/components/toolbar';
 import { useParams } from 'next/navigation';
+import { Cover } from '@/components/cover';
 
 const DocumentIdPage = () => {
   const params = useParams();
@@ -32,7 +33,7 @@ const DocumentIdPage = () => {
   }
   return (
     <div className="pb-[140px]">
-      <div className={'h-[35vh]'} />
+      <Cover url={document.coverImage} />
       <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
         <Toolbar initialData={document} />
         {/*<Editor onChange={onChange} initialContent={document.content} />*/}
