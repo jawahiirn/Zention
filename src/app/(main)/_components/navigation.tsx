@@ -22,7 +22,7 @@ import { useSettings } from '@/hooks/use-settings';
 import { useMediaQuery } from 'usehooks-ts';
 import { useMutation } from 'convex/react';
 import { api } from '../../../../convex/_generated/api';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { UserItem } from '@/app/(main)/_components/user-item';
 import { Item } from '@/app/(main)/_components/item';
 import { TrashBox } from './trash-box';
@@ -30,6 +30,7 @@ import { DocumentList } from '@/app/(main)/_components/document-list';
 import { Navbar } from '@/app/(main)/_components/navbar';
 
 export const Navigation = () => {
+  const router = useRouter();
   const create = useMutation(api.documents.create);
   const settings = useSettings();
   const search = useSearch();
@@ -114,7 +115,9 @@ export const Navigation = () => {
   };
 
   const onCreateDocument = () => {
-    const promise = create({ title: 'Untitled' });
+    const promise = create({ title: 'Untitled' }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: 'Creating a new note...',
