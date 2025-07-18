@@ -14,7 +14,7 @@ import { Id } from '../../convex/_generated/dataModel';
 
 interface Props {
   url?: string;
-  preview?: string;
+  preview?: boolean;
 }
 export const Cover = ({ url, preview }: Props) => {
   const { edgestore } = useEdgeStore();
