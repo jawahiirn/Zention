@@ -1,6 +1,8 @@
 'use client';
 
-import { useQuery } from 'convex/react';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
+import { useMutation, useQuery } from 'convex/react';
 import { api } from '../../../../../../convex/_generated/api';
 import { Id } from '../../../../../../convex/_generated/dataModel';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -9,11 +11,21 @@ import { useParams } from 'next/navigation';
 import { Cover } from '@/components/cover';
 
 const DocumentIdPage = () => {
+  const Editor = useMemo(
+    () => dynamic(() => import('@/components/editor'), { ssr: false }),
+    []
+  );
   const params = useParams();
+  const update = useMutation(api.documents.update);
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId as Id<'documents'>,
   });
-
+  const onChange = (content: string) => {
+    update({
+      id: params.documentId as Id<'documents'>,
+      content,
+    });
+  };
   if (document === undefined) {
     return (
       <div>
@@ -36,7 +48,7 @@ const DocumentIdPage = () => {
       <Cover url={document.coverImage} />
       <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
         <Toolbar initialData={document} />
-        {/*<Editor onChange={onChange} initialContent={document.content} />*/}
+        <Editor onChange={onChange} initialContent={document.content} />
       </div>
     </div>
   );
