@@ -36,10 +36,10 @@
 
 It features:
 
-- ⚡ **Convex** — Real-time backend logic and reactive database
-- 🛡 **Clerk** — Authentication & session management
-- 🎨 **Tailwind CSS + ShadCN UI** — Beautiful, reusable components
-- 🔐 **TypeScript** — Robust type safety and enhanced developer experience
+- ⚡ **Convex** — Real-time backend logic and reactive database  
+- 🛡 **Clerk** — Authentication & session management  
+- 🎨 **Tailwind CSS + ShadCN UI** — Beautiful, reusable components  
+- 🔐 **TypeScript** — Robust type safety and enhanced developer experience  
 
 > _Designed for speed, scale, and joyful development._
 
@@ -108,7 +108,7 @@ npm install
 ```bash
 npm run dev
 ```
-### 3. Start backend / convex server (
+### 3. Start backend / convex server ( 
 ```bash
 npx convex dev
 ```
