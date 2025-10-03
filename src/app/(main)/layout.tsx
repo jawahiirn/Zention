@@ -5,6 +5,7 @@ import { useConvexAuth } from 'convex/react';
 import { redirect } from 'next/navigation';
 import { Navigation } from './_components/navigation';
 import { SearchCommand } from '@/components/search-command';
+import { KeyboardShortcutProvider } from '@/components/providers/keyboard-shortcut-provider';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -23,6 +24,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex h-full dark:bg-[#1F1F1F]">
+      <KeyboardShortcutProvider />
       <Navigation />
       <main className="h-full flex-1 overflow-y-auto">
         <SearchCommand />
