@@ -20,13 +20,13 @@ export const Heroes = () => {
         </div>
         <div className="relative hidden h-[25rem] w-[25rem] md:block">
           <Image
-            src="/pair-dark.jpg"
+            src="/pair.jpg"
             fill
             className="object-contain dark:hidden"
             alt="Team"
           />
           <Image
-            src="/pair.jpg"
+            src="/pair-dark.jpg"
             fill
             className="hidden object-contain dark:block"
             alt="Team"
