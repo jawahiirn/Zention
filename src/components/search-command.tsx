@@ -22,7 +22,6 @@ export const SearchCommand = () => {
   const documents = useQuery(api.documents.getSearch);
   const [isMounted, setIsMounted] = useState(false);
 
-  const toggle = useSearch((store) => store.toggle);
   const isOpen = useSearch((store) => store.isOpen);
   const onClose = useSearch((store) => store.onClose);
 
@@ -31,18 +30,6 @@ export const SearchCommand = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        toggle();
-      }
-    };
-
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
-  }, [toggle]);
 
   const onSelect = (id: string) => {
     router.push(`/documents/${id}`);
