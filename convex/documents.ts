@@ -187,21 +187,6 @@ export const remove = mutation({
     return await ctx.db.delete(args.id);
   },
 });
-export const getSearch = query({
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error('User unauthorized');
-    }
-    const userId = identity.subject;
-    return await ctx.db
-      .query('documents')
-      .withIndex('by_user', (q) => q.eq('userId', userId))
-      .filter((q) => q.eq(q.field('isArchived'), false))
-      .order('desc')
-      .collect();
-  },
-});
 export const getById = query({
   args: { documentId: v.id('documents') },
   handler: async (ctx, args) => {
@@ -265,7 +250,6 @@ export const update = mutation({
     });
   },
 });
-
 export const removeIcon = mutation({
   args: { id: v.id('documents') },
   handler: async (ctx, args) => {
@@ -292,7 +276,6 @@ export const removeIcon = mutation({
     });
   },
 });
-
 export const removeCoverImage = mutation({
   args: { id: v.id('documents') },
   handler: async (ctx, args) => {
@@ -317,5 +300,20 @@ export const removeCoverImage = mutation({
     return await ctx.db.patch(args.id, {
       coverImage: undefined,
     });
+  },
+});
+export const getSearch = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error('User unauthorized');
+    }
+    const userId = identity.subject;
+    return await ctx.db
+      .query('documents')
+      .withIndex('by_user', (q) => q.eq('userId', userId))
+      .filter((q) => q.eq(q.field('isArchived'), false))
+      .order('desc')
+      .collect();
   },
 });

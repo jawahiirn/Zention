@@ -49,7 +49,7 @@ export const SearchCommand = () => {
           {documents?.map((document) => (
             <CommandItem
               key={document._id}
-              value={document._id}
+              value={document.title}
               title={document.title}
               onSelect={onSelect}
             >
