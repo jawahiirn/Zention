@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, ElementRef, useEffect } from 'react';
+import React, { useRef, ElementRef, useEffect, useCallback } from 'react';
 import {
   ChevronsLeftIcon,
   MenuIcon,
@@ -49,32 +49,49 @@ export const Navigation = () => {
   const sidebarRef = useRef<ElementRef<'aside'>>(null);
   const navbarRef = useRef<ElementRef<'div'>>(null);
 
-  const onSidebarToggle = () => {
-    if (sidebar.isCollapsed) {
-      resetWidth();
-    } else {
-      onCollapse();
+  const performCollapse = useCallback(() => {
+    if (sidebarRef.current && navbarRef.current) {
+      sidebar.setResetting(true);
+      sidebarRef.current.style.width = '0';
+      navbarRef.current.style.setProperty('width', '100%');
+      navbarRef.current.style.setProperty('left', '0');
+      setTimeout(() => sidebar.setResetting(false), 300);
     }
-  };
+  }, []);
+
+  const performExpand = useCallback(() => {
+    if (sidebarRef.current && navbarRef.current) {
+      sidebar.setResetting(true);
+      sidebarRef.current.style.width = isMobile ? '100%' : '240px';
+      navbarRef.current.style.removeProperty('width');
+      navbarRef.current.style.setProperty(
+        'width',
+        isMobile ? '0' : 'calc(100% - 240px)'
+      );
+      navbarRef.current.style.setProperty('left', isMobile ? '100%' : '240px');
+      setTimeout(() => sidebar.setResetting(false), 300);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
-    sidebar.setToggleCallback(onSidebarToggle);
-  }, [sidebar.isCollapsed]);
+    if (sidebar.isCollapsed) {
+      performCollapse();
+    } else {
+      performExpand();
+    }
+  }, [sidebar.isCollapsed, performCollapse, performExpand]);
 
   useEffect(() => {
     if (isMobile) {
       sidebar.onCollapse();
-      onCollapse();
     } else {
       sidebar.onExpand();
-      resetWidth();
     }
   }, [isMobile]);
 
   useEffect(() => {
     if (isMobile) {
       sidebar.onCollapse();
-      onCollapse();
     }
   }, [pathname, isMobile]);
 
@@ -107,33 +124,6 @@ export const Navigation = () => {
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
-  const resetWidth = () => {
-    if (sidebarRef.current && navbarRef.current) {
-      sidebar.onExpand();
-      sidebar.setResetting(true);
-
-      sidebarRef.current.style.width = isMobile ? '100%' : '240px';
-      navbarRef.current.style.removeProperty('width');
-      navbarRef.current.style.setProperty(
-        'width',
-        isMobile ? '0' : 'calc(100% - 240px)' // add space around `-`
-      );
-      navbarRef.current.style.setProperty('left', isMobile ? '100%' : '240px');
-      setTimeout(() => sidebar.setResetting(false), 300);
-    }
-  };
-  const onCollapse = () => {
-    if (sidebarRef.current && navbarRef.current) {
-      sidebar.onCollapse();
-      sidebar.setResetting(true);
-
-      sidebarRef.current.style.width = '0';
-      navbarRef.current.style.setProperty('width', '100%');
-      navbarRef.current.style.setProperty('left', '0');
-      setTimeout(() => sidebar.setResetting(false), 300);
-    }
-  };
-
   const onCreateDocument = () => {
     const promise = create({ title: 'Untitled' }).then((documentId) =>
       router.push(`/documents/${documentId}`)
@@ -151,7 +141,7 @@ export const Navigation = () => {
       <aside
         ref={sidebarRef}
         className={cn(
-          'group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999',
+          'group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]',
           sidebar.isResetting && 'transition-all duration-300 ease-in-out',
           isMobile && 'w-0'
         )}
@@ -165,14 +155,14 @@ export const Navigation = () => {
                 isMobile && 'opacity-100'
               )}
               role={'button'}
-              onClick={onCollapse}
+              onClick={sidebar.onCollapse}
             >
               <ChevronsLeftIcon className="h-6 w-6" />
             </div>
           </TooltipTrigger>
           <TooltipContent side={'bottom'} align={'center'}>
-            <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[.625rem] font-medium text-muted-foreground opacity-100 dark:bg-neutral-700">
-              <span className="text-xs">CTRL</span>L
+            <kbd className="pointer-events-none flex items-center ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[.625rem] font-medium text-muted-foreground opacity-100 dark:bg-neutral-700">
+              <span className="text-xs">CTRL</span>⇧B
             </kbd>
           </TooltipContent>
         </Tooltip>
@@ -213,7 +203,7 @@ export const Navigation = () => {
         ref={navbarRef}
       >
         {params.documentId ? (
-          <Navbar isCollapsed={sidebar.isCollapsed} onResetWidth={resetWidth} />
+          <Navbar isCollapsed={sidebar.isCollapsed} onResetWidth={sidebar.onExpand} />
         ) : (
           <nav
             className={cn(
@@ -223,7 +213,7 @@ export const Navigation = () => {
           >
             {sidebar.isCollapsed && (
               <MenuIcon
-                onClick={resetWidth}
+                onClick={sidebar.onExpand}
                 role="button"
                 className="h-6 w-6 cursor-pointer text-muted-foreground"
               />

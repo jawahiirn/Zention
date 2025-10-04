@@ -10,23 +10,31 @@ type ShortcutConfig = {
 };
 
 export const useKeyboardShortcuts = (shortcuts: ShortcutConfig[]) => {
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    shortcuts.forEach(({ key, ctrlKey, metaKey, shiftKey, altKey, callback }) => {
-      if (
-        event.key.toLowerCase() === key.toLowerCase() &&
-        !!event.ctrlKey === !!ctrlKey &&
-        !!event.metaKey === !!metaKey &&
-        !!event.shiftKey === !!shiftKey &&
-        !!event.altKey === !!altKey
-      ) {
-        event.preventDefault();
-        callback();
-      }
-    });
-  }, [shortcuts]);
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      shortcuts.forEach(
+        ({ key, ctrlKey, metaKey, shiftKey, altKey, callback }) => {
+          if (
+            event.key.toLowerCase() === key.toLowerCase() &&
+            !!event.ctrlKey === !!ctrlKey &&
+            !!event.metaKey === !!metaKey &&
+            !!event.shiftKey === !!shiftKey &&
+            !!event.altKey === !!altKey
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            callback();
+            return;
+          }
+        }
+      );
+    },
+    [shortcuts]
+  );
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+    document.addEventListener('keydown', onKeyDown, true);
+    return () => document.removeEventListener('keydown', onKeyDown, true);
+  }, [onKeyDown]);
 };

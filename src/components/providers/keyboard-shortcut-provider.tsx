@@ -15,8 +15,9 @@ export const KeyboardShortcutProvider = () => {
       callback: search.toggle,
     },
     {
-      key: 'l',
+      key: 'b',
       ctrlKey: true,
+      shiftKey: true,
       callback: sidebar.toggle,
     },
   ]);
