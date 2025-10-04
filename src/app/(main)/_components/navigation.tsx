@@ -38,9 +38,9 @@ import { Navbar } from '@/app/(main)/_components/navbar';
 export const Navigation = () => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
-  const settings = useSettings();
-  const search = useSearch();
-  const sidebar = useSidebar();
+  const settings = useSettings(); // Settings modal
+  const search = useSearch(); // Search Modal
+  const sidebar = useSidebar(); // Sidebar Settings
 
   const pathname = usePathname();
   const params = useParams();
@@ -203,7 +203,10 @@ export const Navigation = () => {
         ref={navbarRef}
       >
         {params.documentId ? (
-          <Navbar isCollapsed={sidebar.isCollapsed} onResetWidth={sidebar.onExpand} />
+          <Navbar
+            isCollapsed={sidebar.isCollapsed}
+            onResetWidth={sidebar.onExpand}
+          />
         ) : (
           <nav
             className={cn(
