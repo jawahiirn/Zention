@@ -56,7 +56,6 @@ echo ""
 # Run knip in pokedex-web directory
 # Using a subshell to isolate the directory change
 (
-  cd pokedex-web || exit 1
   # Capture exit code without triggering set -e exit
   npm run knip && KNIP_EXIT_CODE=0 || KNIP_EXIT_CODE=$?
 
