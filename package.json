@@ -1,6 +1,6 @@
 {
-  "name": "pokedex-web",
-  "version": "0.1.0",
+  "name": "zention",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
