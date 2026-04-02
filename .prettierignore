@@ -1,0 +1,9 @@
+node_modules
+dist
+README.md
+.gitignore
+.next
+public
+build
+.idea
+.vscode
