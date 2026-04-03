@@ -7,33 +7,31 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  --font-inter: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
-  
-  /* Notion Colors */
-  --color-notion-gray-100: var(--color-gray-100);
-  --color-notion-gray-200: var(--color-gray-200);
-  --color-notion-gray-300: var(--color-gray-300);
-  --color-notion-gray-400: var(--color-gray-400);
-  --color-notion-gray-500: var(--color-gray-500);
-  --color-notion-gray-600: var(--color-gray-600);
-  --color-notion-gray-700: var(--color-gray-700);
-  --color-notion-gray-800: var(--color-gray-800);
-  --color-notion-gray-900: var(--color-gray-900);
-  
-  --color-notion-red: var(--color-red-500);
-  --color-notion-orange: var(--color-orange-500);
-  --color-notion-yellow: var(--color-yellow-500);
-  --color-notion-green: var(--color-green-500);
-  --color-notion-blue: var(--color-blue-500);
-  --color-notion-purple: var(--color-purple-500);
-  --color-notion-pink: var(--color-pink-500);
-  --color-notion-brown: var(--color-brown-500);
 
-  /* Notion Shadows */
-  --shadow-notion-low: var(--shadow-level-100);
-  --shadow-notion-medium: var(--shadow-level-200);
-  --shadow-notion-high: var(--shadow-level-300);
+  /* Zention Colors */
+  --color-Zention-gray-100: var(--color-gray-100);
+  --color-Zention-gray-200: var(--color-gray-200);
+  --color-Zention-gray-300: var(--color-gray-300);
+  --color-Zention-gray-400: var(--color-gray-400);
+  --color-Zention-gray-500: var(--color-gray-500);
+  --color-Zention-gray-600: var(--color-gray-600);
+  --color-Zention-gray-700: var(--color-gray-700);
+  --color-Zention-gray-800: var(--color-gray-800);
+  --color-Zention-gray-900: var(--color-gray-900);
+
+  --color-Zention-red: var(--color-red-500);
+  --color-Zention-orange: var(--color-orange-500);
+  --color-Zention-yellow: var(--color-yellow-500);
+  --color-Zention-green: var(--color-green-500);
+  --color-Zention-blue: var(--color-blue-500);
+  --color-Zention-purple: var(--color-purple-500);
+  --color-Zention-pink: var(--color-pink-500);
+  --color-Zention-brown: var(--color-brown-500);
+
+  /* Zention Shadows */
+  --shadow-Zention-low: var(--shadow-level-100);
+  --shadow-Zention-medium: var(--shadow-level-200);
+  --shadow-Zention-high: var(--shadow-level-300);
   --radius-200: var(--border-radius-200);
   --radius-300: var(--border-radius-300);
   --radius-400: var(--border-radius-400);
@@ -77,13 +75,13 @@
   --radius-lg: var(--border-radius-500);
   --radius-xl: var(--border-radius-700);
 
-  /* Notion Alpha Colors */
+  /* Zention Alpha Colors */
   --color-alpha-black-100: var(--alpha-black-100);
   --color-alpha-black-200: var(--alpha-black-200);
   --color-alpha-black-300: var(--alpha-black-300);
   --color-alpha-black-600: var(--alpha-black-600);
-  
-  /* Notion Spacing Scale */
+
+  /* Zention Spacing Scale */
   --spacing-4: 0.25rem;
   --spacing-8: 0.5rem;
   --spacing-12: 0.75rem;
@@ -93,12 +91,24 @@
   --spacing-32: 2rem;
   --spacing-40: 2.5rem;
   --spacing-48: 3rem;
+
+  /* Zention Typography Scale (Based on 14px root) */
+  --text-base: 1rem;          /* 14px */
+  --text-16: 1.1428rem;       /* 16px */
+  --text-18: 1.2857rem;       /* 18px */
+  --text-20: 1.4285rem;       /* 20px */
+  --text-24: 1.7142rem;       /* 24px */
+  --text-26: 1.8571rem;       /* 26px */
+  --text-32: 2.2857rem;       /* 32px */
+  --text-40: 2.8571rem;       /* 40px */
 }
 
 :root {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Sans Arabic", "Noto Sans Hebrew";
-  
-  /* Notion Border Radii */
+    --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI Variable Display", "Segoe UI", Helvetica,
+    "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew",
+    Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  /* Zention Border Radii */
   --border-radius-200: 0.25rem;
   --border-radius-300: 0.3125rem;
   --border-radius-400: 0.375rem;
@@ -109,7 +119,7 @@
   --border-radius-900: 1rem;
   --border-radius-round: 624.9375rem;
 
-  /* Notion Gray Palette (Light) */
+  /* Zention Gray Palette (Light) */
   --color-gray-100: #f9f9f8;
   --color-gray-200: #f6f5f4;
   --color-gray-300: #dfdcd9;
@@ -120,7 +130,7 @@
   --color-gray-800: #31302e;
   --color-gray-900: #191918;
 
-  /* Notion Colorful Palette */
+  /* Zention Colorful Palette */
   --color-red-500: #f64932;
   --color-orange-500: #ff6d00;
   --color-yellow-500: #ffb110;
@@ -130,7 +140,7 @@
   --color-pink-500: #ff64c8;
   --color-brown-500: #9c7054;
 
-  /* Notion Shadow Levels */
+  /* Zention Shadow Levels */
   --shadow-level-100: 0px 3px 9px #00000008, 0px 0.7px 1.4625px rgba(0, 0, 0, .015);
   --shadow-level-200: 0px 4px 18px #0000000a, 0px 2.025px 7.84688px rgba(0, 0, 0, .027), 0px 0.8px 2.925px #00000005, 0px 0.175px 1.04062px rgba(0, 0, 0, .013);
   --shadow-level-300: 0px 20px 50px #00000014, 0px 6px 16px #0000000a;
@@ -160,13 +170,13 @@
   --border: var(--color-gray-300);
   --input: var(--color-gray-300);
   --ring: var(--color-gray-400);
-  
+
   --chart-1: #0b6e99;
   --chart-2: #df5b24;
   --chart-3: #5a5a5a;
   --chart-4: #802f1a;
   --chart-5: #366b44;
-  
+
   --sidebar: var(--color-gray-100);
   --sidebar-foreground: var(--color-gray-800);
   --sidebar-primary: var(--color-gray-900);
@@ -178,7 +188,7 @@
 }
 
 .dark {
-  /* Notion Gray Palette (Dark) - These are approximate mappings for Notion's dark theme */
+  /* Zention Gray Palette (Dark) - These are approximate mappings for Zention's dark theme */
   --color-gray-100: #252525;
   --color-gray-200: #2f2f2f;
   --color-gray-300: #3f3f3f;
@@ -207,7 +217,7 @@
   --border: #3f3f3f;
   --input: #3f3f3f;
   --ring: #5a5a5a;
-  
+
   --sidebar: #202020;
   --sidebar-foreground: #e1e1e1;
   --sidebar-primary: #ffffff;
@@ -227,15 +237,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   body {
     @apply bg-background text-foreground font-sans;
     line-height: 1.6;
-  }
-
-  .font-inter {
-    font-family: var(--font-inter);
   }
 }
