@@ -7,13 +7,7 @@ import { ArrowLeft } from 'lucide-react';
 
 import { useI18n } from '@/features/i18n/use-i18n';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const router = useRouter();
   const { Details, Common } = useI18n();
 
@@ -28,13 +22,13 @@ export default function Error({
         <h2 className="text-4xl font-bold text-destructive">{Common.errorTitle}</h2>
         <p className="text-muted-foreground">{error.message || Details.error}</p>
         <div className="flex gap-4 justify-center">
-            <Button onClick={reset} variant="default">
-                {Details.retry}
-            </Button>
-            <Button onClick={() => router.back()} variant="outline">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                {Details.goBack}
-            </Button>
+          <Button onClick={reset} variant="default">
+            {Details.retry}
+          </Button>
+          <Button onClick={() => router.back()} variant="outline">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {Details.goBack}
+          </Button>
         </div>
       </div>
     </div>

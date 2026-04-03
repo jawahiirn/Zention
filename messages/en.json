@@ -1,29 +1,29 @@
 {
-    "Index": {
-        "title": "Pokedex",
-        "switchLanguage": "Switch Language",
-        "welcome": "Welcome to the Pokedex",
-        "description": "Discover the amazing world of Pokemon. Gotta catch 'em all!",
-        "explore": "Explore Pokemon",
-        "features": {
-            "title": "Features",
-            "search": "Search Pokemon",
-            "details": "View Details",
-            "compare": "Compare Stats"
-        }
-    },
-    "Details": {
-        "back": "Back to List",
-        "loading": "Loading...",
-        "error": "The Pokedex couldn't retrieve this entry.",
-        "height": "Height",
-        "weight": "Weight",
-        "retry": "Try again",
-        "goBack": "Go Back"
-    },
-    "Common": {
-        "loading": "Gotta catch 'em all...",
-        "errorTitle": "Something went wrong!",
-        "goHome": "Go Home"
+  "Index": {
+    "title": "Pokedex",
+    "switchLanguage": "Switch Language",
+    "welcome": "Welcome to the Pokedex",
+    "description": "Discover the amazing world of Pokemon. Gotta catch 'em all!",
+    "explore": "Explore Pokemon",
+    "features": {
+      "title": "Features",
+      "search": "Search Pokemon",
+      "details": "View Details",
+      "compare": "Compare Stats"
     }
+  },
+  "Details": {
+    "back": "Back to List",
+    "loading": "Loading...",
+    "error": "The Pokedex couldn't retrieve this entry.",
+    "height": "Height",
+    "weight": "Weight",
+    "retry": "Try again",
+    "goBack": "Go Back"
+  },
+  "Common": {
+    "loading": "Gotta catch 'em all...",
+    "errorTitle": "Something went wrong!",
+    "goHome": "Go Home"
+  }
 }

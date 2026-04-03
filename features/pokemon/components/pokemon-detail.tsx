@@ -17,7 +17,12 @@ export const PokemonDetails = ({ name }: Props) => {
   const { Details } = useI18n();
   const { data: pokemon, isLoading, isError } = useQuery(pokemonDetailsQuery(name));
 
-  if (isLoading) return <div className="flex min-h-screen items-center justify-center font-medium italic animate-pulse">{Details.loading}</div>;
+  if (isLoading)
+    return (
+      <div className="flex min-h-screen items-center justify-center font-medium italic animate-pulse">
+        {Details.loading}
+      </div>
+    );
   if (isError || !pokemon)
     return (
       <div className="flex min-h-screen items-center justify-center flex-col gap-4">
@@ -57,11 +62,15 @@ export const PokemonDetails = ({ name }: Props) => {
             </div>
             <div className="grid grid-cols-2 gap-8 w-full max-w-xs border-t pt-8">
               <div className="text-center group">
-                <div className="text-sm text-muted-foreground mb-1 group-hover:text-primary transition-colors">{Details.height}</div>
+                <div className="text-sm text-muted-foreground mb-1 group-hover:text-primary transition-colors">
+                  {Details.height}
+                </div>
                 <div className="text-xl font-bold tracking-tight">{pokemon.height / 10} m</div>
               </div>
               <div className="text-center group border-l">
-                <div className="text-sm text-muted-foreground mb-1 group-hover:text-primary transition-colors">{Details.weight}</div>
+                <div className="text-sm text-muted-foreground mb-1 group-hover:text-primary transition-colors">
+                  {Details.weight}
+                </div>
                 <div className="text-xl font-bold tracking-tight">{pokemon.weight / 10} kg</div>
               </div>
             </div>

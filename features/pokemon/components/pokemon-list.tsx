@@ -8,11 +8,14 @@ import Image from 'next/image';
 export function PokemonList() {
   const { data, isLoading, isError } = useQuery(pokemonListQuery(20));
 
-  if (isLoading) return <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 animate-pulse">
-    {[...Array(20)].map((_, i) => (
-      <div key={i} className="aspect-square rounded-2xl bg-muted border" />
-    ))}
-  </div>;
+  if (isLoading)
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 animate-pulse">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="aspect-square rounded-2xl bg-muted border" />
+        ))}
+      </div>
+    );
 
   if (isError) return <div className="text-red-500 font-medium">Error fetching Pokemon</div>;
 
@@ -24,13 +27,13 @@ export function PokemonList() {
         const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
         return (
-          <Link 
-            href={`/pokemon/${pokemon.name}`} 
-            key={pokemon.name} 
+          <Link
+            href={`/pokemon/${pokemon.name}`}
+            key={pokemon.name}
             className="group relative flex flex-col items-center p-6 rounded-2xl border bg-card/40 hover:bg-card hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-1"
           >
             <div className="relative size-32 mb-4 group-hover:scale-110 transition-transform duration-300">
-               <Image
+              <Image
                 src={imageUrl}
                 alt={pokemon.name}
                 fill

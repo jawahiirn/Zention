@@ -93,6 +93,7 @@ pokedex-web/
 ## Directory Responsibilities
 
 ### `app/`
+
 - **Purpose**: Next.js App Router routes only
 - **Rules**:
   - Keep pages as Server Components by default
@@ -100,6 +101,7 @@ pokedex-web/
   - Use `loading.tsx`, `error.tsx` for route-level UI states
 
 ### `features/`
+
 - **Purpose**: Feature-based organization (domain-driven design)
 - **Structure**: Each feature has its own `api/`, `components/`, `schemas/`, `types/`
 - **Rules**:
@@ -108,6 +110,7 @@ pokedex-web/
   - Use barrel exports only for types and schemas
 
 ### `shared/`
+
 - **Purpose**: Code shared across multiple features
 - **Rules**:
   - No feature-specific logic
@@ -115,6 +118,7 @@ pokedex-web/
   - Avoid barrel exports for components
 
 ### `components/`
+
 - **Purpose**: UI design system (shadcn/ui components)
 - **Rules**:
   - Only primitive, reusable UI components
@@ -122,12 +126,14 @@ pokedex-web/
   - Can be used by any feature
 
 ### `providers/`
+
 - **Purpose**: React Context providers
 - **Rules**:
   - Global application providers only
   - Feature-specific providers go in `features/*/providers/`
 
 ### `store/`
+
 - **Purpose**: Global client state (Zustand)
 - **Rules**:
   - Use sparingly (prefer TanStack Query for server state)
