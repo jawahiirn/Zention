@@ -14,7 +14,7 @@ export default function LanguageSwitcher() {
   const [isPending, startTransition] = useTransition();
 
   const toggleLanguage = async () => {
-    const nextLocale = locale === 'en' ? 'bn' : 'en';
+    const nextLocale = locale === 'en' ? 'en' : 'en';
 
     startTransition(async () => {
       await setLocaleCookie(nextLocale);

@@ -4,13 +4,7 @@ import { useEffect } from 'react';
 import { useI18n } from '@/features/i18n/use-i18n';
 import { Button } from '@/components/ui/button';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const { Common, Details } = useI18n();
 
   useEffect(() => {
