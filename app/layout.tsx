@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { lexend, quicksand } from './font';
+import { inter } from './font';
 import { ThemeProvider, QueryProvider } from '@/providers';
 import '@/styles/globals.css';
 import { NextIntlClientProvider } from 'next-intl';
@@ -21,7 +21,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${lexend.variable} ${quicksand.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"
