@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const pokemonSchema = z.object({
+const pokemonSchema = z.object({
   name: z.string(),
   url: z.string().regex(/^https?:\/\//, 'Must be a valid URL'),
 });
@@ -12,7 +12,7 @@ export const pokemonListSchema = z.object({
   results: z.array(pokemonSchema),
 });
 
-export const pokemonTypeSchema = z.object({
+const pokemonTypeSchema = z.object({
   slot: z.number().optional(),
   type: z.object({
     name: z.string(),
@@ -23,7 +23,7 @@ export const pokemonTypeSchema = z.object({
   }),
 });
 
-export const pokemonSpritesSchema = z.object({
+const pokemonSpritesSchema = z.object({
   front_default: z.string().regex(/^https?:\/\//, 'Must be a valid URL'),
   back_default: z
     .string()
@@ -51,7 +51,3 @@ export const pokemonDetailsSchema = z.object({
   types: z.array(pokemonTypeSchema),
 });
 
-export const createPokemonSchema = z.object({
-  name: z.string().min(1),
-  type: z.string().min(1),
-});

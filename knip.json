@@ -8,5 +8,11 @@
     "features/i18n/request.ts"
   ],
   "project": ["**/*.{ts,tsx,js,mjs,cjs}"],
-  "ignore": ["next-env.d.ts"]
+  "ignore": ["next-env.d.ts"],
+  "ignoreDependencies": [
+    "tailwindcss",
+    "tw-animate-css",
+    "prettier-plugin-tailwindcss",
+    "postcss"
+  ]
 }

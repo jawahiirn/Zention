@@ -1,5 +1,5 @@
 import { axiosRequest } from '@/shared/lib/api-client';
-import { PokemonListResponse, PokemonDetailsResponse, CreatePokemonRequest, PokemonDetailsRequest } from '../types';
+import { PokemonListResponse, PokemonDetailsResponse, PokemonDetailsRequest } from '../types';
 import { pokemonListSchema, pokemonDetailsSchema } from '../schemas';
 
 export const getPokemonList = async (limit: number = 20, offset: number = 0): Promise<PokemonListResponse> => {
@@ -17,10 +17,3 @@ export const getPokemonDetails = async (data: PokemonDetailsRequest): Promise<Po
   return pokemonDetailsSchema.parse(result);
 };
 
-export const createPokemon = (data: CreatePokemonRequest) => {
-  return axiosRequest({
-    url: '/pokemon',
-    method: 'POST',
-    data,
-  });
-};
