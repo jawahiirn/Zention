@@ -6,21 +6,21 @@ import { Header } from '@/shared/components/header';
 import { AuthCard } from '@/features/auth/components/auth-card';
 import Link from 'next/link';
 
-export default function Home() {
+export default function SignupPage() {
   const t = useTranslations('Auth');
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-zention-gray-200 dark:bg-background">
-      <Header action="signup" />
-      <div className="flex-1 flex flex-col items-center justify-center p-16 w-full">
-        <div className="w-full max-w-[440px] flex flex-col gap-32">
-          <AuthCard type="login" />
+      <Header action="login" />
+      <div className="flex-1 flex flex-col items-center justify-center p-16 sm:p-32 w-full">
+        <div className="w-full max-w-[440px] flex flex-col gap-24">
+          <AuthCard type="signup" />
 
           {/* Footer */}
           <p className="text-center text-muted-foreground text-base">
-            {t('login.noAccount')}{' '}
-            <Link href="/signup" className="text-foreground font-bold hover:underline">
-              {t('login.link')}
+            {t('signup.haveAccount')}{' '}
+            <Link href="/" className="text-foreground font-bold hover:underline">
+              {t('signup.link')}
             </Link>
           </p>
         </div>
