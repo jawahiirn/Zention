@@ -8,30 +8,30 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
 
-  /* Zention Colors */
-  --color-Zention-gray-100: var(--color-gray-100);
-  --color-Zention-gray-200: var(--color-gray-200);
-  --color-Zention-gray-300: var(--color-gray-300);
-  --color-Zention-gray-400: var(--color-gray-400);
-  --color-Zention-gray-500: var(--color-gray-500);
-  --color-Zention-gray-600: var(--color-gray-600);
-  --color-Zention-gray-700: var(--color-gray-700);
-  --color-Zention-gray-800: var(--color-gray-800);
-  --color-Zention-gray-900: var(--color-gray-900);
+  /* zention Colors */
+  --color-zention-gray-100: var(--color-gray-100);
+  --color-zention-gray-200: var(--color-gray-200);
+  --color-zention-gray-300: var(--color-gray-300);
+  --color-zention-gray-400: var(--color-gray-400);
+  --color-zention-gray-500: var(--color-gray-500);
+  --color-zention-gray-600: var(--color-gray-600);
+  --color-zention-gray-700: var(--color-gray-700);
+  --color-zention-gray-800: var(--color-gray-800);
+  --color-zention-gray-900: var(--color-gray-900);
 
-  --color-Zention-red: var(--color-red-500);
-  --color-Zention-orange: var(--color-orange-500);
-  --color-Zention-yellow: var(--color-yellow-500);
-  --color-Zention-green: var(--color-green-500);
-  --color-Zention-blue: var(--color-blue-500);
-  --color-Zention-purple: var(--color-purple-500);
-  --color-Zention-pink: var(--color-pink-500);
-  --color-Zention-brown: var(--color-brown-500);
+  --color-zention-red: var(--color-red-500);
+  --color-zention-orange: var(--color-orange-500);
+  --color-zention-yellow: var(--color-yellow-500);
+  --color-zention-green: var(--color-green-500);
+  --color-zention-blue: var(--color-blue-500);
+  --color-zention-purple: var(--color-purple-500);
+  --color-zention-pink: var(--color-pink-500);
+  --color-zention-brown: var(--color-brown-500);
 
-  /* Zention Shadows */
-  --shadow-Zention-low: var(--shadow-level-100);
-  --shadow-Zention-medium: var(--shadow-level-200);
-  --shadow-Zention-high: var(--shadow-level-300);
+  /* zention Shadows */
+  --shadow-zention-low: var(--shadow-level-100);
+  --shadow-zention-medium: var(--shadow-level-200);
+  --shadow-zention-high: var(--shadow-level-300);
   --radius-200: var(--border-radius-200);
   --radius-300: var(--border-radius-300);
   --radius-400: var(--border-radius-400);
@@ -75,13 +75,13 @@
   --radius-lg: var(--border-radius-500);
   --radius-xl: var(--border-radius-700);
 
-  /* Zention Alpha Colors */
+  /* zention Alpha Colors */
   --color-alpha-black-100: var(--alpha-black-100);
   --color-alpha-black-200: var(--alpha-black-200);
   --color-alpha-black-300: var(--alpha-black-300);
   --color-alpha-black-600: var(--alpha-black-600);
 
-  /* Zention Spacing Scale */
+  /* zention Spacing Scale */
   --spacing-4: 0.25rem;
   --spacing-8: 0.5rem;
   --spacing-12: 0.75rem;
@@ -92,7 +92,7 @@
   --spacing-40: 2.5rem;
   --spacing-48: 3rem;
 
-  /* Zention Typography Scale (Based on 14px root) */
+  /* zention Typography Scale (Based on 14px root) */
   --text-base: 1rem;          /* 14px */
   --text-16: 1.1428rem;       /* 16px */
   --text-18: 1.2857rem;       /* 18px */
@@ -108,7 +108,7 @@
     "Segoe UI Variable Display", "Segoe UI", Helvetica,
     "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew",
     Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-  /* Zention Border Radii */
+  /* zention Border Radii */
   --border-radius-200: 0.25rem;
   --border-radius-300: 0.3125rem;
   --border-radius-400: 0.375rem;
@@ -119,7 +119,7 @@
   --border-radius-900: 1rem;
   --border-radius-round: 624.9375rem;
 
-  /* Zention Gray Palette (Light) */
+  /* zention Gray Palette (Light) */
   --color-gray-100: #f9f9f8;
   --color-gray-200: #f6f5f4;
   --color-gray-300: #dfdcd9;
@@ -130,7 +130,7 @@
   --color-gray-800: #31302e;
   --color-gray-900: #191918;
 
-  /* Zention Colorful Palette */
+  /* zention Colorful Palette */
   --color-red-500: #f64932;
   --color-orange-500: #ff6d00;
   --color-yellow-500: #ffb110;
@@ -140,7 +140,7 @@
   --color-pink-500: #ff64c8;
   --color-brown-500: #9c7054;
 
-  /* Zention Shadow Levels */
+  /* zention Shadow Levels */
   --shadow-level-100: 0px 3px 9px #00000008, 0px 0.7px 1.4625px rgba(0, 0, 0, .015);
   --shadow-level-200: 0px 4px 18px #0000000a, 0px 2.025px 7.84688px rgba(0, 0, 0, .027), 0px 0.8px 2.925px #00000005, 0px 0.175px 1.04062px rgba(0, 0, 0, .013);
   --shadow-level-300: 0px 20px 50px #00000014, 0px 6px 16px #0000000a;
@@ -188,7 +188,7 @@
 }
 
 .dark {
-  /* Zention Gray Palette (Dark) - These are approximate mappings for Zention's dark theme */
+  /* zention Gray Palette (Dark) - These are approximate mappings for zention's dark theme */
   --color-gray-100: #252525;
   --color-gray-200: #2f2f2f;
   --color-gray-300: #3f3f3f;

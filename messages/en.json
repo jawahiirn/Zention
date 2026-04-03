@@ -25,5 +25,27 @@
     "loading": "Gotta catch 'em all...",
     "errorTitle": "Something went wrong!",
     "goHome": "Go Home"
+  },
+  "Auth": {
+    "login": {
+      "title": "Welcome back!",
+      "submit": "Log In",
+      "noAccount": "Don't have an account?",
+      "link": "Sign Up"
+    },
+    "signup": {
+      "title": "Seconds to sign up!",
+      "submit": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "link": "Login"
+    },
+    "googleButton": "Continue with Google",
+    "or": "OR",
+    "emailLabel": "Email",
+    "emailPlaceholder": "jawaitrn@gmail.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "fullNameLabel": "Full Name",
+    "fullNamePlaceholder": "John Doe"
   }
 }
