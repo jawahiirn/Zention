@@ -9,7 +9,6 @@ pokedex-web/
 │   ├── pokemon/
 │   │   └── [name]/
 │   │       └── page.tsx           # Pokemon detail page (RSC)
-│   ├── font.ts                    # Font configuration
 │   ├── layout.tsx                 # Root layout (RSC)
 │   └── page.tsx                   # Home page (RSC)
 │

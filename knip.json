@@ -9,10 +9,5 @@
   ],
   "project": ["**/*.{ts,tsx,js,mjs,cjs}"],
   "ignore": ["next-env.d.ts"],
-  "ignoreDependencies": [
-    "tailwindcss",
-    "tw-animate-css",
-    "prettier-plugin-tailwindcss",
-    "postcss"
-  ]
+  "ignoreDependencies": ["tailwindcss", "tw-animate-css", "prettier-plugin-tailwindcss", "postcss"]
 }

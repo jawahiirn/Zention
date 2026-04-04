@@ -19,59 +19,59 @@ export const PokemonDetails = ({ name }: Props) => {
 
   if (isLoading)
     return (
-      <div className="flex min-h-screen items-center justify-center font-medium italic animate-pulse">
+      <div className='flex min-h-screen animate-pulse items-center justify-center font-medium italic'>
         {Details.loading}
       </div>
     );
   if (isError || !pokemon)
     return (
-      <div className="flex min-h-screen items-center justify-center flex-col gap-4">
-        <div className="text-red-500 font-semibold">{Details.error}</div>
+      <div className='flex min-h-screen flex-col items-center justify-center gap-4'>
+        <div className='font-semibold text-red-500'>{Details.error}</div>
         <Button onClick={() => router.back()}>{Details.goBack}</Button>
       </div>
     );
 
   return (
-    <div className="min-h-screen p-8 bg-background font-sans">
-      <div className="max-w-2xl mx-auto">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-6 pl-0 hover:pl-2 transition-all">
-          <ArrowLeft className="mr-2 h-4 w-4" />
+    <div className='bg-background min-h-screen p-8 font-sans'>
+      <div className='mx-auto max-w-2xl'>
+        <Button variant='ghost' onClick={() => router.back()} className='mb-6 pl-0 transition-all hover:pl-2'>
+          <ArrowLeft className='mr-2 h-4 w-4' />
           {Details.back}
         </Button>
-        <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden">
-          <div className="p-8 flex flex-col items-center">
-            <div className="relative w-48 h-48 mb-6">
+        <div className='bg-card text-card-foreground overflow-hidden rounded-xl border shadow-sm'>
+          <div className='flex flex-col items-center p-8'>
+            <div className='relative mb-6 h-48 w-48'>
               <Image
                 src={pokemon.sprites.front_default}
                 alt={pokemon.name}
                 fill
-                className="object-contain pixelated"
+                className='pixelated object-contain'
                 priority
               />
             </div>
-            <h1 className="text-4xl font-bold capitalize mb-4">{pokemon.name}</h1>
-            <div className="flex gap-2 mb-8">
+            <h1 className='mb-4 text-4xl font-bold capitalize'>{pokemon.name}</h1>
+            <div className='mb-8 flex gap-2'>
               {pokemon.types.map(({ type }) => (
                 <span
                   key={type.name}
-                  className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium capitalize"
+                  className='bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium capitalize'
                 >
                   {type.name}
                 </span>
               ))}
             </div>
-            <div className="grid grid-cols-2 gap-8 w-full max-w-xs border-t pt-8">
-              <div className="text-center group">
-                <div className="text-sm text-muted-foreground mb-1 group-hover:text-primary transition-colors">
+            <div className='grid w-full max-w-xs grid-cols-2 gap-8 border-t pt-8'>
+              <div className='group text-center'>
+                <div className='text-muted-foreground group-hover:text-primary mb-1 text-sm transition-colors'>
                   {Details.height}
                 </div>
-                <div className="text-xl font-bold tracking-tight">{pokemon.height / 10} m</div>
+                <div className='text-xl font-bold tracking-tight'>{pokemon.height / 10} m</div>
               </div>
-              <div className="text-center group border-l">
-                <div className="text-sm text-muted-foreground mb-1 group-hover:text-primary transition-colors">
+              <div className='group border-l text-center'>
+                <div className='text-muted-foreground group-hover:text-primary mb-1 text-sm transition-colors'>
                   {Details.weight}
                 </div>
-                <div className="text-xl font-bold tracking-tight">{pokemon.weight / 10} kg</div>
+                <div className='text-xl font-bold tracking-tight'>{pokemon.weight / 10} kg</div>
               </div>
             </div>
           </div>

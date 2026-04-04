@@ -16,4 +16,3 @@ export const getPokemonDetails = async (data: PokemonDetailsRequest): Promise<Po
   });
   return pokemonDetailsSchema.parse(result);
 };
-

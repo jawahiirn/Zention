@@ -93,21 +93,20 @@
   --spacing-48: 3rem;
 
   /* zention Typography Scale (Based on 14px root) */
-  --text-base: 1rem;          /* 14px */
-  --text-16: 1.1428rem;       /* 16px */
-  --text-18: 1.2857rem;       /* 18px */
-  --text-20: 1.4285rem;       /* 20px */
-  --text-24: 1.7142rem;       /* 24px */
-  --text-26: 1.8571rem;       /* 26px */
-  --text-32: 2.2857rem;       /* 32px */
-  --text-40: 2.8571rem;       /* 40px */
+  --text-base: 1rem; /* 14px */
+  --text-16: 1.1428rem; /* 16px */
+  --text-18: 1.2857rem; /* 18px */
+  --text-20: 1.4285rem; /* 20px */
+  --text-24: 1.7142rem; /* 24px */
+  --text-26: 1.8571rem; /* 26px */
+  --text-32: 2.2857rem; /* 32px */
+  --text-40: 2.8571rem; /* 40px */
 }
 
 :root {
-    --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont,
-    "Segoe UI Variable Display", "Segoe UI", Helvetica,
-    "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew",
-    Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-sans:
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI Variable Display', 'Segoe UI', Helvetica,
+    'Apple Color Emoji', 'Noto Sans Arabic', 'Noto Sans Hebrew', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
   /* zention Border Radii */
   --border-radius-200: 0.25rem;
   --border-radius-300: 0.3125rem;
@@ -141,8 +140,10 @@
   --color-brown-500: #9c7054;
 
   /* zention Shadow Levels */
-  --shadow-level-100: 0px 3px 9px #00000008, 0px 0.7px 1.4625px rgba(0, 0, 0, .015);
-  --shadow-level-200: 0px 4px 18px #0000000a, 0px 2.025px 7.84688px rgba(0, 0, 0, .027), 0px 0.8px 2.925px #00000005, 0px 0.175px 1.04062px rgba(0, 0, 0, .013);
+  --shadow-level-100: 0px 3px 9px #00000008, 0px 0.7px 1.4625px rgba(0, 0, 0, 0.015);
+  --shadow-level-200:
+    0px 4px 18px #0000000a, 0px 2.025px 7.84688px rgba(0, 0, 0, 0.027), 0px 0.8px 2.925px #00000005,
+    0px 0.175px 1.04062px rgba(0, 0, 0, 0.013);
   --shadow-level-300: 0px 20px 50px #00000014, 0px 6px 16px #0000000a;
 
   /* Alpha Scales */

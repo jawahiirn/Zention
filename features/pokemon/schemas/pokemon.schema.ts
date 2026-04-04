@@ -50,4 +50,3 @@ export const pokemonDetailsSchema = z.object({
   sprites: pokemonSpritesSchema,
   types: z.array(pokemonTypeSchema),
 });
-
