@@ -6,6 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { useAuthToken } from '@/shared/hooks/use-auth-token';
+
 import { useI18n } from '@/features/i18n/use-i18n';
 import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
@@ -17,6 +21,8 @@ export function LoginForm() {
   const { Auth } = useI18n();
   const [showPassword, setShowPassword] = React.useState(false);
   const [isPending, setIsPending] = React.useState(false);
+  const { setToken } = useAuthToken();
+  const router = useRouter();
 
   const {
     register,
@@ -30,10 +36,30 @@ export function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     setIsPending(true);
     try {
+      // 1. Authenticate (Replace with your actual endpoint)
+      // const loginRes = await axiosRequest<{token: string}>({ url: '/auth/login', method: 'POST', data });
+      // setToken(loginRes.token);
+
+      // MOCK LOGIC for demo
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success('Welcome back!');
+      setToken('fake-token-123');
+
+      // 2. Immediate check for onboarding status
+      // const statusRes = await axiosRequest<{isOnboarded: boolean}>({ url: '/auth/status', method: 'GET' });
+      const isOnboarded = false; // This would come from your second API call
+
+      // 3. Persist status and redirect
+      Cookies.set('has_onboarded', String(isOnboarded));
+
+      if (isOnboarded) {
+        toast.success('Welcome back!');
+        router.push('/pokemon');
+      } else {
+        toast.info('Please complete your onboarding');
+        router.push('/onboarding');
+      }
     } catch {
-      toast.error('An unexpected error occurred');
+      toast.error('Authentication failed');
     } finally {
       setIsPending(false);
     }

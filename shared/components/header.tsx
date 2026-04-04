@@ -24,23 +24,27 @@ export function Header({ action = 'none' }: HeaderProps) {
   }, []);
 
   const isDark = mounted && (resolvedTheme === 'dark' || theme === 'dark');
+  const logoSrc = isDark ? '/logo-dark.jpg' : '/logo-light.jpg';
 
   return (
     <header className='sticky top-0 z-50 w-full py-8 backdrop-blur-md transition-all duration-300 md:py-16'>
       <div className='flex w-full items-center justify-between px-8 sm:px-16 md:px-48'>
         {/* Logo and Name */}
         <div className='flex items-center gap-8'>
-          {mounted ? (
-            <Image
-              src={isDark ? '/icon-dark.svg' : '/icon-light.svg'}
-              alt='zention Logo'
-              width={32}
-              height={32}
-              className='rounded-full shadow-sm transition-opacity duration-300'
-            />
-          ) : (
-            <div className='h-32 w-32' />
-          )}
+          <div className='h-32 w-32 shrink-0 overflow-hidden rounded-full shadow-sm'>
+            {mounted ? (
+              <Image
+                key={logoSrc}
+                src={logoSrc}
+                width={32}
+                height={32}
+                alt='zention Logo'
+                className='h-full w-full object-cover transition-opacity duration-300'
+              />
+            ) : (
+              <div className='bg-muted h-full w-full animate-pulse' />
+            )}
+          </div>
           <span className='text-2xl font-bold'>Zention</span>
         </div>
         {/* Action Toggle */}
