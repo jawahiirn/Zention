@@ -19,9 +19,7 @@ export function middleware(request: NextRequest) {
 
   // 2. If LOGGED IN -> Block Login/Signup pages
   if (isAuthPage) {
-    return NextResponse.redirect(
-      new URL(hasOnboarded ? '/pokemon' : '/onboarding', request.url)
-    );
+    return NextResponse.redirect(new URL(hasOnboarded ? '/pokemon' : '/onboarding', request.url));
   }
 
   // 3. If NOT ONBOARDED -> Force Onboarding (unless already there)
@@ -29,10 +27,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/onboarding', request.url));
   }
 
-  // 4. If ONBOARDED -> Block Onboarding page
-  if (hasOnboarded && isOnboardingPage) {
-    return NextResponse.redirect(new URL('/pokemon', request.url));
-  }
+  // // 4. If ONBOARDED -> Block Onboarding page
+  // if (hasOnboarded && isOnboardingPage) {
+  //   return NextResponse.redirect(new URL('/pokemon', request.url));
+  // }
 
   return NextResponse.next();
 }
