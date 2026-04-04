@@ -79,6 +79,45 @@ function isStepElement(child: React.ReactNode): child is React.ReactElement<Step
   return React.isValidElement(child) && (child.type as unknown as Record<symbol, boolean>)[STEP_MARKER];
 }
 
+/**
+ * Recursively find all Step IDs in the children tree to preserve JSX order
+ * even if steps are wrapped in divs, fragments, or other containers.
+ */
+function getStepIds(children: React.ReactNode): string[] {
+  const ids: string[] = [];
+  React.Children.forEach(children, (child) => {
+    if (!child || !React.isValidElement(child)) return;
+
+    if (isStepElement(child)) {
+      const stepChild = child as React.ReactElement<StepProps>;
+      ids.push(stepChild.props.id);
+    } else if (child.props && (child.props as any).children) {
+      ids.push(...getStepIds((child.props as any).children));
+    }
+  });
+  return ids;
+}
+
+interface HeaderProps {
+  className?: string;
+}
+
+function Header({ className }: HeaderProps) {
+  const { currentStepId, metadata } = useMultiStepModal();
+  const activeMetadata = metadata.get(currentStepId);
+
+  if (!activeMetadata || (!activeMetadata.title && !activeMetadata.description)) return null;
+
+  return (
+    <DialogHeader className={className}>
+      {activeMetadata.title && <DialogTitle>{activeMetadata.title}</DialogTitle>}
+      {activeMetadata.description && <DialogDescription>{activeMetadata.description}</DialogDescription>}
+    </DialogHeader>
+  );
+}
+
+Header.displayName = 'MultiStepModal.Header';
+
 interface ProgressProps {
   className?: string;
   variant?: 'bar' | 'dots';
@@ -177,7 +216,8 @@ interface MultiStepModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children: React.ReactNode;
-  className?: string;
+  className?: string; // Content className
+  overlayClassName?: string;
   initialStepId?: string;
   onStepChange?: (stepId: string) => void;
   onComplete?: () => void;
@@ -190,6 +230,7 @@ function MultiStepModalRoot({
   onOpenChange,
   children,
   className,
+  overlayClassName,
   initialStepId,
   onStepChange,
   onComplete,
@@ -214,16 +255,8 @@ function MultiStepModalRoot({
     });
   }, []);
 
-  // Guarantee order from children rather than registration timing
-  const stepIds = React.useMemo(() => {
-    const ids: string[] = [];
-    React.Children.forEach(children, (child) => {
-      if (isStepElement(child)) {
-        ids.push(child.props.id);
-      }
-    });
-    return ids;
-  }, [children]);
+  // Guarantee order from children via recursive traversal
+  const stepIds = React.useMemo(() => getStepIds(children), [children]);
 
   const onBeforeNext = React.useCallback(
     async (currentId: string) => {
@@ -244,7 +277,7 @@ function MultiStepModalRoot({
     onBeforeNext,
   });
 
-  const { reset, currentStepId } = controls;
+  const { reset } = controls;
 
   // Predictable state lifecycle
   React.useEffect(() => {
@@ -253,21 +286,15 @@ function MultiStepModalRoot({
     }
   }, [open, resetOnClose, reset]);
 
-  const activeMetadata = metadata.get(currentStepId);
-
   return (
     <MultiStepModalContext.Provider value={{ ...controls, registerStep, unregisterStep, metadata }}>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className={cn('sm:max-w-md', className)} showCloseButton={showCloseButton}>
-          {activeMetadata && (activeMetadata.title || activeMetadata.description) && (
-            <DialogHeader>
-              {activeMetadata.title && <DialogTitle>{activeMetadata.title}</DialogTitle>}
-              {activeMetadata.description && <DialogDescription>{activeMetadata.description}</DialogDescription>}
-            </DialogHeader>
-          )}
-          <div data-slot='multi-step-steps-container' className='relative'>
-            {children}
-          </div>
+        <DialogContent
+          className={cn('sm:max-w-md', className)}
+          overlayClassName={overlayClassName}
+          showCloseButton={showCloseButton}
+        >
+          {children}
         </DialogContent>
       </Dialog>
     </MultiStepModalContext.Provider>
@@ -278,9 +305,10 @@ MultiStepModalRoot.displayName = 'MultiStepModal';
 
 const MultiStepModal = Object.assign(MultiStepModalRoot, {
   Step,
+  Header,
   Progress,
   Navigation,
 });
 
 export { MultiStepModal, useMultiStepModal };
-export type { MultiStepModalProps, StepProps, ProgressProps, NavigationProps, StepConfig };
+export type { MultiStepModalProps, StepProps, ProgressProps, NavigationProps, HeaderProps, StepConfig };
