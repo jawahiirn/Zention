@@ -67,12 +67,12 @@ export function LoginForm() {
 
   return (
     <AuthCardShell title={Auth.login.title} isPending={isPending}>
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-16'>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-16">
         <AuthFormField
-          id='email'
+          id="email"
           label={Auth.emailLabel}
           placeholder={Auth.emailPlaceholder}
-          type='email'
+          type="email"
           icon={MailIcon}
           error={errors.email?.message}
           disabled={isPending}
@@ -80,7 +80,7 @@ export function LoginForm() {
         />
 
         <AuthFormField
-          id='password'
+          id="password"
           label={Auth.passwordLabel}
           placeholder={Auth.passwordPlaceholder}
           type={showPassword ? 'text' : 'password'}
@@ -89,17 +89,17 @@ export function LoginForm() {
           disabled={isPending}
           registration={register('password')}
           renderRightAddon={() => (
-            <InputGroupAddon align='inline-end'>
+            <InputGroupAddon align="inline-end">
               <Button
                 variant={'ghost'}
-                type='button'
+                type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className='hover:text-foreground mr-[-4px] cursor-pointer rounded-lg transition-colors'
+                className="hover:text-foreground mr-[-4px] cursor-pointer rounded-lg transition-colors"
               >
                 {showPassword ? (
-                  <EyeOffIcon className='text-muted-foreground size-20' />
+                  <EyeOffIcon className="text-muted-foreground size-20" />
                 ) : (
-                  <EyeIcon className='text-muted-foreground size-20' />
+                  <EyeIcon className="text-muted-foreground size-20" />
                 )}
               </Button>
             </InputGroupAddon>
@@ -107,11 +107,11 @@ export function LoginForm() {
         />
 
         <Button
-          type='submit'
+          type="submit"
           disabled={isPending}
-          className='bg-zention-purple hover:bg-zention-purple/90 text-16 shadow-zention-purple/20 mt-8 h-48 w-full rounded-xl font-bold text-white shadow-lg transition-all'
+          className="hover:bg-purple/90 text-16 shadow-zention-purple/50 mt-8 h-48 w-full rounded-xl bg-purple-500 font-bold text-white shadow-lg transition-all"
         >
-          {isPending ? <Loader2 className='mr-8 size-20 animate-spin' /> : null}
+          {isPending ? <Loader2 className="mr-8 size-20 animate-spin" /> : null}
           {Auth.login.submit}
         </Button>
       </form>

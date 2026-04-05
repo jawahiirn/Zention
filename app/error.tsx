@@ -13,15 +13,15 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error]);
 
   return (
-    <div className='bg-background flex h-[calc(100vh-10rem)] flex-col items-center justify-center p-8'>
-      <div className='max-w-md space-y-4 text-center'>
-        <h2 className='text-destructive text-4xl font-bold'>{Common.errorTitle}</h2>
-        <p className='text-muted-foreground'>{error.message || 'An unexpected error occurred'}</p>
-        <div className='flex justify-center gap-4'>
-          <Button onClick={reset} variant='destructive'>
+    <div className="bg-background flex h-[calc(100vh-10rem)] flex-col items-center justify-center p-8">
+      <div className="max-w-md space-y-4 text-center">
+        <h2 className="text-destructive text-4xl font-bold">{Common.errorTitle}</h2>
+        <p className="text-muted-foreground">{error.message || 'An unexpected error occurred'}</p>
+        <div className="flex justify-center gap-4">
+          <Button onClick={reset} variant="destructive">
             {Details.retry}
           </Button>
-          <Button onClick={() => (window.location.href = '/')} variant='outline'>
+          <Button onClick={() => (window.location.href = '/')} variant="outline">
             {Common.goHome}
           </Button>
         </div>

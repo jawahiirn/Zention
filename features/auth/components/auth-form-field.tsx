@@ -29,15 +29,15 @@ export function AuthFormField({
   renderRightAddon,
 }: AuthFormFieldProps) {
   return (
-    <div className='flex flex-col gap-8'>
-      <label htmlFor={id} className='text-foreground/80 ml-4 text-sm font-semibold'>
+    <div className="flex flex-col gap-8">
+      <label htmlFor={id} className="text-foreground/80 ml-4 text-sm font-semibold">
         {label}
       </label>
       <InputGroup
         className={`border-input focus-within:ring-zention-purple/20 h-48 bg-gray-100 transition-all focus-within:ring-2 ${error ? 'border-destructive' : ''}`}
       >
         <InputGroupAddon>
-          <Icon className='text-muted-foreground size-20' />
+          <Icon className="text-muted-foreground size-20" />
         </InputGroupAddon>
         <InputGroupInput
           id={id}
@@ -45,11 +45,11 @@ export function AuthFormField({
           placeholder={placeholder}
           disabled={disabled}
           {...registration}
-          className='text-base'
+          className="text-base"
         />
         {renderRightAddon && renderRightAddon()}
       </InputGroup>
-      {error && <p className='text-destructive ml-4 text-xs'>{error}</p>}
+      {error && <p className="text-destructive ml-4 text-xs">{error}</p>}
     </div>
   );
 }
