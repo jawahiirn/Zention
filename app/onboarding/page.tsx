@@ -33,10 +33,7 @@ export default function OnboardingPage() {
           We&#39;re getting things ready for you. Please complete your onboarding steps.
         </p>
 
-        <Button
-          onClick={() => setOpen(true)}
-          className='text-16 mt-8 h-12 px-8 font-bold shadow-lg transition-transform hover:scale-105 active:scale-95'
-        >
+        <Button onClick={() => setOpen(true)} variant={'default'}>
           <Rocket className='mr-2 size-20' />
           Start Onboarding
         </Button>
@@ -58,13 +55,13 @@ export default function OnboardingPage() {
         onOpenChange={setOpen}
         onComplete={handleComplete}
         showCloseButton={false}
-        className='sm:max-w-[500px] p-0 overflow-hidden' // Custom styling
-        overlayClassName='bg-black/80 backdrop-blur-sm' // Custom overlay
+        className='overflow-hidden p-0 sm:max-w-[500px]' // Custom styling
+        overlayClassName='bg-gray-500 backdrop-blur-sm' // Custom overlay
       >
-        <div className='flex flex-col h-full'>
-          <MultiStepModal.Header className='p-24 border-b bg-muted/30' />
-          
-          <div className='px-24 py-32 flex-1'>
+        <div className='flex h-full flex-col'>
+          <MultiStepModal.Header className='bg-muted/30 border-b p-24' />
+
+          <div className='flex-1 px-24 py-32'>
             <MultiStepModal.Step id='profile' title='Step 1: Your Profile' description='Tell us a bit about yourself'>
               <div className='flex flex-col items-center justify-center gap-24 text-center'>
                 <div className='bg-primary/10 flex size-80 items-center justify-center rounded-full shadow-inner'>
@@ -72,7 +69,7 @@ export default function OnboardingPage() {
                 </div>
                 <div>
                   <h3 className='text-20 font-bold'>Profile Setup</h3>
-                  <p className='text-muted-foreground text-15 mt-8 leading-relaxed max-w-[300px] mx-auto'>
+                  <p className='text-muted-foreground text-15 mx-auto mt-8 max-w-[300px] leading-relaxed'>
                     Customize your identity in Zention. First impressions matter!
                   </p>
                 </div>
@@ -90,7 +87,7 @@ export default function OnboardingPage() {
                 </div>
                 <div>
                   <h3 className='text-20 font-bold'>Configuration</h3>
-                  <p className='text-muted-foreground text-15 mt-8 leading-relaxed max-w-[300px] mx-auto'>
+                  <p className='text-muted-foreground text-15 mx-auto mt-8 max-w-[300px] leading-relaxed'>
                     Adjust notifications and accessibility settings to fit your workflow.
                   </p>
                 </div>
@@ -104,7 +101,7 @@ export default function OnboardingPage() {
                 </div>
                 <div>
                   <h3 className='text-20 font-bold'>Welcome Aboard!</h3>
-                  <p className='text-muted-foreground text-15 mt-8 leading-relaxed max-w-[300px] mx-auto'>
+                  <p className='text-muted-foreground text-15 mx-auto mt-8 max-w-[300px] leading-relaxed'>
                     Your workspace is ready. Click complete to start exploring Zention.
                   </p>
                 </div>
@@ -112,9 +109,9 @@ export default function OnboardingPage() {
             </MultiStepModal.Step>
           </div>
 
-          <div className='p-24 border-t bg-muted/10 space-y-24'>
+          <div className='bg-muted/10 space-y-24 border-t p-24'>
             <MultiStepModal.Progress variant='dots' />
-            <MultiStepModal.Navigation completeLabel='Complete Setup' className='p-0 bg-transparent border-0' />
+            <MultiStepModal.Navigation completeLabel='Complete Setup' className='border-0 bg-transparent p-0' />
           </div>
         </div>
       </MultiStepModal>

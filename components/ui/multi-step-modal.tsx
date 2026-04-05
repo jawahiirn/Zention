@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { ArrowLeft, ArrowRight, Check, Loader2 } from 'lucide-react';
-
 import {
   Dialog,
   DialogContent,
@@ -13,8 +12,8 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/shared/lib/utils';
-import { useMultiStep } from '@/shared/hooks/use-multi-step';
-import type { MultiStepControls } from '@/shared/hooks/use-multi-step';
+import { MultiStepControls, useMultiStep } from '@/shared/hooks/use-multi-step';
+import { VisuallyHidden } from '@/components/ui/visually-hidden';
 
 interface StepConfig {
   id: string;
@@ -294,6 +293,11 @@ function MultiStepModalRoot({
           overlayClassName={overlayClassName}
           showCloseButton={showCloseButton}
         >
+          {/* Accessibility Title (Required by Radix Dialog) */}
+          <VisuallyHidden>
+            <DialogTitle>Multi-step process</DialogTitle>
+          </VisuallyHidden>
+
           {children}
         </DialogContent>
       </Dialog>
