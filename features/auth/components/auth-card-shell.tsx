@@ -18,7 +18,7 @@ export function AuthCardShell({ title, children, isPending }: AuthCardShellProps
   return (
     <Card className='shadow-zention-medium dark:bg-card w-full max-w-[440px] rounded-2xl border-none bg-white p-20 sm:p-32'>
       <CardContent className='flex flex-col gap-24 p-0'>
-        <h1 className='text-32 text-foreground text-center font-bold'>{title}</h1>
+        <h1 className='text-24 text-foreground text-center font-bold'>{title}</h1>
 
         {/* Google Login/Signup */}
         <Button

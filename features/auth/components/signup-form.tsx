@@ -93,7 +93,7 @@ export function SignupForm() {
         <Button
           type='submit'
           disabled={isPending}
-          className='bg-zention-purple hover:bg-zention-purple/90 text-16 shadow-zention-purple/20 mt-8 h-48 w-full rounded-xl font-bold text-white shadow-lg transition-all'
+          className='bg-zention-purple hover:bg-zention-purple/90 text-base shadow-zention-purple/20 mt-8 h-48 w-full rounded-xl font-bold text-white shadow-lg transition-all'
         >
           {isPending ? <Loader2 className='mr-8 size-20 animate-spin' /> : null}
           {Auth.signup.submit}

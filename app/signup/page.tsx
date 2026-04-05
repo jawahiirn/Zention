@@ -12,8 +12,8 @@ export default function SignupPage() {
   return (
     <div className='bg-zention-gray-200 dark:bg-background flex min-h-screen w-full flex-col items-center'>
       <Header action='login' />
-      <div className='flex w-full flex-1 flex-col items-center justify-center p-16 sm:p-32'>
-        <div className='flex w-full max-w-[440px] flex-col gap-24'>
+      <div className='flex w-full flex-1 flex-col items-center justify-center p-16'>
+        <div className='flex w-full max-w-[440px] flex-col gap-32'>
           <SignupForm />
           {/* Footer */}
           <p className='text-muted-foreground text-center text-base'>

@@ -26,15 +26,15 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className='bg-zention-gray-200 dark:bg-background flex min-h-screen flex-col items-center justify-center p-24'>
-      <div className='flex flex-col items-center gap-24 text-center'>
+    <div className='bg-zention-gray-200 dark:bg-background flex min-h-screen flex-col items-center justify-center p-6'>
+      <div className='flex flex-col items-center gap-6 text-center'>
         <h1 className='text-32 text-foreground font-black'>Welcome to Zention!</h1>
-        <p className='text-muted-foreground text-18 max-w-[400px]'>
+        <p className='text-muted-foreground max-w-[400px]'>
           We&#39;re getting things ready for you. Please complete your onboarding steps.
         </p>
 
         <Button onClick={() => setOpen(true)} variant={'default'}>
-          <Rocket className='mr-2 size-20' />
+          <Rocket className='mr-8 size-20' />
           Start Onboarding
         </Button>
 
@@ -42,7 +42,7 @@ export default function OnboardingPage() {
           <Button
             variant='ghost'
             onClick={handleLogout}
-            className='text-muted-foreground hover:text-destructive gap-8 transition-colors'
+            className='text-muted-foreground hover:text-destructive gap-32 transition-colors'
           >
             <LogOut className='size-16' />
             Logout from session
@@ -59,9 +59,9 @@ export default function OnboardingPage() {
         overlayClassName='bg-gray-500 backdrop-blur-sm' // Custom overlay
       >
         <div className='flex h-full flex-col'>
-          <MultiStepModal.Header className='bg-muted/30 border-b p-24' />
+          <MultiStepModal.Header className='bg-muted/30 border-b p-6' />
 
-          <div className='flex-1 px-24 py-32'>
+          <div className='flex-1 px-6 py-8'>
             <MultiStepModal.Step id='profile' title='Step 1: Your Profile' description='Tell us a bit about yourself'>
               <div className='flex flex-col items-center justify-center gap-24 text-center'>
                 <div className='bg-primary/10 flex size-80 items-center justify-center rounded-full shadow-inner'>
