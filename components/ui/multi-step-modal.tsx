@@ -61,7 +61,7 @@ function Step({ id, title, description, children, className, canProceed }: StepP
 
   return (
     <div
-      data-slot='multi-step-content'
+      data-slot="multi-step-content"
       style={{ display: isActive ? undefined : 'none' }}
       className={cn('flex flex-col gap-4', isActive && 'animate-in fade-in-0 duration-200', className)}
     >
@@ -130,7 +130,7 @@ function Progress({ className, variant = 'bar' }: ProgressProps) {
 
   if (variant === 'dots') {
     return (
-      <div data-slot='multi-step-progress' className={cn('flex items-center justify-center gap-2', className)}>
+      <div data-slot="multi-step-progress" className={cn('flex items-center justify-center gap-2', className)}>
         {stepIds.map((id, i) => (
           <div
             key={id}
@@ -142,7 +142,7 @@ function Progress({ className, variant = 'bar' }: ProgressProps) {
                   ? 'bg-primary/60'
                   : 'bg-muted-foreground/25'
             )}
-            role='presentation'
+            role="presentation"
             aria-label={`Step ${i + 1} of ${stepIds.length}: ${metadata.get(id)?.title || id}`}
             aria-current={id === currentStepId ? 'step' : undefined}
           />
@@ -152,7 +152,7 @@ function Progress({ className, variant = 'bar' }: ProgressProps) {
   }
 
   return (
-    <div data-slot='multi-step-progress' className={cn('flex items-center gap-1.5', className)}>
+    <div data-slot="multi-step-progress" className={cn('flex items-center gap-1.5', className)}>
       {stepIds.map((id, i) => (
         <div
           key={id}
@@ -189,11 +189,11 @@ function Navigation({
 
   return (
     <DialogFooter
-      data-slot='multi-step-navigation'
+      data-slot="multi-step-navigation"
       className={cn('flex-row justify-between sm:justify-between', className)}
     >
       <Button
-        variant='outline'
+        variant="outline"
         onClick={back}
         disabled={isFirst || isValidating}
         className={cn(isFirst && 'invisible')}
@@ -202,7 +202,7 @@ function Navigation({
         {backLabel}
       </Button>
       <Button onClick={next} disabled={isValidating}>
-        {isValidating ? <Loader2 className='animate-spin' /> : isLast ? completeLabel : nextLabel}
+        {isValidating ? <Loader2 className="animate-spin" /> : isLast ? completeLabel : nextLabel}
         {!isValidating && showIcons && (isLast ? <Check /> : <ArrowRight />)}
       </Button>
     </DialogFooter>

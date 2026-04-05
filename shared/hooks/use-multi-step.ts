@@ -31,9 +31,7 @@ function useMultiStep({
   onStepChange,
   onBeforeNext,
 }: UseMultiStepConfig): MultiStepControls {
-  const [currentStepId, setCurrentStepId] = useState(
-    () => initialStepId || stepIds[0] || ''
-  );
+  const [currentStepId, setCurrentStepId] = useState(() => initialStepId || stepIds[0] || '');
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -79,16 +77,7 @@ function useMultiStep({
       setIsValidating(false);
       setError(err instanceof Error ? err.message : 'Validation failed');
     }
-  }, [
-    currentStepId,
-    currentIndex,
-    isLast,
-    totalSteps,
-    stepIds,
-    onComplete,
-    onStepChange,
-    onBeforeNext,
-  ]);
+  }, [currentStepId, currentIndex, isLast, totalSteps, stepIds, onComplete, onStepChange, onBeforeNext]);
 
   const back = useCallback(() => {
     setError(null);
@@ -132,19 +121,7 @@ function useMultiStep({
       goTo,
       reset,
     }),
-    [
-      currentStepId,
-      stepIds,
-      isFirst,
-      isLast,
-      isValidating,
-      error,
-      progress,
-      next,
-      back,
-      goTo,
-      reset,
-    ]
+    [currentStepId, stepIds, isFirst, isLast, isValidating, error, progress, next, back, goTo, reset]
   );
 }
 

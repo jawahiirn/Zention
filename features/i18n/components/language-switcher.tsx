@@ -23,7 +23,7 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <Button onClick={toggleLanguage} variant='outline' size='sm' disabled={isPending}>
+    <Button onClick={toggleLanguage} variant="outline" size="sm" disabled={isPending}>
       {Index.switchLanguage} ({locale.toUpperCase()})
     </Button>
   );

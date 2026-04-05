@@ -20,12 +20,12 @@ export function ThemeToggle() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='outline'>{mounted ? `Theme: ${theme}` : 'Change Theme'}</Button>
+        <Button variant="outline">{mounted ? `Theme: ${theme}` : 'Change Theme'}</Button>
       </PopoverTrigger>
-      <PopoverContent className='w-48 p-2'>
+      <PopoverContent className="w-48 p-2">
         {mounted && (
-          <div className='flex flex-col gap-1'>
-            <div className='px-2 py-1.5 text-sm font-semibold'>Select Theme</div>
+          <div className="flex flex-col gap-1">
+            <div className="px-2 py-1.5 text-sm font-semibold">Select Theme</div>
             {themes.map((themeOption) => {
               const isActive = theme === themeOption.value;
 
@@ -37,8 +37,8 @@ export function ThemeToggle() {
                     isActive ? 'bg-accent text-accent-foreground' : ''
                   }`}
                 >
-                  <span className='flex-1 text-left'>{themeOption.name}</span>
-                  {isActive && <Check className='size-4' />}
+                  <span className="flex-1 text-left">{themeOption.name}</span>
+                  {isActive && <Check className="size-4" />}
                 </button>
               );
             })}

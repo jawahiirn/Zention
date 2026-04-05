@@ -27,40 +27,35 @@ export function Header({ action = 'none' }: HeaderProps) {
   const logoSrc = isDark ? '/logo-dark.jpg' : '/logo-light.jpg';
 
   return (
-    <header className='sticky top-0 z-50 w-full py-8 backdrop-blur-md transition-all duration-300 md:py-16'>
-      <div className='flex w-full items-center justify-between px-8 sm:px-16 md:px-48'>
+    <header className="sticky top-0 z-50 w-full py-2 backdrop-blur-md transition-all duration-300 md:py-4">
+      <div className="flex w-full items-center justify-between px-2 sm:px-4 md:px-12">
         {/* Logo and Name */}
-        <div className='flex items-center gap-8'>
-          <div className='h-32 w-32 shrink-0 overflow-hidden rounded-full shadow-sm'>
+        <div className="flex items-center gap-2">
+          <div className="shrink-0 overflow-hidden rounded-full shadow-sm">
             {mounted ? (
               <Image
                 key={logoSrc}
                 src={logoSrc}
                 width={32}
                 height={32}
-                alt='zention Logo'
-                className='h-full w-full object-cover transition-opacity duration-300'
+                alt="zention Logo"
+                className="object-cover transition-opacity duration-300"
               />
             ) : (
-              <div className='bg-muted h-full w-full animate-pulse' />
+              <div className="bg-muted h-full w-full animate-pulse" />
             )}
           </div>
-          <span className='text-2xl font-bold'>Zention</span>
+          <span className="text-2xl font-bold">Zention</span>
         </div>
         {/* Action Toggle */}
         <div className={mounted ? 'visible' : 'invisible'}>
-          <div className='flex items-center gap-16'>
+          <div className="flex items-center gap-4">
             {action !== 'none' && mounted && (
-              <div className='mr-8 hidden items-center gap-12 sm:flex'>
-                <span className='text-muted-foreground mr-8 text-sm font-medium'>
+              <div className="mr-2 hidden items-center gap-3 sm:flex">
+                <span className="text-muted-foreground mr-2 text-sm font-medium">
                   {action === 'login' ? Auth.signup.haveAccount : Auth.login.noAccount}
                 </span>
-                <Button
-                  asChild
-                  variant='outline'
-                  className='border-border rounded-lg px-16 text-base font-semibold'
-                  size={'lg'}
-                >
+                <Button asChild variant="outline" className="border-border rounded-lg px-4 text-base font-semibold">
                   <Link href={action === 'login' ? '/' : '/signup'}>
                     {action === 'login' ? Auth.signup.link : Auth.login.link}
                   </Link>
@@ -68,16 +63,15 @@ export function Header({ action = 'none' }: HeaderProps) {
               </div>
             )}
             <Button
-              variant='ghost'
-              size='icon'
+              variant="ghost"
               onClick={() => setTheme(isDark ? 'light' : 'dark')}
-              className='hover:bg-accent rounded-full transition-all'
-              aria-label='Toggle theme'
+              className="hover:bg-accent rounded-full transition-all"
+              aria-label="Toggle theme"
             >
               {isDark ? (
-                <Sun className='size-20 text-yellow-400 transition-all' />
+                <Sun className="size-5 text-yellow-400 transition-all" />
               ) : (
-                <Moon className='text-primary size-20 transition-all' />
+                <Moon className="text-primary size-5 transition-all" />
               )}
             </Button>
           </div>
