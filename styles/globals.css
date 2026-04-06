@@ -93,14 +93,14 @@
   --spacing-48: 3rem;
 
   /* zention Typography Scale (Based on 14px root) */
-  --text-base: 1rem; /* 14px */
-  --text-16: 1.1428rem; /* 16px */
-  --text-18: 1.2857rem; /* 18px */
-  --text-20: 1.4285rem; /* 20px */
-  --text-24: 1.7142rem; /* 24px */
-  --text-26: 1.8571rem; /* 26px */
-  --text-32: 2.2857rem; /* 32px */
-  --text-40: 2.8571rem; /* 40px */
+  --text-base: 1rem;
+  --text-16: 1.1428rem;
+  --text-18: 1.2857rem;
+  --text-20: 1.4285rem;
+  --text-24: 1.7142rem;
+  --text-26: 1.8571rem;
+  --text-32: 2.2857rem;
+  --text-40: 2.8571rem;
 }
 
 :root {
@@ -232,6 +232,14 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+
+  /* Global icon sizing for interactive elements */
+  svg.lucide {
+    width: 1rem !important; 
+    height: 1rem !important;
+    min-width: 1rem !important;
+    flex-shrink: 0 !important;
   }
 
   html {
