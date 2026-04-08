@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+@source "../app";
+@source "../components";
+
 @custom-variant dark (&:is(.dark *, .violet-bloom-dark *));
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -80,17 +83,6 @@
   --color-alpha-black-200: var(--alpha-black-200);
   --color-alpha-black-300: var(--alpha-black-300);
   --color-alpha-black-600: var(--alpha-black-600);
-
-  /* zention Spacing Scale */
-  --spacing-4: 0.25rem;
-  --spacing-8: 0.5rem;
-  --spacing-12: 0.75rem;
-  --spacing-16: 1rem;
-  --spacing-20: 1.25rem;
-  --spacing-24: 1.5rem;
-  --spacing-32: 2rem;
-  --spacing-40: 2.5rem;
-  --spacing-48: 3rem;
 
   /* zention Typography Scale (Based on 14px root) */
   --text-base: 1rem;
