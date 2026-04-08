@@ -3,35 +3,14 @@
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { LogOut, Rocket, Settings, Sparkles, ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { LogOut, Rocket, ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Stepper, StepperContent, StepperNext, StepperPrevious, useStepper } from '@/components/primitives/stepper';
+import { Input } from '@/components/ui/input';
 
-const STEPS = ['purpose', 'preferences', 'welcome'] as const;
-
-function StepIndicator() {
-  const { steps, currentStep } = useStepper();
-  const currentIndex = steps.indexOf(currentStep);
-
-  return (
-    <div className="flex items-center justify-center gap-2">
-      {steps.map((step, i) => (
-        <div
-          key={step}
-          className={`size-2 rounded-full transition-all duration-300 ${
-            step === currentStep
-              ? 'bg-primary scale-125'
-              : i < currentIndex
-                ? 'bg-primary/60'
-                : 'bg-muted-foreground/25'
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
+const STEPS = ['purpose', 'invite', 'space-name'] as const;
 
 function StepHeader() {
   const { currentStep } = useStepper();
@@ -41,8 +20,8 @@ function StepHeader() {
       title: 'What will you use this Space for?',
       description: '',
     },
-    preferences: { title: 'Step 2: Preferences', description: 'Help us personalize your experience' },
-    welcome: { title: 'Step 3: Ready to go!', description: 'Everything is set up' },
+    invite: { title: 'Invite people to your Space', description: '' },
+    'space-name': { title: 'Lastly! What would you like to name your Space', description: '' },
   };
 
   const header = headers[currentStep];
@@ -62,15 +41,15 @@ function StepNavigation() {
   return (
     <div className="flex justify-between">
       <StepperPrevious asChild>
-        <Button variant="outline" className={isFirst ? 'invisible' : ''}>
+        <Button variant="outline" className={isFirst ? 'invisible' : 'h-12 text-lg rounded-xl'}>
           <ArrowLeft />
           Back
         </Button>
       </StepperPrevious>
 
       <StepperNext asChild>
-        <Button>
-          {isLast ? 'Complete Setup' : 'Continue'}
+        <Button className={'h-12 text-lg rounded-xl'}>
+          {isLast ? 'Complete Setup' : 'Next'}
           {isLast ? <Check /> : <ArrowRight />}
         </Button>
       </StepperNext>
@@ -152,36 +131,33 @@ export default function OnboardingPage() {
               </div>
             </StepperContent>
 
-            <StepperContent value="preferences" className="flex-1 flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4">
-                <div className="flex size-24 items-center justify-center rounded-3xl bg-orange-500/10 shadow-inner">
-                  <Settings className="size-12 text-orange-500" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">Configuration</h3>
-                  <p className="text-muted-foreground text-lg max-w-md">
-                    Adjust settings to fit your workflow perfectly.
-                  </p>
-                </div>
+            <StepperContent value="invite" className="flex-1 flex flex-col items-center justify-center w-full">
+              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4 w-full">
+                <Input
+                  value={''}
+                  placeholder={'Enter email addresses (or paste multiple)'}
+                  onChange={() => {}}
+                  className={
+                    'focus-visible:border-primary! focus-visible:ring-primary/30! focus-visible:ring-[3px] h-15 sm:w-[60%] rounded-xl placeholder:text-lg text-lg border-gray-400'
+                  }
+                />
               </div>
             </StepperContent>
 
-            <StepperContent value="welcome" className="flex-1 flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4">
-                <div className="flex size-24 items-center justify-center rounded-3xl bg-green-500/10 shadow-inner">
-                  <Sparkles className="size-12 text-green-500" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">Welcome Aboard!</h3>
-                  <p className="text-muted-foreground text-lg max-w-md">
-                    Your workspace is ready. Click complete to start your journey.
-                  </p>
-                </div>
+            <StepperContent value="space-name" className="flex-1 flex flex-col items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4 w-full">
+                <Input
+                  value={''}
+                  placeholder={`E.g: Jawahiir's Space`}
+                  onChange={() => {}}
+                  className={
+                    'focus-visible:border-primary! focus-visible:ring-primary/30! focus-visible:ring-[3px] h-15 sm:w-[60%] rounded-xl placeholder:text-lg text-lg border-gray-400'
+                  }
+                />
               </div>
             </StepperContent>
 
             <div className="p-3 sm:px-5 sm:py-3 border-t border-border/40">
-              <StepIndicator />
               <StepNavigation />
             </div>
           </Stepper>
