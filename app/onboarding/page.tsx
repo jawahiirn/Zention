@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { LogOut, Rocket, User, Settings, Sparkles, ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { LogOut, Rocket, Settings, Sparkles, ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Stepper, StepperContent, StepperNext, StepperPrevious, useStepper } from '@/components/primitives/stepper';
 
-const STEPS = ['profile', 'preferences', 'welcome'] as const;
+const STEPS = ['purpose', 'preferences', 'welcome'] as const;
 
 function StepIndicator() {
   const { steps, currentStep } = useStepper();
@@ -37,7 +37,10 @@ function StepHeader() {
   const { currentStep } = useStepper();
 
   const headers: Record<string, { title: string; description: string }> = {
-    profile: { title: 'Step 1: Your Profile', description: 'Tell us a bit about yourself' },
+    purpose: {
+      title: 'What will you use this Space for?',
+      description: '',
+    },
     preferences: { title: 'Step 2: Preferences', description: 'Help us personalize your experience' },
     welcome: { title: 'Step 3: Ready to go!', description: 'Everything is set up' },
   };
@@ -46,9 +49,9 @@ function StepHeader() {
   if (!header) return null;
 
   return (
-    <DialogHeader>
-      <DialogTitle>{header.title}</DialogTitle>
-      <DialogDescription>{header.description}</DialogDescription>
+    <DialogHeader className={'p-6 sm:p-10'}>
+      <DialogTitle className={'text-2xl font-semibold'}>{header.title}</DialogTitle>
+      <DialogDescription className={'text-base text-accent-foreground'}>{header.description}</DialogDescription>
     </DialogHeader>
   );
 }
@@ -57,7 +60,7 @@ function StepNavigation() {
   const { isFirst, isLast } = useStepper();
 
   return (
-    <div className="flex justify-between pt-4">
+    <div className="flex justify-between">
       <StepperPrevious asChild>
         <Button variant="outline" className={isFirst ? 'invisible' : ''}>
           <ArrowLeft />
@@ -74,6 +77,8 @@ function StepNavigation() {
     </div>
   );
 }
+
+const purposeOptions = ['Work', 'School', 'Personal'];
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -121,50 +126,64 @@ export default function OnboardingPage() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent showCloseButton={false} className="sm:max-w-md">
-          <Stepper steps={[...STEPS]} onComplete={handleComplete}>
+        <DialogContent
+          showCloseButton={false}
+          className="max-w-full md:max-w-7xl h-dvh sm:h-[70vh] sm:max-h-[70vh] rounded-2xl flex flex-col p-0 overflow-hidden"
+        >
+          <Stepper steps={[...STEPS]} onComplete={handleComplete} className="flex flex-col h-full">
             <StepHeader />
 
-            <StepperContent value="profile">
-              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center">
-                <div className="bg-primary/10 flex size-20 items-center justify-center rounded-full">
-                  <User className="text-primary size-10" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold">Profile Setup</h3>
-                  <p className="text-muted-foreground mt-1 text-sm">Customize your identity in Zention.</p>
-                </div>
+            <StepperContent
+              value="purpose"
+              className="flex-1 flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-500 p-6 sm:p-10"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-3xl">
+                {purposeOptions.map((purpose) => {
+                  return (
+                    <Button
+                      key={purpose}
+                      variant="default"
+                      className="flex flex-col rounded-xl h-15 gap-4 text-xl font-semibold transition-all hover:border-primary  hover:scale-[1.02]"
+                    >
+                      {purpose}
+                    </Button>
+                  );
+                })}
               </div>
             </StepperContent>
 
-            <StepperContent value="preferences">
-              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center">
-                <div className="flex size-20 items-center justify-center rounded-full bg-orange-500/10">
-                  <Settings className="size-10 text-orange-500" />
+            <StepperContent value="preferences" className="flex-1 flex flex-col items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex size-24 items-center justify-center rounded-3xl bg-orange-500/10 shadow-inner">
+                  <Settings className="size-12 text-orange-500" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold">Configuration</h3>
-                  <p className="text-muted-foreground mt-1 text-sm">Adjust settings to fit your workflow.</p>
-                </div>
-              </div>
-            </StepperContent>
-
-            <StepperContent value="welcome">
-              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center">
-                <div className="flex size-20 animate-bounce items-center justify-center rounded-full bg-green-500/10">
-                  <Sparkles className="size-10 text-green-500" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold">Welcome Aboard!</h3>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Your workspace is ready. Click complete to start.
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">Configuration</h3>
+                  <p className="text-muted-foreground text-lg max-w-md">
+                    Adjust settings to fit your workflow perfectly.
                   </p>
                 </div>
               </div>
             </StepperContent>
 
-            <StepIndicator />
-            <StepNavigation />
+            <StepperContent value="welcome" className="flex-1 flex flex-col items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex size-24 items-center justify-center rounded-3xl bg-green-500/10 shadow-inner">
+                  <Sparkles className="size-12 text-green-500" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">Welcome Aboard!</h3>
+                  <p className="text-muted-foreground text-lg max-w-md">
+                    Your workspace is ready. Click complete to start your journey.
+                  </p>
+                </div>
+              </div>
+            </StepperContent>
+
+            <div className="p-3 sm:px-5 sm:py-3 border-t border-border/40">
+              <StepIndicator />
+              <StepNavigation />
+            </div>
           </Stepper>
         </DialogContent>
       </Dialog>
