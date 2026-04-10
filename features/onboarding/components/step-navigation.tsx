@@ -17,7 +17,7 @@ export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
 
       <StepperNext asChild disabled={currentStep === 'space-name' && !isFormValid}>
         <Button className={'h-12 text-lg rounded-xl'}>
-          {isLast ? 'Complete Setup' : currentStep === 'invite' ? 'Skip' : 'Next'}
+          {isLast ? 'Complete Setup' : currentStep === 'invite' ? 'Continue' : 'Next'}
           {isLast ? <Check /> : <ArrowRight />}
         </Button>
       </StepperNext>
