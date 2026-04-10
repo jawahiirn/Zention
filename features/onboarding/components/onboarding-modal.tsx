@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -35,9 +35,34 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
     reValidateMode: 'onChange',
   });
 
-  const handleComplete = (data: OnboardingValues) => {
-    onComplete?.(data);
-  };
+  const handleComplete = useCallback(
+    (data: OnboardingValues) => {
+      onComplete?.(data);
+      onOpenChange(false);
+    },
+    [onComplete, onOpenChange]
+  );
+
+  const steps = useMemo(() => [...ONBOARDING_STEPS], []);
+
+  const purposeContent = useMemo(
+    () => (
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-3xl">
+        {PURPOSE_OPTIONS.map((option) => (
+          <StepperNext key={option.id} asChild>
+            <Button
+              variant="default"
+              onClick={() => form.setValue('purpose', option.id, { shouldValidate: true })}
+              className="flex flex-col rounded-xl h-15 gap-4 text-xl font-semibold transition-all hover:border-primary hover:scale-[1.02]"
+            >
+              {option.label}
+            </Button>
+          </StepperNext>
+        ))}
+      </div>
+    ),
+    [form]
+  );
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -45,30 +70,14 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
         showCloseButton={showCloseButton}
         className="max-w-full md:max-w-7xl h-dvh sm:h-[70vh] sm:max-h-[70vh] rounded-2xl flex flex-col p-0 overflow-hidden"
       >
-        <Stepper
-          steps={[...ONBOARDING_STEPS]}
-          onComplete={form.handleSubmit(handleComplete)}
-          className="flex flex-col h-full"
-        >
+        <Stepper steps={steps} onComplete={form.handleSubmit(handleComplete)} className="flex flex-col h-full">
           <StepHeader />
 
           <StepperContent
             value="purpose"
             className="flex-1 flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-500 p-6 sm:p-10"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-3xl">
-              {PURPOSE_OPTIONS.map((option) => (
-                <StepperNext key={option.id} asChild>
-                  <Button
-                    variant="default"
-                    onClick={() => form.setValue('purpose', option.id, { shouldValidate: true })}
-                    className="flex flex-col rounded-xl h-15 gap-4 text-xl font-semibold transition-all hover:border-primary hover:scale-[1.02]"
-                  >
-                    {option.label}
-                  </Button>
-                </StepperNext>
-              ))}
-            </div>
+            {purposeContent}
           </StepperContent>
 
           <StepperContent value="invite" className="flex-1 flex flex-col items-center justify-center w-full">
@@ -93,10 +102,15 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
               <Input
                 {...form.register('spaceName')}
                 placeholder={`E.g: Jawahiir's Space`}
-                className={
-                  'focus-visible:border-primary! focus-visible:ring-primary/30! focus-visible:ring-[3px] h-15 sm:w-[60%] rounded-xl placeholder:text-lg text-lg border-gray-400'
-                }
+                className={cn(
+                  'focus-visible:border-primary! focus-visible:ring-primary/30! focus-visible:ring-[3px] h-15 sm:w-[60%] rounded-xl placeholder:text-lg text-lg! border-gray-400',
+                  form.formState.errors.spaceName &&
+                    'border-destructive focus-visible:border-destructive! focus-visible:ring-destructive/30!'
+                )}
               />
+              {form.formState.errors.spaceName && (
+                <p className="text-destructive text-sm mt-2">{form.formState.errors.spaceName.message}</p>
+              )}
             </div>
           </StepperContent>
 

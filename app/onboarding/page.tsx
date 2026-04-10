@@ -1,27 +1,34 @@
 'use client';
 
-import * as React from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { LogOut, Rocket } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { OnboardingModal } from '@/features/onboarding/components/onboarding-modal';
+import { OnboardingValues } from '@/features/onboarding/types/request';
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     Cookies.remove('auth_token');
     Cookies.remove('has_onboarded');
     router.refresh();
     router.push('/');
-  };
+  }, [router]);
 
-  const handleComplete = (data: any) => {
-    // Modal stays open as per your requirement, or you can route elsewhere
-  };
+  const handleComplete = useCallback(
+    (data: OnboardingValues) => {
+      Cookies.set('has_onboarded', 'true', { expires: 365 });
+      setOpen(false);
+      router.push('/');
+      router.refresh();
+    },
+    [router]
+  );
 
   return (
     <div className="bg-muted flex min-h-screen flex-col items-center justify-center p-24">
