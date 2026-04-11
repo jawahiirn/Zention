@@ -27,7 +27,7 @@ export function WorkspaceShell({ children, defaultSidebarWidth, sidebarVariant, 
         maxSize={SIDEBAR_MAX_WIDTH}
         className="hidden md:block"
       >
-        <AppSidebar variant={sidebarVariant} className="relative! w-full!" />
+        <AppSidebar variant={sidebarVariant} className="relative! w-full! min-w-0" />
       </ResizablePanel>
     ),
     [defaultSidebarWidth, sidebarVariant]
