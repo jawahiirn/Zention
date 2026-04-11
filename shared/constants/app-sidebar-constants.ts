@@ -1,8 +1,8 @@
 import { Home, LayoutDashboard, Search, CheckSquare, Activity, BarChart2, Settings } from 'lucide-react';
 
-export const SIDEBAR_MIN_WIDTH = 120;
+export const SIDEBAR_MIN_WIDTH = 180;
 export const SIDEBAR_MAX_WIDTH = 480;
-export const SIDEBAR_DEFAULT_WIDTH = 180;
+export const SIDEBAR_DEFAULT_WIDTH = 220;
 
 export const NAV_ITEMS = [
   {
