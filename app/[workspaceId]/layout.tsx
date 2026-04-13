@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
+
 import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
 import { WorkspaceShell } from '@/shared/components/workspace-shell';
-import { SIDEBAR_DEFAULT_WIDTH } from '@/shared/constants/app-sidebar-constants';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({ children, params }: DashboardLayoutProps) {
   const { workspaceId } = await params;
   const cookieStore = await cookies();
-  const sidebarOpen = cookieStore.get('sidebar:state')?.value === 'true';
+  const sidebarOpen = cookieStore.get('sidebar:state')?.value !== 'false';
   const layoutCookie = cookieStore.get('sidebar:layout')?.value;
   const sidebarVariant = (cookieStore.get('sidebar:variant')?.value ?? 'sidebar') as SidebarVariantType;
 
@@ -27,12 +27,8 @@ export default async function DashboardLayout({ children, params }: DashboardLay
   }
 
   return (
-    <SidebarProvider defaultOpen={sidebarOpen}>
-      <WorkspaceShell
-        initialLayout={initialLayout}
-        defaultSidebarWidth={initialLayout?.[0] ?? SIDEBAR_DEFAULT_WIDTH}
-        sidebarVariant={sidebarVariant}
-      >
+    <SidebarProvider defaultOpen={sidebarOpen} className="h-screen bg-background">
+      <WorkspaceShell initialLayout={initialLayout} sidebarVariant={sidebarVariant}>
         {children}
       </WorkspaceShell>
     </SidebarProvider>
