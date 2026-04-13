@@ -1,11 +1,17 @@
 'use client';
 
-import { type ReactNode, useCallback } from 'react';
-import type { Layout } from 'react-resizable-panels';
+import { type ReactNode, useCallback, useEffect, useRef } from 'react';
+import type { Layout, PanelImperativeHandle } from 'react-resizable-panels';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
-import { SidebarInset, type SidebarVariantType } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarTrigger, type SidebarVariantType, useSidebar } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/shared/components/app-sidebar';
-import { SIDEBAR_MAX_WIDTH, SIDEBAR_MIN_WIDTH, SIDEBAR_DEFAULT_WIDTH } from '@/shared/constants/app-sidebar-constants';
+import {
+  SIDEBAR_COLLAPSED_WIDTH,
+  SIDEBAR_DEFAULT_WIDTH,
+  SIDEBAR_MAX_WIDTH,
+  SIDEBAR_MIN_WIDTH,
+} from '@/shared/constants/app-sidebar-constants';
+import { cn } from '@/shared/lib/utils';
 
 interface WorkspaceShellProps {
   children: ReactNode;
@@ -14,11 +20,29 @@ interface WorkspaceShellProps {
 }
 
 export function WorkspaceShell({ children, sidebarVariant, initialLayout }: WorkspaceShellProps) {
+  const { state } = useSidebar();
+  const panelRef = useRef<PanelImperativeHandle>(null);
+
   const onLayoutChanged = useCallback((layout: Layout) => {
+    // biome-ignore lint/suspicious/noDocumentCookie: <>
     document.cookie = `sidebar:layout=${JSON.stringify(layout)}; path=/; max-age=31536000; SameSite=Lax`;
   }, []);
 
+  // Sync ResizablePanel with Sidebar state
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    if (state === 'collapsed') {
+      panel.collapse();
+    } else {
+      panel.expand();
+    }
+  }, [state]);
+
   const defaultSize = initialLayout?.[0] ?? SIDEBAR_DEFAULT_WIDTH;
+  const isCollapsed = state === 'collapsed';
+  const isFloating = sidebarVariant === 'floating';
 
   return (
     <ResizablePanelGroup
@@ -28,22 +52,34 @@ export function WorkspaceShell({ children, sidebarVariant, initialLayout }: Work
       defaultLayout={initialLayout}
     >
       <ResizablePanel
+        panelRef={panelRef}
+        collapsible
+        collapsedSize={SIDEBAR_COLLAPSED_WIDTH}
         defaultSize={defaultSize}
         minSize={SIDEBAR_MIN_WIDTH}
         maxSize={SIDEBAR_MAX_WIDTH}
-        className="hidden md:block h-full transition-all duration-300 ease-in-out"
+        className={cn('hidden md:block h-full transition-all duration-300 ease-in-out')}
       >
         <AppSidebar variant={sidebarVariant} className="h-full" />
       </ResizablePanel>
 
-      <ResizableHandle className="hidden md:flex w-1 hover:bg-accent transition-colors" />
+      <ResizableHandle
+        disabled={isCollapsed}
+        className={cn(
+          'hidden md:flex w-1 transition-colors z-50',
+          isCollapsed ? 'pointer-events-none opacity-0' : 'hover:bg-accent',
+          isFloating ? 'bg-transparent' : 'bg-border'
+        )}
+      />
 
-      <ResizablePanel defaultSize={100 - defaultSize} minSize={30} className="h-full">
-        <SidebarInset className="h-full overflow-hidden flex flex-col">
-          {children}
+      <ResizablePanel minSize={300} className="h-full">
+        <SidebarInset className="flex-1 min-w-0 bg-background overflow-hidden flex flex-col">
+          <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+            <SidebarTrigger className="-ml-1" />
+          </header>
+          <div className="flex-1 overflow-auto">{children}</div>
         </SidebarInset>
       </ResizablePanel>
     </ResizablePanelGroup>
   );
 }
-
