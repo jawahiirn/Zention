@@ -15,8 +15,10 @@ function ResizablePanelGroup({ className, ...props }: ResizablePrimitive.GroupPr
   );
 }
 
-function ResizablePanel({ ...props }: ResizablePrimitive.PanelProps) {
-  return <ResizablePrimitive.Panel data-slot="resizable-panel" {...props} />;
+function ResizablePanel({ panelRef, elementRef, ...props }: ResizablePrimitive.PanelProps) {
+  return (
+    <ResizablePrimitive.Panel panelRef={panelRef} elementRef={elementRef} data-slot="resizable-panel" {...props} />
+  );
 }
 
 function ResizableHandle({
