@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
 import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
 import { WorkspaceShell } from '@/shared/components/workspace-shell';
-import { SIDEBAR_DEFAULT_WIDTH } from '@/shared/constants/app-sidebar-constants';
+
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -27,10 +27,9 @@ export default async function DashboardLayout({ children, params }: DashboardLay
   }
 
   return (
-    <SidebarProvider defaultOpen={sidebarOpen}>
+    <SidebarProvider defaultOpen={sidebarOpen} className="h-screen">
       <WorkspaceShell
         initialLayout={initialLayout}
-        defaultSidebarWidth={initialLayout?.[0] ?? SIDEBAR_DEFAULT_WIDTH}
         sidebarVariant={sidebarVariant}
       >
         {children}
@@ -38,3 +37,4 @@ export default async function DashboardLayout({ children, params }: DashboardLay
     </SidebarProvider>
   );
 }
+

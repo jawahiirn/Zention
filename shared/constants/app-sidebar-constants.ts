@@ -4,6 +4,12 @@ export const SIDEBAR_MIN_WIDTH = 180;
 export const SIDEBAR_MAX_WIDTH = 480;
 export const SIDEBAR_DEFAULT_WIDTH = 220;
 
+export const WORKSPACE_DATA = {
+  name: "Jawahiir's Workspace",
+  memberCount: 1,
+  email: 'jawahiirnabhan@gmail.com',
+};
+
 export const NAV_ITEMS = [
   {
     href: '/home',
@@ -41,3 +47,4 @@ export const NAV_ITEMS = [
     icon: Settings,
   },
 ] as const;
+
