@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -39,17 +40,17 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
   );
 
   return (
-    <Sidebar variant={variant} collapsible="icon" className={cn('min-w-0 border-r', className)} {...props}>
+    <Sidebar
+      variant={variant}
+      collapsible="icon"
+      className={cn('min-w-0', variant === 'floating' ? 'pr-0! border-r-0!' : 'border-r', className)}
+      {...props}
+    >
       <SidebarHeader className="p-2">
-        <div className="flex items-center justify-between gap-1 w-full">
+        <div className="flex items-center justify-between gap-1 w-full group-data-[collapsible=icon]:justify-center">
           <WorkspaceSwitcher currentWorkspace={WORKSPACE_DATA} />
 
-          <div className="flex items-center shrink-0">
-            <TooltipMessage message="Toggle Sidebar">
-              <Button variant="ghost" size="icon-lg" onClick={toggleSidebar} className="size-8">
-                {isCollapsed ? <ChevronsRight className="size-4" /> : <ChevronsLeft className="size-4" />}
-              </Button>
-            </TooltipMessage>
+          <div className="flex items-center shrink-0 group-data-[collapsible=icon]:hidden">
             <TooltipMessage message="Create new page">
               <Button variant="ghost" size="icon-lg" className="size-8" onClick={() => {}}>
                 <SquarePen className="size-4" />
@@ -60,7 +61,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
       </SidebarHeader>
 
       <SidebarContent className="px-2">
-        <SidebarMenu>
+        <SidebarMenu className="group-data-[collapsible=icon]:items-center">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -70,7 +71,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
                   isActive={isActive}
                   tooltip={item.label}
                   className={cn(
-                    'transition-colors',
+                    'transition-colors group-data-[collapsible=icon]:justify-center',
                     isActive
                       ? 'bg-accent text-accent-foreground font-medium'
                       : 'text-muted-foreground hover:text-foreground'
@@ -78,7 +79,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
                 >
                   <Link href={item.href}>
                     <item.icon className="size-4" />
-                    <span>{item.label}</span>
+                    <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -86,9 +87,22 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
           })}
         </SidebarMenu>
       </SidebarContent>
-      {/*<SidebarFooter className="p-2 border-t">*/}
-      {/*  /!* Placeholder for User Profile / Account Switcher *!/*/}
-      {/*</SidebarFooter>*/}
+
+      <SidebarFooter className="p-2 border-t mt-auto">
+        <SidebarMenu className="group-data-[collapsible=icon]:items-center">
+          <SidebarMenuItem>
+            <TooltipMessage message={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
+              <SidebarMenuButton
+                onClick={toggleSidebar}
+                className="w-full justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
+              >
+                {isCollapsed ? <ChevronsRight className="size-4" /> : <ChevronsLeft className="size-4" />}
+                <span className="group-data-[collapsible=icon]:hidden">Collapse Sidebar</span>
+              </SidebarMenuButton>
+            </TooltipMessage>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
