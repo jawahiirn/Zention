@@ -1,21 +1,19 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import Cookies from 'js-cookie';
+import { EyeIcon, EyeOffIcon, Loader2, LockIcon, MailIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MailIcon, LockIcon, EyeIcon, EyeOffIcon, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { useAuthToken } from '@/shared/hooks/use-auth-token';
-
-import { useI18n } from '@/features/i18n/use-i18n';
 import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
-import { AuthFormField } from './auth-form-field';
-import { loginSchema, type LoginFormValues } from '../schemas/auth.schema';
+import { useI18n } from '@/features/i18n/use-i18n';
+import { useAuthToken } from '@/shared/hooks/use-auth-token';
+import { type LoginFormValues, loginSchema } from '../schemas/auth.schema';
 import { AuthCardShell } from './auth-card-shell';
+import { AuthFormField } from './auth-form-field';
 
 export function LoginForm() {
   const { Auth } = useI18n();
@@ -67,7 +65,7 @@ export function LoginForm() {
 
   return (
     <AuthCardShell title={Auth.login.title} isPending={isPending}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-16">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <AuthFormField
           id="email"
           label={Auth.emailLabel}
@@ -97,9 +95,9 @@ export function LoginForm() {
                 className="hover:text-foreground mr-[-4px] cursor-pointer rounded-lg transition-colors"
               >
                 {showPassword ? (
-                  <EyeOffIcon className="text-muted-foreground size-20" />
+                  <EyeOffIcon className="text-muted-foreground size-5" />
                 ) : (
-                  <EyeIcon className="text-muted-foreground size-20" />
+                  <EyeIcon className="text-muted-foreground size-5" />
                 )}
               </Button>
             </InputGroupAddon>
@@ -109,9 +107,9 @@ export function LoginForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="hover:bg-purple/90 text-16 shadow-zention-purple/50 mt-8 h-48 w-full rounded-xl bg-purple-500 font-bold text-white shadow-lg transition-all"
+          className="hover:bg-purple/90 text-base shadow-zention-purple/50 mt-2 h-12 w-full rounded-xl bg-purple-500 font-bold text-white shadow-lg transition-all"
         >
-          {isPending ? <Loader2 className="mr-8 size-20 animate-spin" /> : null}
+          {isPending ? <Loader2 className="mr-2 size-5 animate-spin" /> : null}
           {Auth.login.submit}
         </Button>
       </form>

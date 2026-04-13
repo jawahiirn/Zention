@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState, startTransition } from 'react';
+import { Check } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { startTransition, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useTheme } from 'next-themes';
 import { themes } from '@/shared/constants/theme-constants';
-import { Check } from 'lucide-react';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();

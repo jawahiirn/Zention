@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @source "../app";
 @source "../components";
@@ -97,8 +97,8 @@
 
 :root {
   --font-sans:
-    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI Variable Display', 'Segoe UI', Helvetica,
-    'Apple Color Emoji', 'Noto Sans Arabic', 'Noto Sans Hebrew', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica,
+    "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
   /* zention Border Radii */
   --border-radius-200: 0.25rem;
   --border-radius-300: 0.3125rem;
@@ -228,7 +228,7 @@
 
   /* Global icon sizing for interactive elements */
   svg.lucide {
-    width: 1rem !important; 
+    width: 1rem !important;
     height: 1rem !important;
     min-width: 1rem !important;
     flex-shrink: 0 !important;

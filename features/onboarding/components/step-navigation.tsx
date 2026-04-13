@@ -1,7 +1,7 @@
-import { StepperNext, StepperPrevious, useStepper } from '@/components/primitives/stepper';
-import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import * as React from 'react';
+import { StepperNext, StepperPrevious, useStepper } from '@/components/primitives/stepper';
+import { Button } from '@/components/ui/button';
 
 export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
   const { isFirst, isLast, currentStep } = useStepper();

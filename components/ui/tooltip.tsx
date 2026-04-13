@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import { Tooltip as TooltipPrimitive } from 'radix-ui';
+import type * as React from 'react';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -71,4 +71,4 @@ function TooltipMessage({
   );
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, TooltipMessage };
+export { Tooltip, TooltipContent, TooltipMessage, TooltipProvider, TooltipTrigger };

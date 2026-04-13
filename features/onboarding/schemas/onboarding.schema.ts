@@ -18,4 +18,4 @@ const onboardingSchema = z.object({
   spaceName: z.string().min(1),
 });
 
-export { onboardingSchema, emailSchema };
+export { emailSchema, onboardingSchema };

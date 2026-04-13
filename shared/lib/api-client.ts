@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
 import { getAuthToken } from '@/shared/hooks/use-auth-token';
 
 const apiClient = axios.create({

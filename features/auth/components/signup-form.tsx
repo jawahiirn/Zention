@@ -1,17 +1,16 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { EyeIcon, EyeOffIcon, Loader2, LockIcon, MailIcon, UserIcon } from 'lucide-react';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MailIcon, LockIcon, EyeIcon, EyeOffIcon, Loader2, UserIcon } from 'lucide-react';
 import { toast } from 'sonner';
-
-import { useI18n } from '@/features/i18n/use-i18n';
 import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
-import { AuthFormField } from './auth-form-field';
-import { signupSchema, type SignupFormValues } from '../schemas/auth.schema';
+import { useI18n } from '@/features/i18n/use-i18n';
+import { type SignupFormValues, signupSchema } from '../schemas/auth.schema';
 import { AuthCardShell } from './auth-card-shell';
+import { AuthFormField } from './auth-form-field';
 
 export function SignupForm() {
   const { Auth } = useI18n();

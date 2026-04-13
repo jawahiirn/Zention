@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useI18n } from '@/features/i18n/use-i18n';
 import { Button } from '@/components/ui/button';
+import { useI18n } from '@/features/i18n/use-i18n';
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const { Common, Details } = useI18n();

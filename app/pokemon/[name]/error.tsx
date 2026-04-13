@@ -1,9 +1,9 @@
 'use client';
 
+import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 
 import { useI18n } from '@/features/i18n/use-i18n';
 

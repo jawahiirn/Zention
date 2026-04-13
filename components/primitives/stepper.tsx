@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import * as React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 interface StepperContextValue {
@@ -49,9 +49,7 @@ function Stepper({
   children,
   ...props
 }: StepperProps) {
-  const [currentStep, setCurrentStep] = React.useState(
-    () => defaultValue ?? steps[0] ?? ''
-  );
+  const [currentStep, setCurrentStep] = React.useState(() => defaultValue ?? steps[0] ?? '');
   const [isValidating, setIsValidating] = React.useState(false);
 
   const [prevSteps, setPrevSteps] = React.useState(steps);
@@ -150,14 +148,7 @@ interface StepperContentProps extends React.ComponentProps<'div'> {
   asChild?: boolean;
 }
 
-function StepperContent({
-  value,
-  forceMount = true,
-  asChild,
-  className,
-  children,
-  ...props
-}: StepperContentProps) {
+function StepperContent({ value, forceMount = true, asChild, className, children, ...props }: StepperContentProps) {
   const { currentStep } = useStepper();
   const isActive = currentStep === value;
 
@@ -196,14 +187,7 @@ function StepperNext({ asChild, onClick, ...props }: StepperNextProps) {
 
   const Comp = asChild ? Slot : 'button';
 
-  return (
-    <Comp
-      data-slot="stepper-next"
-      disabled={isValidating || props.disabled}
-      onClick={handleClick}
-      {...props}
-    />
-  );
+  return <Comp data-slot="stepper-next" disabled={isValidating || props.disabled} onClick={handleClick} {...props} />;
 }
 
 interface StepperPreviousProps extends React.ComponentProps<'button'> {
@@ -267,20 +251,12 @@ function StepperTrigger({ value, asChild, onClick, ...props }: StepperTriggerPro
   );
 }
 
-export {
-  Stepper,
-  StepperContent,
-  StepperNext,
-  StepperPrevious,
-  StepperTrigger,
-  useStepper,
-};
-
 export type {
-  StepperProps,
   StepperContentProps,
+  StepperContextValue,
   StepperNextProps,
   StepperPreviousProps,
+  StepperProps,
   StepperTriggerProps,
-  StepperContextValue,
 };
+export { Stepper, StepperContent, StepperNext, StepperPrevious, StepperTrigger, useStepper };
