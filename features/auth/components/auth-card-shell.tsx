@@ -1,10 +1,10 @@
 'use client';
 
-import * as React from 'react';
+import type * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { useI18n } from '@/features/i18n/use-i18n';
 import { GoogleIcon } from '@/shared/components/icons';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 
 interface AuthCardShellProps {
   title: string;

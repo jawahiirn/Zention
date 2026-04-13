@@ -1,11 +1,11 @@
 'use client';
 
-import { useCallback, useMemo, ReactNode } from 'react';
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
-import { SidebarInset, SidebarVariantType } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/shared/components/app-sidebar';
-import { SIDEBAR_MIN_WIDTH, SIDEBAR_MAX_WIDTH } from '@/shared/constants/app-sidebar-constants';
+import { type ReactNode, useCallback, useMemo } from 'react';
 import type { Layout } from 'react-resizable-panels';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
+import { SidebarInset, type SidebarVariantType } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/shared/components/app-sidebar';
+import { SIDEBAR_MAX_WIDTH, SIDEBAR_MIN_WIDTH } from '@/shared/constants/app-sidebar-constants';
 
 interface WorkspaceShellProps {
   children: ReactNode;

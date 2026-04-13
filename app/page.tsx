@@ -1,10 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import * as React from 'react';
 import { LoginForm } from '@/features/auth/components/login-form';
 import { useI18n } from '@/features/i18n/use-i18n';
 import { Header } from '@/shared/components/header';
-import Link from 'next/link';
 
 export default function Home() {
   const { Auth } = useI18n();
@@ -18,7 +18,7 @@ export default function Home() {
 
           {/* Footer */}
           <p className="text-muted-foreground text-center text-base">
-            {Auth.login.noAccount}
+            {Auth.login.noAccount}{' '}
             <Link href="/signup" className="text-foreground font-bold hover:underline">
               {Auth.login.link}
             </Link>

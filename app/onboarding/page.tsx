@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { LogOut, Rocket } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useCallback, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { OnboardingModal } from '@/features/onboarding/components/onboarding-modal';
-import { OnboardingValues } from '@/features/onboarding/types/request';
+import type { OnboardingValues } from '@/features/onboarding/types/request';
 
 export default function OnboardingPage() {
   const router = useRouter();

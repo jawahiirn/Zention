@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
 import { cookies } from 'next/headers';
+import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
-import { SidebarProvider, SidebarVariantType } from '@/components/ui/sidebar';
+import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
 import { WorkspaceShell } from '@/shared/components/workspace-shell';
 import { SIDEBAR_DEFAULT_WIDTH } from '@/shared/constants/app-sidebar-constants';
 

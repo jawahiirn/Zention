@@ -1,9 +1,9 @@
 'use client';
 
-import * as React from 'react';
+import type { LucideIcon } from 'lucide-react';
+import type * as React from 'react';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
-import { LucideIcon } from 'lucide-react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface AuthFormFieldProps {
   id: string;

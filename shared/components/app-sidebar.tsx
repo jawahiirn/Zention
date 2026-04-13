@@ -1,22 +1,22 @@
+import { ArrowRightFromLine, ChevronDown, ChevronsLeft, Ellipsis, PlusIcon, Settings, SquarePen } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Sidebar,
   SidebarContent,
-  SidebarHeader,
   SidebarFooter,
+  SidebarHeader,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { NAV_ITEMS } from '@/shared/constants/app-sidebar-constants';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
-import { ArrowRightFromLine, ChevronDown, ChevronsLeft, Ellipsis, PlusIcon, Settings, SquarePen } from 'lucide-react';
-import { cn } from '@/shared/lib/utils';
 import { TooltipMessage } from '@/components/ui/tooltip';
+import { NAV_ITEMS } from '@/shared/constants/app-sidebar-constants';
+import { cn } from '@/shared/lib/utils';
 
 type AppSidebarProps = ComponentProps<typeof Sidebar>;
 

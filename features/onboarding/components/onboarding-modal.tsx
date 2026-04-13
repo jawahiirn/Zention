@@ -1,20 +1,18 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import { Stepper, StepperContent, StepperNext } from '@/components/primitives/stepper';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/shared/lib/utils';
-
-import { StepNavigation } from './step-navigation';
-import { StepHeader } from './step-header';
-import { onboardingSchema } from '../schemas/onboarding.schema';
-import { OnboardingValues } from '../types/request';
 import { ONBOARDING_STEPS, PURPOSE_OPTIONS } from '../config/onboarding.config';
+import { onboardingSchema } from '../schemas/onboarding.schema';
+import type { OnboardingValues } from '../types/request';
+import { StepHeader } from './step-header';
+import { StepNavigation } from './step-navigation';
 
 interface OnboardingModalProps {
   open: boolean;

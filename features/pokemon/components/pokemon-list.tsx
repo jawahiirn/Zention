@@ -1,9 +1,9 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { pokemonListQuery } from '@/features/pokemon/api/queries';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { pokemonListQuery } from '@/features/pokemon/api/queries';
 
 export function PokemonList() {
   const { data, isLoading, isError } = useQuery(pokemonListQuery(20));

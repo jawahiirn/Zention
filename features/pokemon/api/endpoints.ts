@@ -1,6 +1,6 @@
 import { axiosRequest } from '@/shared/lib/api-client';
-import { PokemonListResponse, PokemonDetailsResponse, PokemonDetailsRequest } from '../types';
-import { pokemonListSchema, pokemonDetailsSchema } from '../schemas';
+import { pokemonDetailsSchema, pokemonListSchema } from '../schemas';
+import type { PokemonDetailsRequest, PokemonDetailsResponse, PokemonListResponse } from '../types';
 
 export const getPokemonList = async (limit: number = 20, offset: number = 0): Promise<PokemonListResponse> => {
   const data = await axiosRequest({
