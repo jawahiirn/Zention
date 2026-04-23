@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import * as React from 'react';
 import { LoginForm } from '@/features/auth/components/login-form';
 import { useI18n } from '@/features/i18n/use-i18n';
 import { Header } from '@/shared/components/header';

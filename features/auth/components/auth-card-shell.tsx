@@ -1,10 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import type * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useI18n } from '@/features/i18n/use-i18n';
-import { GoogleIcon } from '@/shared/components/icons';
 
 interface AuthCardShellProps {
   title: string;
@@ -27,7 +27,7 @@ export function AuthCardShell({ title, children, isPending }: AuthCardShellProps
           disabled={isPending}
           className="text-16 border-border hover:bg-accent flex h-12 w-full items-center justify-center gap-12 font-medium transition-colors"
         >
-          <GoogleIcon className="size-6" />
+          <Image width={20} height={20} src={'/google.svg'} alt={'Google Icon'} />
           {Auth.googleButton}
         </Button>
 
