@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { LoginForm } from '@/features/auth/components/login-form';
 import { useI18n } from '@/features/i18n/use-i18n';
-import { HeaderView } from '@/features/landing/components/header';
+import { HeaderView } from '@/features/landing/components';
 
 export default function Home() {
   const { Auth } = useI18n();

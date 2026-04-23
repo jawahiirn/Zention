@@ -40,7 +40,7 @@ export function SignupForm() {
 
   return (
     <AuthCardShell title={Auth.signup.title} isPending={isPending}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-16">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <AuthFormField
           id="fullName"
           label={Auth.fullNameLabel}
@@ -80,9 +80,9 @@ export function SignupForm() {
                 className="hover:text-foreground mr-[-4px] cursor-pointer rounded-lg transition-colors"
               >
                 {showPassword ? (
-                  <EyeOffIcon className="text-muted-foreground size-20" />
+                  <EyeOffIcon className="text-muted-foreground size-5" />
                 ) : (
-                  <EyeIcon className="text-muted-foreground size-20" />
+                  <EyeIcon className="text-muted-foreground size-5" />
                 )}
               </Button>
             </InputGroupAddon>
@@ -92,9 +92,9 @@ export function SignupForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="bg-zention-purple hover:bg-zention-purple/90 shadow-zention-purple/20 mt-8 h-48 w-full rounded-xl text-base font-bold text-white shadow-lg transition-all"
+          className="bg-zention-purple hover:bg-zention-purple/90 shadow-zention-purple/20 mt-8 h-12 w-full rounded-xl text-base font-bold text-white shadow-lg transition-all"
         >
-          {isPending ? <Loader2 className="mr-8 size-20 animate-spin" /> : null}
+          {isPending ? <Loader2 className="mr-8 size-5 animate-spin" /> : null}
           {Auth.signup.submit}
         </Button>
       </form>

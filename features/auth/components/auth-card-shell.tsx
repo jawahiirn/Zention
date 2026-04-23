@@ -25,9 +25,9 @@ export function AuthCardShell({ title, children, isPending }: AuthCardShellProps
           variant="outline"
           type="button"
           disabled={isPending}
-          className="text-16 border-border hover:bg-accent flex h-12 w-full items-center justify-center gap-12 font-medium transition-colors"
+          className="text-16 rounded-xl border-border hover:bg-accent flex h-12 w-full items-center justify-center text-center relative font-medium transition-colors"
         >
-          <Image width={20} height={20} src={'/google.svg'} alt={'Google Icon'} />
+          <Image width={20} height={20} src={'/google.svg'} alt={'Google Icon'} className={'absolute top-3 left-4'} />
           {Auth.googleButton}
         </Button>
 
