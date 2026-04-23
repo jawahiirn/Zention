@@ -2,8 +2,8 @@
 
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useMounted } from '@/shared/hooks/use-mounted';
 import { cn } from '@/shared/lib/utils';
 
 interface ThemeToggleProps {
@@ -12,15 +12,11 @@ interface ThemeToggleProps {
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" className={cn('rounded-full', className)} disabled>
+      <Button variant="ghost" className={cn('rounded-full', className)} disabled>
         <div className="size-5" />
       </Button>
     );

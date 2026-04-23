@@ -2,17 +2,11 @@
 
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { startTransition, useEffect, useState } from 'react';
+import { useMounted } from '@/shared/hooks/use-mounted';
 
 export function Logo() {
   const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    startTransition(() => {
-      setMounted(true);
-    });
-  }, []);
+  const mounted = useMounted();
 
   const isDark = mounted && (resolvedTheme === 'dark' || theme === 'dark');
   const logoSrc = isDark ? '/logo-dark.jpg' : '/logo-light.jpg';

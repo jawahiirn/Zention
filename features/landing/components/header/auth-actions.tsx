@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/features/i18n/use-i18n';
+import { useMounted } from '@/shared/hooks/use-mounted';
 
 interface AuthActionsProps {
   action: 'login' | 'signup' | 'none';
@@ -11,11 +11,7 @@ interface AuthActionsProps {
 
 export function AuthActions({ action }: AuthActionsProps) {
   const { Auth } = useI18n();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (action === 'none' || !mounted) return null;
 
