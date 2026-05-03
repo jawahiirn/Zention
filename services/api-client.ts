@@ -22,7 +22,6 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Global error handling can be added here
     return Promise.reject(error);
   }
 );

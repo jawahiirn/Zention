@@ -3,7 +3,9 @@
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { pokemonListQuery } from '@/features/pokemon/api/queries';
+import { pokemonListQuery } from '@/services/queries';
+
+const skeletonItems = Array.from({ length: 20 }, (_, i) => `skeleton-${i}`);
 
 export function PokemonList() {
   const { data, isLoading, isError } = useQuery(pokemonListQuery(20));
@@ -11,8 +13,8 @@ export function PokemonList() {
   if (isLoading)
     return (
       <div className="grid animate-pulse grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className="bg-muted aspect-square rounded-2xl border" />
+        {skeletonItems.map((key) => (
+          <div key={key} className="bg-muted aspect-square rounded-2xl border" />
         ))}
       </div>
     );

@@ -3,90 +3,81 @@
 ## Current Architecture
 
 ```
-pokedex-web/
+zention/
 ├── app/                           # Next.js App Router (routes only)
-│   ├── [locale]/                  # Locale-based routing (if needed)
-│   ├── pokemon/
-│   │   └── [name]/
-│   │       └── page.tsx           # Pokemon detail page (RSC)
-│   ├── layout.tsx                 # Root layout (RSC)
-│   └── page.tsx                   # Home page (RSC)
+│   ├── [workspaceId]/
+│   │   ├── home/
+│   │   └── layout.tsx
+│   ├── onboarding/
+│   ├── signup/
+│   ├── error.tsx
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   └── page.tsx
 │
-├── features/                      # Feature modules (domain-driven)
+├── services/                      # Centralized service layer (all API communication)
+│   ├── api-client.ts              # Axios instance with interceptors
+│   ├── endpoints/                 # HTTP call functions
+│   │   ├── index.ts               # Barrel export
+│   │   ├── auth.endpoints.ts
+│   │   └── pokemon.endpoints.ts
+│   ├── queries/                   # TanStack Query factories + prefetch
+│   │   ├── index.ts               # Barrel export
+│   │   ├── auth.queries.ts
+│   │   └── pokemon.queries.ts
+│   ├── schemas/                   # Zod schemas for API response validation
+│   │   ├── index.ts               # Barrel export
+│   │   ├── auth.schema.ts
+│   │   └── pokemon.schema.ts
+│   └── types/                     # Request/Response DTOs
+│       ├── index.ts               # Barrel export
+│       ├── auth.types.ts
+│       └── pokemon.types.ts
+│
+├── features/                      # Feature modules (UI-only)
+│   ├── auth/
+│   │   ├── components/            # Login, signup forms
+│   │   └── schemas/               # Form validation schemas (react-hook-form)
 │   ├── i18n/
 │   │   ├── components/
-│   │   │   └── language-switcher.tsx
+│   │   ├── config.ts
 │   │   ├── locale.ts
-│   │   └── request.ts
-│   │
-│   ├── pokemon/
-│   │   ├── api/
-│   │   │   ├── endpoints.ts       # API functions with Zod validation
-│   │   │   ├── prefetch.ts        # Server-side prefetch utilities
-│   │   │   └── queries.ts         # TanStack Query hooks
+│   │   ├── ls.ts
+│   │   ├── request.ts
+│   │   └── use-i18n.ts
+│   ├── landing/
+│   │   └── components/
+│   ├── onboarding/
 │   │   ├── components/
-│   │   │   ├── pokemon-detail.tsx
-│   │   │   └── pokemon-list.tsx
-│   │   ├── schemas/
-│   │   │   ├── index.ts           # Barrel export for schemas
-│   │   │   └── pokemon.schema.ts  # Zod schemas
-│   │   └── types/
-│   │       ├── index.ts           # Barrel export for types
-│   │       ├── request.ts         # Request DTOs
-│   │       ├── response.ts        # Response DTOs
-│   │       └── shared.ts          # Domain types
-│   │
+│   │   ├── config/                # UI step definitions
+│   │   ├── schemas/               # Form validation schemas
+│   │   └── types/                 # Form types
+│   ├── pokemon/
+│   │   └── components/
 │   └── theme/
 │       └── components/
-│           └── theme-toggle.tsx
 │
 ├── shared/                        # Shared across features
 │   ├── components/
-│   │   └── error-boundary.tsx     # Global error boundary
 │   ├── constants/
-│   │   └── theme-constants.ts
 │   ├── hooks/
-│   │   ├── use-auth-token.ts      # Secure cookie-based auth
-│   │   └── use-mobile.ts
-│   ├── lib/
-│   │   ├── api-client.ts          # Axios instance with interceptors
-│   │   ├── query-client.tsx       # TanStack Query client
-│   │   └── utils.ts               # Utility functions
-│   └── types/
-│       ├── api.types.ts           # Global API types
-│       └── common.types.ts        # Common utility types
+│   └── lib/
+│       ├── query-client.tsx       # TanStack Query client
+│       └── utils.ts
 │
 ├── components/                    # UI Design System (shadcn/ui)
+│   ├── primitives/
 │   └── ui/
-│       ├── button.tsx
-│       ├── card.tsx
-│       └── ...                    # 50+ shadcn components
 │
 ├── providers/                     # React Context providers
-│   ├── theme-provider.tsx
+│   ├── index.ts
 │   ├── query-client-provider.tsx
-│   └── index.ts
-│
-├── store/                         # Global client state (Zustand)
-│   └── use-token-store.ts         # (Deprecated - use cookies instead)
+│   └── theme-provider.tsx
 │
 ├── messages/                      # i18n translations
-│   ├── en.json
-│   └── bn.json
-│
 ├── docs/                          # Project documentation
-│   ├── architecture-audit.md
-│   ├── naming-conventions.md
-│   ├── folder-structure.md
-│   └── type-ownership.md
-│
 ├── public/                        # Static assets
-├── styles/                        # Global styles
-│   └── globals.css
-├── .env
-├── next.config.ts
-├── tsconfig.json
-└── package.json
+└── styles/                        # Global styles
 ```
 
 ## Directory Responsibilities
@@ -99,14 +90,30 @@ pokedex-web/
   - Extract client logic to feature components
   - Use `loading.tsx`, `error.tsx` for route-level UI states
 
+### `services/`
+
+- **Purpose**: Centralized service layer for all backend communication
+- **Structure**:
+  - `api-client.ts` — Axios instance with auth interceptors
+  - `endpoints/` — Raw HTTP call functions with Zod validation
+  - `queries/` — TanStack Query factories and prefetch utilities
+  - `schemas/` — Zod schemas for API response validation
+  - `types/` — Request/Response DTOs inferred from schemas
+- **Rules**:
+  - All API communication flows through this layer
+  - Each domain gets its own `{domain}.endpoints.ts`, `{domain}.queries.ts`, etc.
+  - Barrel exports via `index.ts` in each subdirectory
+  - Never import from `features/` — the dependency flows one way
+
 ### `features/`
 
-- **Purpose**: Feature-based organization (domain-driven design)
-- **Structure**: Each feature has its own `api/`, `components/`, `schemas/`, `types/`
+- **Purpose**: UI-only feature modules
+- **Structure**: Each feature has its own `components/` and optionally `schemas/`, `config/`, `types/` for UI concerns
 - **Rules**:
-  - Features should be self-contained
+  - No API call logic — import from `services/` instead
+  - Form validation schemas stay here (used by react-hook-form)
+  - Features should not cross-import from other features
   - Cross-feature dependencies go through `shared/`
-  - Use barrel exports only for types and schemas
 
 ### `shared/`
 
@@ -114,7 +121,6 @@ pokedex-web/
 - **Rules**:
   - No feature-specific logic
   - Must be generic and reusable
-  - Avoid barrel exports for components
 
 ### `components/`
 
@@ -122,7 +128,6 @@ pokedex-web/
 - **Rules**:
   - Only primitive, reusable UI components
   - No business logic
-  - Can be used by any feature
 
 ### `providers/`
 
@@ -131,27 +136,25 @@ pokedex-web/
   - Global application providers only
   - Feature-specific providers go in `features/*/providers/`
 
-### `store/`
+## Adding New Services
 
-- **Purpose**: Global client state (Zustand)
-- **Rules**:
-  - Use sparingly (prefer TanStack Query for server state)
-  - Avoid storing sensitive data (use cookies instead)
+When adding a new service domain (e.g., `workspace`):
+
+```bash
+touch services/endpoints/workspace.endpoints.ts
+touch services/queries/workspace.queries.ts
+touch services/schemas/workspace.schema.ts
+touch services/types/workspace.types.ts
+```
+
+Then add exports to each `index.ts` barrel file.
 
 ## Adding New Features
 
-When adding a new feature (e.g., `user-profile`):
+When adding a new UI feature (e.g., `settings`):
 
 ```bash
-mkdir -p features/user-profile/{api,components,schemas,types}
-touch features/user-profile/api/{endpoints.ts,queries.ts,prefetch.ts}
-touch features/user-profile/schemas/{index.ts,user.schema.ts}
-touch features/user-profile/types/{index.ts,request.ts,response.ts,domain.ts}
+mkdir -p features/settings/components
 ```
 
-## Migration Notes
-
-- ✅ `shared/` directory fully implemented
-- ✅ Feature-based organization established
-- ✅ Zod schemas integrated
-- ⚠️ Optional: Rename `components/` to `ui/` for clarity
+Import API logic from `services/`, not from other features.

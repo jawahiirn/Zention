@@ -2,12 +2,14 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeIcon, EyeOffIcon, Loader2, LockIcon, MailIcon, UserIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
 import { useI18n } from '@/features/i18n/use-i18n';
+import { signup } from '@/services/endpoints';
 import { type SignupFormValues, signupSchema } from '../schemas/auth.schema';
 import { AuthCardShell } from './auth-card-shell';
 import { AuthFormField } from './auth-form-field';
@@ -16,6 +18,7 @@ export function SignupForm() {
   const { Auth } = useI18n();
   const [showPassword, setShowPassword] = React.useState(false);
   const [isPending, setIsPending] = React.useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -29,8 +32,9 @@ export function SignupForm() {
   const onSubmit = async (data: SignupFormValues) => {
     setIsPending(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success('Account created!');
+      await signup(data);
+      toast.success('Account created! Please log in.');
+      router.push('/');
     } catch {
       toast.error('An unexpected error occurred');
     } finally {

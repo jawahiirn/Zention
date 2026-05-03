@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
 import { useI18n } from '@/features/i18n/use-i18n';
 import { useAuthToken } from '@/shared/hooks/use-auth-token';
+import { login, getAuthStatus } from '@/services/endpoints';
 import { type LoginFormValues, loginSchema } from '../schemas/auth.schema';
 import { AuthCardShell } from './auth-card-shell';
 import { AuthFormField } from './auth-form-field';
@@ -34,17 +35,12 @@ export function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     setIsPending(true);
     try {
-      // 1. Authenticate (Replace with your actual endpoint)
-      // const loginRes = await axiosRequest<{token: string}>({ url: '/auth/login', method: 'POST', data });
-      // setToken(loginRes.token);
+      // 1. Authenticate using centralized service
+      const loginRes = await login(data);
+      setToken(loginRes.token);
 
-      // MOCK LOGIC for demo
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setToken('fake-token-123');
-
-      // 2. Immediate check for onboarding status
-      // const statusRes = await axiosRequest<{isOnboarded: boolean}>({ url: '/auth/status', method: 'GET' });
-      const isOnboarded = false; // This would come from your second API call
+      // 2. Check onboarding status
+      const { isOnboarded } = await getAuthStatus();
 
       // 3. Persist status and redirect
       Cookies.set('has_onboarded', String(isOnboarded));
