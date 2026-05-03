@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/features/i18n/use-i18n';
-import { pokemonDetailsQuery } from '@/features/pokemon/api/queries';
+import { pokemonDetailsQuery } from '@/services/queries';
 
 interface Props {
   name: string;
