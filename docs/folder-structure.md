@@ -17,14 +17,10 @@ zention/
 │
 ├── services/                      # Centralized service layer (all API communication)
 │   ├── api-client.ts              # Axios instance with interceptors
-│   ├── endpoints/                 # HTTP call functions
-│   │   ├── index.ts               # Barrel export
-│   │   ├── auth.endpoints.ts
-│   │   └── pokemon.endpoints.ts
-│   ├── queries/                   # TanStack Query factories + prefetch
-│   │   ├── index.ts               # Barrel export
-│   │   ├── auth.queries.ts
-│   │   └── pokemon.queries.ts
+│   ├── query-client.ts            # TanStack Query client configuration
+│   ├── modules/                   # Domain-specific modules (coupled logic)
+│   │   ├── auth/                  # Auth domain: endpoints, hooks, keys
+│   │   └── pokemon/               # Pokemon domain: endpoints, hooks, keys
 │   ├── schemas/                   # Zod schemas for API response validation
 │   │   ├── index.ts               # Barrel export
 │   │   ├── auth.schema.ts
@@ -62,7 +58,6 @@ zention/
 │   ├── constants/
 │   ├── hooks/
 │   └── lib/
-│       ├── query-client.tsx       # TanStack Query client
 │       └── utils.ts
 │
 ├── components/                    # UI Design System (shadcn/ui)
@@ -95,14 +90,15 @@ zention/
 - **Purpose**: Centralized service layer for all backend communication
 - **Structure**:
   - `api-client.ts` — Axios instance with auth interceptors
-  - `endpoints/` — Raw HTTP call functions with Zod validation
-  - `queries/` — TanStack Query factories and prefetch utilities
+  - `query-client.ts` — TanStack Query client and caching config
+  - `modules/` — Feature modules containing `endpoints.ts`, `hooks.ts`, and `keys.ts`
   - `schemas/` — Zod schemas for API response validation
   - `types/` — Request/Response DTOs inferred from schemas
 - **Rules**:
   - All API communication flows through this layer
-  - Each domain gets its own `{domain}.endpoints.ts`, `{domain}.queries.ts`, etc.
-  - Barrel exports via `index.ts` in each subdirectory
+  - Each domain gets its own module folder in `services/modules/[domain]`
+  - Use Query Key Factories in `keys.ts` for predictable caching
+  - Expose custom Hooks as the primary interface for the UI
   - Never import from `features/` — the dependency flows one way
 
 ### `features/`
@@ -140,14 +136,11 @@ zention/
 
 When adding a new service domain (e.g., `workspace`):
 
-```bash
-touch services/endpoints/workspace.endpoints.ts
-touch services/queries/workspace.queries.ts
-touch services/schemas/workspace.schema.ts
-touch services/types/workspace.types.ts
-```
-
-Then add exports to each `index.ts` barrel file.
+1. Create the module directory: `services/modules/workspace/`
+2. Add `endpoints.ts`, `hooks.ts`, and `keys.ts`
+3. Add the schema to `services/schemas/workspace.schema.ts`
+4. Add the types to `services/types/workspace.types.ts`
+5. Export the module via `services/modules/workspace/index.ts`
 
 ## Adding New Features
 
