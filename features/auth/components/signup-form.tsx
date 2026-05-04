@@ -36,9 +36,6 @@ export function SignupForm() {
         toast.success('Account created! Please log in.');
         router.push('/');
       },
-      onError: () => {
-        toast.error('An unexpected error occurred');
-      },
     });
   };
 

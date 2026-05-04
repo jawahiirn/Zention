@@ -48,9 +48,6 @@ export function LoginForm() {
           router.push('/onboarding');
         }
       },
-      onError: () => {
-        toast.error('Authentication failed');
-      },
     });
   };
 

@@ -4,6 +4,7 @@ import { QueryProvider, ThemeProvider } from '@/providers';
 import '@/styles/globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Zention',
@@ -42,6 +43,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <QueryProvider>{children}</QueryProvider>
+            <Toaster richColors position="top-right" />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

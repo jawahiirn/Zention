@@ -22,6 +22,16 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    // 1. Handle Unauthorized (401)
+    const isAuthRequest = error.config?.url?.includes('/auth/');
+
+    if (error.response?.status === 401 && !isAuthRequest) {
+      // Clear token and redirect to login only for PROTECTED requests
+      window.location.href = '/';
+    }
+
+    // 2. Surfacing backend error messages
+    error.message = error.response?.data?.message || error.message || 'An unexpected error occurred';
     return Promise.reject(error);
   }
 );
