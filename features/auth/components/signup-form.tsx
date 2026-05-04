@@ -9,15 +9,14 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
 import { useI18n } from '@/features/i18n/use-i18n';
-import { signup } from '@/services/endpoints';
+import { useSignupMutation } from '@/services/modules/auth';
 import { type SignupFormValues, signupSchema } from '../schemas/auth.schema';
-import { AuthCardShell } from './auth-card-shell';
 import { AuthFormField } from './auth-form-field';
+import { AuthCardShell } from './container/auth-card-shell';
 
 export function SignupForm() {
   const { Auth } = useI18n();
   const [showPassword, setShowPassword] = React.useState(false);
-  const [isPending, setIsPending] = React.useState(false);
   const router = useRouter();
 
   const {
@@ -29,17 +28,18 @@ export function SignupForm() {
     defaultValues: { fullName: '', email: '', password: '' },
   });
 
-  const onSubmit = async (data: SignupFormValues) => {
-    setIsPending(true);
-    try {
-      await signup(data);
-      toast.success('Account created! Please log in.');
-      router.push('/');
-    } catch {
-      toast.error('An unexpected error occurred');
-    } finally {
-      setIsPending(false);
-    }
+  const { mutate: signup, isPending } = useSignupMutation();
+
+  const onSubmit = (data: SignupFormValues) => {
+    signup(data, {
+      onSuccess: () => {
+        toast.success('Account created! Please log in.');
+        router.push('/');
+      },
+      onError: () => {
+        toast.error('An unexpected error occurred');
+      },
+    });
   };
 
   return (

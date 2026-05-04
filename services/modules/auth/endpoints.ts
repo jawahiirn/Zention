@@ -1,10 +1,10 @@
 import { axiosRequest } from '@/services/api-client';
-import { authStatusSchema, loginResponseSchema, signupResponseSchema } from '@/services/schemas';
-import type { AuthStatusResponse, LoginRequest, LoginResponse, SignupRequest, SignupResponse } from '@/services/types';
+import { loginResponseSchema, signupResponseSchema } from '@/services/schemas/auth.schema';
+import type { LoginRequest, LoginResponse, SignupRequest, SignupResponse } from '@/services/types/auth.types';
 
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   const result = await axiosRequest<LoginResponse>({
-    url: '/auth/login',
+    url: '/auth/signin',
     method: 'POST',
     data,
   });
@@ -18,11 +18,4 @@ export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
     data,
   });
   return signupResponseSchema.parse(result);
-};
-
-export const getAuthStatus = async (): Promise<AuthStatusResponse> => {
-  const result = await axiosRequest<AuthStatusResponse>({
-    url: '/auth/status',
-  });
-  return authStatusSchema.parse(result);
 };

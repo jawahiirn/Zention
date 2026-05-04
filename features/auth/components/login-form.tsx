@@ -10,16 +10,15 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { InputGroupAddon } from '@/components/ui/input-group';
 import { useI18n } from '@/features/i18n/use-i18n';
+import { useLoginMutation } from '@/services/modules/auth';
 import { useAuthToken } from '@/shared/hooks/use-auth-token';
-import { login, getAuthStatus } from '@/services/endpoints';
 import { type LoginFormValues, loginSchema } from '../schemas/auth.schema';
-import { AuthCardShell } from './auth-card-shell';
 import { AuthFormField } from './auth-form-field';
+import { AuthCardShell } from './container/auth-card-shell';
 
 export function LoginForm() {
   const { Auth } = useI18n();
   const [showPassword, setShowPassword] = React.useState(false);
-  const [isPending, setIsPending] = React.useState(false);
   const { setToken } = useAuthToken();
   const router = useRouter();
 
@@ -32,31 +31,27 @@ export function LoginForm() {
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
-    setIsPending(true);
-    try {
-      // 1. Authenticate using centralized service
-      const loginRes = await login(data);
-      setToken(loginRes.token);
+  const { mutate: login, isPending } = useLoginMutation();
 
-      // 2. Check onboarding status
-      const { isOnboarded } = await getAuthStatus();
+  const onSubmit = (data: LoginFormValues) => {
+    login(data, {
+      onSuccess: (loginRes) => {
+        setToken(loginRes.accessToken);
+        const isOnboarded = false;
+        Cookies.set('has_onboarded', String(isOnboarded));
 
-      // 3. Persist status and redirect
-      Cookies.set('has_onboarded', String(isOnboarded));
-
-      if (isOnboarded) {
-        toast.success('Welcome back!');
-        router.push('/pokemon');
-      } else {
-        toast.info('Please complete your onboarding');
-        router.push('/onboarding');
-      }
-    } catch {
-      toast.error('Authentication failed');
-    } finally {
-      setIsPending(false);
-    }
+        if (isOnboarded) {
+          toast.success('Welcome back!');
+          router.push('/pokemon');
+        } else {
+          toast.info('Please complete your onboarding');
+          router.push('/onboarding');
+        }
+      },
+      onError: () => {
+        toast.error('Authentication failed');
+      },
+    });
   };
 
   return (

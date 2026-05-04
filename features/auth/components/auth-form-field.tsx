@@ -47,7 +47,7 @@ export function AuthFormField({
           {...registration}
           className="text-base"
         />
-        {renderRightAddon && renderRightAddon()}
+        {renderRightAddon?.()}
       </InputGroup>
       {error && <p className="text-destructive ml-1 text-xs">{error}</p>}
     </div>

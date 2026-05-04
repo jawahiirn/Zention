@@ -1,14 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { pokemonListQuery } from '@/services/queries';
+import { usePokemonList } from '@/services/modules/pokemon';
 
 const skeletonItems = Array.from({ length: 20 }, (_, i) => `skeleton-${i}`);
 
 export function PokemonList() {
-  const { data, isLoading, isError } = useQuery(pokemonListQuery(20));
+  const { data, isLoading, isError } = usePokemonList(20);
 
   if (isLoading)
     return (

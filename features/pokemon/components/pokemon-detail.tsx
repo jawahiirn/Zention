@@ -1,12 +1,11 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/features/i18n/use-i18n';
-import { pokemonDetailsQuery } from '@/services/queries';
+import { usePokemonDetails } from '@/services/modules/pokemon';
 
 interface Props {
   name: string;
@@ -15,7 +14,7 @@ interface Props {
 export const PokemonDetails = ({ name }: Props) => {
   const router = useRouter();
   const { Details } = useI18n();
-  const { data: pokemon, isLoading, isError } = useQuery(pokemonDetailsQuery(name));
+  const { data: pokemon, isLoading, isError } = usePokemonDetails(name);
 
   if (isLoading)
     return (

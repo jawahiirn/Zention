@@ -1,5 +1,5 @@
 import type { z } from 'zod';
-import type { authStatusSchema, loginResponseSchema, signupResponseSchema } from '@/services/schemas';
+import type { loginResponseSchema, signupResponseSchema } from '@/services/schemas/auth.schema';
 
 export interface LoginRequest {
   email: string;
@@ -14,4 +14,3 @@ export interface SignupRequest {
 
 export type LoginResponse = z.infer<typeof loginResponseSchema>;
 export type SignupResponse = z.infer<typeof signupResponseSchema>;
-export type AuthStatusResponse = z.infer<typeof authStatusSchema>;
