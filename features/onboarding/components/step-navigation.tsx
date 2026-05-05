@@ -1,5 +1,4 @@
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
-import * as React from 'react';
 import { StepperNext, StepperPrevious, useStepper } from '@/components/primitives/stepper';
 import { Button } from '@/components/ui/button';
 
@@ -14,7 +13,6 @@ export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
           Back
         </Button>
       </StepperPrevious>
-
       <StepperNext asChild disabled={currentStep === 'space-name' && !isFormValid}>
         <Button className={'h-12 text-lg rounded-xl'}>
           {isLast ? 'Complete Setup' : currentStep === 'invite' ? 'Continue' : 'Next'}

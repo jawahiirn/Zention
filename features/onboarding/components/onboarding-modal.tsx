@@ -29,7 +29,7 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
       inviteEmails: '',
       spaceName: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
@@ -70,14 +70,12 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
       >
         <Stepper steps={steps} onComplete={form.handleSubmit(handleComplete)} className="flex flex-col h-full">
           <StepHeader />
-
           <StepperContent
             value="purpose"
             className="flex-1 flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-500 p-6 sm:p-10"
           >
             {purposeContent}
           </StepperContent>
-
           <StepperContent value="invite" className="flex-1 flex flex-col items-center justify-center w-full">
             <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4 w-full">
               <Input
@@ -94,7 +92,6 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
               )}
             </div>
           </StepperContent>
-
           <StepperContent value="space-name" className="flex-1 flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-6 py-8 text-center animate-in fade-in slide-in-from-bottom-4 w-full">
               <Input
@@ -111,7 +108,6 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
               )}
             </div>
           </StepperContent>
-
           <div className="p-3 sm:px-5 sm:py-3 border-t border-border/40">
             <StepNavigation isFormValid={form.formState.isValid} />
           </div>
