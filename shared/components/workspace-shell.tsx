@@ -52,6 +52,7 @@ export function WorkspaceShell({ children, sidebarVariant, initialLayout }: Work
       defaultLayout={initialLayout}
     >
       <ResizablePanel
+        id="sidebar-panel"
         panelRef={panelRef}
         collapsible
         collapsedSize={SIDEBAR_COLLAPSED_WIDTH}
@@ -72,7 +73,7 @@ export function WorkspaceShell({ children, sidebarVariant, initialLayout }: Work
         )}
       />
 
-      <ResizablePanel minSize={300} className="h-full">
+      <ResizablePanel id="main-content" minSize={300} className="h-full">
         <SidebarInset className="flex-1 min-w-0 bg-background overflow-hidden flex flex-col">
           <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
             <SidebarTrigger className="-ml-1" />

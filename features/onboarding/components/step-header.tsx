@@ -7,7 +7,6 @@ export function StepHeader() {
   const header = ONBOARDING_METADATA[currentStep as keyof typeof ONBOARDING_METADATA];
 
   if (!header) return null;
-  if (!header) return null;
 
   return (
     <DialogHeader className={'p-6 sm:p-10'}>

@@ -10,12 +10,12 @@ interface DashboardLayoutProps {
   params: Promise<{ workspaceId: string }>;
 }
 
-export default async function DashboardLayout({ children, params }: DashboardLayoutProps) {
-  const { workspaceId } = await params;
+export default async function DashboardLayout({ children }: DashboardLayoutProps) {
+  // const { workspaceId } = await params;
   const cookieStore = await cookies();
   const sidebarOpen = cookieStore.get('sidebar:state')?.value !== 'false';
   const layoutCookie = cookieStore.get('sidebar:layout')?.value;
-  const sidebarVariant = (cookieStore.get('sidebar:variant')?.value ?? 'sidebar') as SidebarVariantType;
+  const sidebarVariant = (cookieStore.get('sidebar:variant')?.value ?? 'floating') as SidebarVariantType;
 
   let initialLayout: Layout | undefined;
   if (layoutCookie) {
