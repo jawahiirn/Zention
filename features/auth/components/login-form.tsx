@@ -44,7 +44,6 @@ export function LoginForm() {
           toast.success('Welcome back!');
           router.push('/pokemon');
         } else {
-          toast.info('Please complete your onboarding');
           router.push('/onboarding');
         }
       },
