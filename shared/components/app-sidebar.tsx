@@ -2,7 +2,6 @@ import { ChevronsLeft, ChevronsRight, SquarePen } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ComponentProps } from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
 import { Button } from '@/components/ui/button';
 import {
   Sidebar,
@@ -12,32 +11,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '@/components/ui/sidebar';
 import { TooltipMessage } from '@/components/ui/tooltip';
 import { NAV_ITEMS, WORKSPACE_DATA } from '@/shared/constants/app-sidebar-constants';
 import { cn } from '@/shared/lib/utils';
 import { WorkspaceSwitcher } from './workspace-switcher';
 
-type AppSidebarProps = ComponentProps<typeof Sidebar>;
+type AppSidebarProps = ComponentProps<typeof Sidebar> & { isCollapsed: boolean; onToggle: () => void };
 
-export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSidebarProps) {
-  const { toggleSidebar, state } = useSidebar();
+export function AppSidebar({ onToggle, isCollapsed, variant = 'sidebar', className, ...props }: AppSidebarProps) {
   const pathname = usePathname();
-
-  const isCollapsed = state === 'collapsed';
-
-  useHotkeys(
-    'mod+b',
-    (e) => {
-      e.preventDefault();
-      toggleSidebar();
-    },
-    {
-      scopes: ['global'],
-      enableOnFormTags: true,
-    }
-  );
 
   return (
     <Sidebar
@@ -52,7 +35,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
 
           <div className="flex items-center shrink-0 group-data-[collapsible=icon]:hidden">
             <TooltipMessage message="Create new page">
-              <Button variant="ghost" size="icon-lg" className="size-8" onClick={() => { }}>
+              <Button variant="ghost" size="icon-lg" className="size-8" onClick={() => {}}>
                 <SquarePen className="size-4" />
               </Button>
             </TooltipMessage>
@@ -93,7 +76,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
           <SidebarMenuItem>
             <TooltipMessage message={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
               <SidebarMenuButton
-                onClick={toggleSidebar}
+                onClick={onToggle}
                 className="w-full justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
               >
                 {isCollapsed ? <ChevronsRight className="size-4" /> : <ChevronsLeft className="size-4" />}

@@ -1,6 +1,7 @@
 'use client';
 
 import { type ReactNode, useCallback, useEffect, useRef } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import type { Layout, PanelImperativeHandle } from 'react-resizable-panels';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import { SidebarInset, SidebarTrigger, type SidebarVariantType, useSidebar } from '@/components/ui/sidebar';
@@ -20,7 +21,7 @@ interface WorkspaceShellProps {
 }
 
 export function WorkspaceShell({ children, sidebarVariant, initialLayout }: WorkspaceShellProps) {
-  const { state, setOpen } = useSidebar();
+  const { state, setOpen, toggleSidebar } = useSidebar();
   const panelRef = useRef<PanelImperativeHandle>(null);
 
   const onLayoutChanged = useCallback((layout: Layout) => {
@@ -52,6 +53,18 @@ export function WorkspaceShell({ children, sidebarVariant, initialLayout }: Work
     }
   }, [state]);
 
+  useHotkeys(
+    'mod+b',
+    (e) => {
+      e.preventDefault();
+      toggleSidebar();
+    },
+    {
+      scopes: ['global'],
+      enableOnFormTags: true,
+    }
+  );
+
   const defaultSize = initialLayout?.[0] ?? SIDEBAR_DEFAULT_WIDTH;
   const isCollapsed = state === 'collapsed';
   const isFloating = sidebarVariant === 'floating';
@@ -74,7 +87,7 @@ export function WorkspaceShell({ children, sidebarVariant, initialLayout }: Work
         onResize={onPanelResize}
         className={cn('hidden md:block h-full')}
       >
-        <AppSidebar variant={sidebarVariant} className="h-full" />
+        <AppSidebar variant={sidebarVariant} className="h-full" isCollapsed={isCollapsed} onToggle={toggleSidebar} />
       </ResizablePanel>
 
       <ResizableHandle
