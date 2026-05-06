@@ -80,9 +80,9 @@ export function WorkspaceShell({ children, sidebarVariant, initialLayout }: Work
       <ResizableHandle
         disabled={isCollapsed}
         className={cn(
-          'hidden md:flex w-1 transition-colors z-50',
+          'hidden md:flex w-0.5 transition-colors z-50',
           isCollapsed ? 'pointer-events-none opacity-0' : 'hover:bg-accent',
-          isFloating ? 'bg-transparent' : 'bg-border'
+          isFloating ? 'bg-transparent h-[calc(100%-16px)] top-2 rounded-full' : 'bg-border'
         )}
       />
 
