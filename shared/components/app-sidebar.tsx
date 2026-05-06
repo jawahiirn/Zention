@@ -46,13 +46,13 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
       className={cn('min-w-0', variant === 'floating' ? 'pr-0! border-r-0!' : 'border-r', className)}
       {...props}
     >
-      <SidebarHeader className="p-2">
+      <SidebarHeader className="p-2 overflow-hidden">
         <div className="flex items-center justify-between gap-1 w-full group-data-[collapsible=icon]:justify-center">
           <WorkspaceSwitcher currentWorkspace={WORKSPACE_DATA} />
 
           <div className="flex items-center shrink-0 group-data-[collapsible=icon]:hidden">
             <TooltipMessage message="Create new page">
-              <Button variant="ghost" size="icon-lg" className="size-8" onClick={() => {}}>
+              <Button variant="ghost" size="icon-lg" className="size-8" onClick={() => { }}>
                 <SquarePen className="size-4" />
               </Button>
             </TooltipMessage>
