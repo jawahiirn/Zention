@@ -2,7 +2,6 @@ import { ChevronsLeft, ChevronsRight, SquarePen } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { ComponentProps } from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
 import { Button } from '@/components/ui/button';
 import {
   Sidebar,
@@ -12,32 +11,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '@/components/ui/sidebar';
 import { TooltipMessage } from '@/components/ui/tooltip';
 import { NAV_ITEMS, WORKSPACE_DATA } from '@/shared/constants/app-sidebar-constants';
 import { cn } from '@/shared/lib/utils';
 import { WorkspaceSwitcher } from './workspace-switcher';
 
-type AppSidebarProps = ComponentProps<typeof Sidebar>;
+type AppSidebarProps = ComponentProps<typeof Sidebar> & { isCollapsed: boolean; onToggle: () => void };
 
-export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSidebarProps) {
-  const { toggleSidebar, state } = useSidebar();
+export function AppSidebar({ onToggle, isCollapsed, variant = 'sidebar', className, ...props }: AppSidebarProps) {
   const pathname = usePathname();
-
-  const isCollapsed = state === 'collapsed';
-
-  useHotkeys(
-    'mod+b',
-    (e) => {
-      e.preventDefault();
-      toggleSidebar();
-    },
-    {
-      scopes: ['global'],
-      enableOnFormTags: true,
-    }
-  );
 
   return (
     <Sidebar
@@ -46,7 +29,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
       className={cn('min-w-0', variant === 'floating' ? 'pr-0! border-r-0!' : 'border-r', className)}
       {...props}
     >
-      <SidebarHeader className="p-2">
+      <SidebarHeader className="p-2 overflow-hidden">
         <div className="flex items-center justify-between gap-1 w-full group-data-[collapsible=icon]:justify-center">
           <WorkspaceSwitcher currentWorkspace={WORKSPACE_DATA} />
 
@@ -93,7 +76,7 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
           <SidebarMenuItem>
             <TooltipMessage message={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}>
               <SidebarMenuButton
-                onClick={toggleSidebar}
+                onClick={onToggle}
                 className="w-full justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
               >
                 {isCollapsed ? <ChevronsRight className="size-4" /> : <ChevronsLeft className="size-4" />}
