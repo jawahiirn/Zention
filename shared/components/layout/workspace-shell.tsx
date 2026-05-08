@@ -12,6 +12,7 @@ interface WorkspaceShellProps {
 }
 
 export function WorkspaceShell({ children, sidebarVariant, initialLayout }: WorkspaceShellProps) {
+  console.log('TEST: COMMIT HOOk');
   return (
     <>
       <SidebarHotkeys />
