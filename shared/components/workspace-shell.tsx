@@ -13,20 +13,14 @@ interface WorkspaceShellProps {
   initialLayout?: Layout;
 }
 
-export function WorkspaceShell({
-  children,
-  workspaceId,
-  sidebarVariant,
-  sidebarOpen,
-  initialLayout,
-}: WorkspaceShellProps) {
+export function WorkspaceShell({ children, sidebarVariant, initialLayout }: WorkspaceShellProps) {
   return (
     <>
       <SidebarHotkeys />
       <ResizableShell
         sidebarVariant={sidebarVariant}
         initialLayout={initialLayout}
-        sidebar={<AppSidebar variant={sidebarVariant} workspaceId={workspaceId} isCollapsed={!sidebarOpen} />}
+        sidebar={<AppSidebar variant={sidebarVariant} />}
         header={
           <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
             <SidebarTrigger className="-ml-1" />

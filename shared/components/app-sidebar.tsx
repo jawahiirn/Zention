@@ -7,10 +7,7 @@ import { SidebarCreatePageButton } from './sidebar-create-page-button';
 import { SidebarNavLink } from './sidebar-nav-link';
 import { WorkspaceSwitcher } from './workspace-switcher';
 
-type AppSidebarProps = ComponentProps<typeof Sidebar> & {
-  workspaceId: string;
-  isCollapsed: boolean;
-};
+type AppSidebarProps = ComponentProps<typeof Sidebar> & {};
 // We will use the workspaceId & isCollapsed later...
 export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSidebarProps) {
   return (
