@@ -1,9 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
 import { SidebarTrigger, type SidebarVariantType } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/shared/components/app-sidebar';
-import { ResizableShell } from '@/shared/components/resizable-shell';
-import { SidebarHotkeys } from '@/shared/components/sidebar-hotkeys';
+import { AppSidebar, ResizableShell, SidebarHotkeys } from '@/shared/components/layout';
 
 interface WorkspaceShellProps {
   children: ReactNode;

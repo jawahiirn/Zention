@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { LucideIcon } from 'lucide-react';
+import type React from 'react';
 import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { cn } from '@/shared/lib/utils';
 
@@ -24,9 +24,7 @@ export function SidebarNavLink({ href, label, icon }: SidebarNavLinkProps) {
         tooltip={label}
         className={cn(
           'transition-colors group-data-[collapsible=icon]:justify-center',
-          isActive
-            ? 'bg-accent text-accent-foreground font-medium'
-            : 'text-muted-foreground hover:text-foreground'
+          isActive ? 'bg-accent text-accent-foreground font-medium' : 'text-muted-foreground hover:text-foreground'
         )}
       >
         <Link href={href}>

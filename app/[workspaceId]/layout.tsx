@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
 
 import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
-import { WorkspaceShell } from '@/shared/components/workspace-shell';
+import { WorkspaceShell } from '@/shared/components/layout';
 
 interface DashboardLayoutProps {
   children: ReactNode;
