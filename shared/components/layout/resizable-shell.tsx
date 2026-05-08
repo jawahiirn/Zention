@@ -16,11 +16,19 @@ interface ResizableShellProps {
   children: ReactNode;
   sidebar: ReactNode;
   header: ReactNode;
+  topHeader?: ReactNode;
   sidebarVariant: SidebarVariantType;
   initialLayout?: Layout;
 }
 
-export function ResizableShell({ children, sidebar, header, sidebarVariant, initialLayout }: ResizableShellProps) {
+export function ResizableShell({
+  children,
+  sidebar,
+  header,
+  topHeader,
+  sidebarVariant,
+  initialLayout,
+}: ResizableShellProps) {
   const { state, setOpen } = useSidebar();
   const panelRef = useRef<PanelImperativeHandle>(null);
 
@@ -56,41 +64,44 @@ export function ResizableShell({ children, sidebar, header, sidebarVariant, init
   const isFloating = sidebarVariant === 'floating';
 
   return (
-    <ResizablePanelGroup
-      onLayoutChanged={onLayoutChanged}
-      orientation="horizontal"
-      className="h-full flex items-stretch overflow-hidden"
-      defaultLayout={initialLayout}
-    >
-      <ResizablePanel
-        id="sidebar-panel"
-        panelRef={panelRef}
-        collapsible
-        collapsedSize={SIDEBAR_COLLAPSED_WIDTH}
-        defaultSize={defaultSize}
-        minSize={SIDEBAR_MIN_WIDTH}
-        maxSize={SIDEBAR_MAX_WIDTH}
-        onResize={onPanelResize}
-        className={cn('hidden md:block h-full')}
+    <div className="h-screen w-screen flex flex-col overflow-hidden bg-background">
+      {topHeader}
+      <ResizablePanelGroup
+        onLayoutChanged={onLayoutChanged}
+        orientation="horizontal"
+        className="flex-1 min-h-0 flex items-stretch overflow-hidden"
+        defaultLayout={initialLayout}
       >
-        {sidebar}
-      </ResizablePanel>
+        <ResizablePanel
+          id="sidebar-panel"
+          panelRef={panelRef}
+          collapsible
+          collapsedSize={SIDEBAR_COLLAPSED_WIDTH}
+          defaultSize={defaultSize}
+          minSize={SIDEBAR_MIN_WIDTH}
+          maxSize={SIDEBAR_MAX_WIDTH}
+          onResize={onPanelResize}
+          className={cn('hidden md:block h-full')}
+        >
+          {sidebar}
+        </ResizablePanel>
 
-      <ResizableHandle
-        disabled={isCollapsed}
-        className={cn(
-          'hidden md:flex w-0.5 transition-colors z-50',
-          isCollapsed ? 'pointer-events-none opacity-0' : 'hover:bg-accent',
-          isFloating ? 'bg-transparent h-[calc(100%-16px)] top-2 rounded-full' : 'bg-border'
-        )}
-      />
+        <ResizableHandle
+          disabled={isCollapsed}
+          className={cn(
+            'hidden md:flex w-0.5 transition-colors z-50',
+            isCollapsed ? 'pointer-events-none opacity-0' : 'hover:bg-accent',
+            isFloating ? 'bg-transparent h-[calc(100%-16px)] top-2 rounded-full' : 'bg-border'
+          )}
+        />
 
-      <ResizablePanel id="main-content" minSize={SIDEBAR_MIN_WIDTH} className="h-full">
-        <SidebarInset className="flex-1 min-w-0 bg-background overflow-hidden flex flex-col">
-          {header}
-          <div className="flex-1 overflow-auto">{children}</div>
-        </SidebarInset>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+        <ResizablePanel id="main-content" minSize={SIDEBAR_MIN_WIDTH} className="h-full">
+          <SidebarInset className="flex-1 min-h-0 h-full min-w-0 bg-background overflow-hidden flex flex-col">
+            {header}
+            <div className="flex-1 overflow-auto">{children}</div>
+          </SidebarInset>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </div>
   );
 }
