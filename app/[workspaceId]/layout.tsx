@@ -10,8 +10,8 @@ interface DashboardLayoutProps {
   params: Promise<{ workspaceId: string }>;
 }
 
-export default async function DashboardLayout({ children }: DashboardLayoutProps) {
-  // const { workspaceId } = await params;
+export default async function DashboardLayout({ children, params }: DashboardLayoutProps) {
+  const { workspaceId } = await params;
   const cookieStore = await cookies();
   const sidebarOpen = cookieStore.get('sidebar:state')?.value !== 'false';
   const layoutCookie = cookieStore.get('sidebar:layout')?.value;
@@ -28,7 +28,12 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
 
   return (
     <SidebarProvider defaultOpen={sidebarOpen} className="h-screen bg-background">
-      <WorkspaceShell initialLayout={initialLayout} sidebarVariant={sidebarVariant}>
+      <WorkspaceShell
+        workspaceId={workspaceId}
+        initialLayout={initialLayout}
+        sidebarVariant={sidebarVariant}
+        sidebarOpen={sidebarOpen}
+      >
         {children}
       </WorkspaceShell>
     </SidebarProvider>

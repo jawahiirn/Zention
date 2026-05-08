@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Islands Architecture in Next.js</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+      :root {
+          --text-primary: #1a1a1a;
+          --text-secondary: #555;
+          --text-muted: #888;
+          --accent: #1a8917;
+          --accent-light: #e8f5e9;
+          --code-bg: #f5f5f5;
+          --border: #e8e8e8;
+          --highlight-server: #51cf66;
+          --highlight-client: #339af0;
+          --highlight-problem: #ff6b6b;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+          font-family: 'Lora', Georgia, serif;
+          font-size: 20px;
+          line-height: 1.78;
+          color: var(--text-primary);
+          background: #fff;
+          padding: 0 20px;
+      }
+
+      .container {
+          max-width: 680px;
+          margin: 0 auto;
+          padding: 80px 0 120px;
+      }
+
+      /* Header */
+      .post-header {
+          margin-bottom: 40px;
+      }
+
+      .tag {
+          display: inline-block;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--accent);
+          margin-bottom: 18px;
+      }
+
+      h1 {
+          font-family: 'Lora', serif;
+          font-size: 42px;
+          font-weight: 700;
+          line-height: 1.18;
+          letter-spacing: -0.5px;
+          color: #111;
+          margin-bottom: 20px;
+      }
+
+      .subtitle {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 20px;
+          line-height: 1.5;
+          color: var(--text-secondary);
+          font-weight: 400;
+          margin-bottom: 32px;
+      }
+
+      .byline {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding-bottom: 24px;
+          border-bottom: 1px solid var(--border);
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          color: var(--text-muted);
+      }
+
+      .avatar {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, var(--highlight-server), var(--highlight-client));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 700;
+          font-size: 16px;
+          flex-shrink: 0;
+      }
+
+      .byline-text strong {
+          display: block;
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 15px;
+      }
+
+      /* Body text */
+      p {
+          margin-bottom: 28px;
+          color: #292929;
+      }
+
+      /* Headings */
+      h2 {
+          font-family: 'Lora', serif;
+          font-size: 30px;
+          font-weight: 700;
+          line-height: 1.25;
+          color: #111;
+          margin: 60px 0 18px;
+          letter-spacing: -0.3px;
+      }
+
+      h3 {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 20px;
+          font-weight: 600;
+          color: #111;
+          margin: 40px 0 12px;
+          letter-spacing: -0.2px;
+      }
+
+      h4 {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--text-secondary);
+          margin: 30px 0 10px;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+      }
+
+      /* Divider */
+      hr {
+          border: none;
+          border-top: 1px solid var(--border);
+          margin: 56px 0;
+      }
+
+      /* Inline code */
+      code {
+          font-family: 'Source Code Pro', monospace;
+          font-size: 15px;
+          background: var(--code-bg);
+          border-radius: 3px;
+          padding: 2px 6px;
+          color: #c7254e;
+      }
+
+      /* Code blocks */
+      pre {
+          background: #1e1e1e;
+          border-radius: 6px;
+          padding: 24px 28px;
+          overflow-x: auto;
+          margin: 28px 0;
+          position: relative;
+      }
+
+      pre code {
+          font-family: 'Source Code Pro', monospace;
+          font-size: 14px;
+          line-height: 1.7;
+          background: none;
+          color: #d4d4d4;
+          padding: 0;
+          border-radius: 0;
+      }
+
+      /* Syntax-ish coloring */
+      .kw { color: #569cd6; }
+      .str { color: #ce9178; }
+      .cmt { color: #6a9955; font-style: italic; }
+      .fn { color: #dcdcaa; }
+      .tag-name { color: #4ec9b0; }
+      .prop { color: #9cdcfe; }
+      .punct { color: #d4d4d4; }
+
+      /* Code label */
+      .code-label {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          margin-bottom: 6px;
+      }
+
+      /* Blockquote / callout */
+      blockquote {
+          border-left: 3px solid var(--text-primary);
+          padding: 4px 0 4px 24px;
+          margin: 36px 0;
+          font-style: italic;
+          color: var(--text-secondary);
+          font-size: 22px;
+          line-height: 1.6;
+      }
+
+      blockquote strong {
+          font-style: normal;
+      }
+
+      /* Callout boxes */
+      .callout {
+          background: #f8f8f8;
+          border-radius: 6px;
+          padding: 20px 24px;
+          margin: 28px 0;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 16px;
+          line-height: 1.6;
+      }
+
+      .callout.insight {
+          background: #fffbeb;
+          border-left: 3px solid #f59e0b;
+      }
+
+      .callout.insight::before {
+          content: "💡 Key Insight";
+          display: block;
+          font-weight: 700;
+          font-size: 13px;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: #b45309;
+          margin-bottom: 8px;
+      }
+
+      .callout.warning {
+          background: #fff5f5;
+          border-left: 3px solid #fc8181;
+      }
+
+      .callout.tip {
+          background: var(--accent-light);
+          border-left: 3px solid var(--accent);
+      }
+
+      /* Tables */
+      .table-wrap {
+          overflow-x: auto;
+          margin: 28px 0;
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 15px;
+      }
+
+      th {
+          text-align: left;
+          padding: 12px 16px;
+          background: #f5f5f5;
+          font-weight: 600;
+          color: var(--text-primary);
+          border-bottom: 2px solid var(--border);
+          font-size: 13px;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+      }
+
+      td {
+          padding: 13px 16px;
+          border-bottom: 1px solid var(--border);
+          vertical-align: top;
+          line-height: 1.5;
+      }
+
+      tr:last-child td { border-bottom: none; }
+
+      .badge {
+          display: inline-block;
+          padding: 2px 10px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 600;
+          font-family: 'DM Sans', sans-serif;
+      }
+
+      .badge.server { background: #dcfce7; color: #16a34a; }
+      .badge.client { background: #dbeafe; color: #2563eb; }
+      .badge.problem { background: #fee2e2; color: #dc2626; }
+
+      /* Architecture diagram */
+      .arch-diagram {
+          background: #1a1a2e;
+          border-radius: 8px;
+          padding: 32px;
+          margin: 32px 0;
+          overflow-x: auto;
+      }
+
+      .arch-diagram pre {
+          background: none;
+          padding: 0;
+          margin: 0;
+      }
+
+      .arch-diagram pre code {
+          color: #a0aec0;
+          font-size: 13px;
+      }
+
+      /* Islands visual */
+      .islands-visual {
+          border: 2px solid var(--border);
+          border-radius: 8px;
+          padding: 32px;
+          margin: 32px 0;
+          position: relative;
+          background: #fafafa;
+      }
+
+      .islands-visual .ocean-label {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          margin-bottom: 20px;
+      }
+
+      .island-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+      }
+
+      .island {
+          background: var(--highlight-client);
+          color: white;
+          border-radius: 6px;
+          padding: 12px 16px;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+      }
+
+      .island.wide { grid-column: span 2; }
+
+      .island-note {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          opacity: 0.85;
+          display: block;
+          margin-top: 3px;
+      }
+
+      /* Before/after comparison */
+      .compare {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          margin: 28px 0;
+      }
+
+      .compare-box {
+          border-radius: 6px;
+          padding: 20px;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          line-height: 1.6;
+      }
+
+      .compare-box.before {
+          background: #fff5f5;
+          border: 1px solid #fca5a5;
+      }
+
+      .compare-box.after {
+          background: #f0fdf4;
+          border: 1px solid #86efac;
+      }
+
+      .compare-box .label {
+          font-weight: 700;
+          font-size: 12px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+      }
+
+      .compare-box.before .label { color: #dc2626; }
+      .compare-box.after .label { color: #16a34a; }
+
+      /* Results grid */
+      .results-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin: 32px 0;
+      }
+
+      .result-card {
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          padding: 20px;
+          text-align: center;
+          font-family: 'DM Sans', sans-serif;
+      }
+
+      .result-card .metric {
+          font-size: 13px;
+          color: var(--text-muted);
+          margin-bottom: 8px;
+          font-weight: 500;
+      }
+
+      .result-card .before-val {
+          font-size: 15px;
+          color: #dc2626;
+          text-decoration: line-through;
+          margin-bottom: 4px;
+      }
+
+      .result-card .after-val {
+          font-size: 18px;
+          font-weight: 700;
+          color: #16a34a;
+      }
+
+      /* Lists */
+      ul, ol {
+          margin: 0 0 28px 24px;
+          padding: 0;
+      }
+
+      li {
+          margin-bottom: 8px;
+          padding-left: 4px;
+      }
+
+      /* When to use */
+      .when-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin: 28px 0;
+      }
+
+      .when-box {
+          border-radius: 6px;
+          padding: 20px 22px;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 15px;
+      }
+
+      .when-box.do {
+          background: var(--accent-light);
+          border: 1px solid #a7f3d0;
+      }
+
+      .when-box.dont {
+          background: #fff5f5;
+          border: 1px solid #fca5a5;
+      }
+
+      .when-box .wh { font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+      .when-box.do .wh { color: #15803d; }
+      .when-box.dont .wh { color: #b91c1c; }
+
+      .when-box ul { margin: 0; padding: 0 0 0 16px; }
+      .when-box li { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+
+      /* File diff */
+      .diff {
+          background: #0d1117;
+          border-radius: 6px;
+          padding: 20px 24px;
+          margin: 28px 0;
+          font-family: 'Source Code Pro', monospace;
+          font-size: 13.5px;
+          line-height: 1.8;
+      }
+
+      .diff .added { color: #3fb950; }
+      .diff .unchanged { color: #8b949e; }
+      .diff .path { color: #79c0ff; }
+
+      /* Footnote */
+      .footnote {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          color: var(--text-muted);
+          border-top: 1px solid var(--border);
+          padding-top: 24px;
+          margin-top: 60px;
+          font-style: italic;
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+          h1 { font-size: 30px; }
+          h2 { font-size: 24px; }
+          body { font-size: 18px; }
+          .compare, .when-grid, .results-grid { grid-template-columns: 1fr; }
+          .results-grid { grid-template-columns: 1fr 1fr; }
+          .island.wide { grid-column: span 1; }
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="post-header">
+    <div class="tag">Next.js · Performance · Architecture</div>
+    <h1>Islands Architecture in Next.js: How We Scaled Our Workspace Shell</h1>
+    <p class="subtitle">How we refactored a monolithic client-side layout into a lean, server-first architecture using the Islands pattern in Next.js App Router.</p>
+    <div class="byline">
+      <div class="avatar">JS</div>
+      <div class="byline-text">
+        <strong>Engineering Team</strong>
+        8 min read · Next.js App Router · React Server Components
+      </div>
+    </div>
+  </div>
+
+  <!-- The Problem -->
+  <h2>The Problem</h2>
+
+  <p>As our workspace-based application grew, we noticed a pattern that would eventually become a bottleneck: our entire layout shell was a single Client Component.</p>
+
+  <p>Every button, every navigation link, every static piece of text in the sidebar — all of it was bundled into one massive JavaScript file that the browser had to download, parse, and hydrate before the app became interactive.</p>
+
+  <p>The workspace layout wraps every route in the application. It contains:</p>
+
+  <ul>
+    <li>A <strong>resizable sidebar</strong> with drag-to-resize functionality</li>
+    <li>A <strong>workspace switcher</strong> dropdown</li>
+    <li><strong>Navigation links</strong> with active state highlighting</li>
+    <li>A <strong>collapse/expand</strong> toggle button</li>
+    <li><strong>Keyboard shortcuts</strong> (<code>Cmd+B</code> to toggle the sidebar)</li>
+    <li>A <strong>header bar</strong> with a sidebar trigger</li>
+  </ul>
+
+  <p>As we planned to add more features — Spaces lists, notification badges, search, activity feeds — this single Client Component would only get larger. Every new feature would increase the JavaScript bundle that blocks the first interaction.</p>
+
+  <hr>
+
+  <!-- What is Islands Architecture -->
+  <h2>What is Islands Architecture?</h2>
+
+  <p>The term "Islands Architecture" was coined by Jason Miller (creator of Preact). The core idea is elegantly simple:</p>
+
+  <blockquote>
+    Render the entire page as static HTML on the server. Then, "hydrate" only the small interactive parts — the "islands" — on the client.
+  </blockquote>
+
+  <p>Think of a webpage as an ocean of static content with small islands of interactivity scattered across it. The ocean is free (server-rendered HTML). The islands cost JavaScript.</p>
+
+  <div class="islands-visual">
+    <div class="ocean-label">🌊 Static HTML — server-rendered, zero JS cost</div>
+    <div class="island-grid">
+      <div class="island"><code style="background:rgba(255,255,255,0.2);color:white;font-size:12px">SidebarHotkeys</code><span class="island-note">Client Island — keyboard shortcuts</span></div>
+      <div class="island"><code style="background:rgba(255,255,255,0.2);color:white;font-size:12px">WorkspaceSwitcher</code><span class="island-note">Client Island — dropdown</span></div>
+      <div class="island"><code style="background:rgba(255,255,255,0.2);color:white;font-size:12px">SidebarNavLink</code><span class="island-note">Client Island — active route</span></div>
+      <div class="island"><code style="background:rgba(255,255,255,0.2);color:white;font-size:12px">CollapseButton</code><span class="island-note">Client Island — toggle</span></div>
+      <div class="island wide"><code style="background:rgba(255,255,255,0.2);color:white;font-size:12px">ResizableShell</code><span class="island-note">Client Island — resize logic only, receives server content via props</span></div>
+    </div>
+  </div>
+
+  <p>In Next.js App Router, this maps directly to:</p>
+  <ul>
+    <li><strong>Server Components</strong> = the ocean (zero client-side JS)</li>
+    <li><strong>Client Components</strong> = the islands (<code>'use client'</code> directive)</li>
+  </ul>
+
+  <hr>
+
+  <!-- Before -->
+  <h2>Before: The Monolithic Client Shell</h2>
+
+  <div class="callout warning">
+    The entire sidebar — its structure, icons, link text, everything — shipped as JavaScript. React had to hydrate every element before anything was interactive.
+  </div>
+
+  <p>The root <code>WorkspaceShell</code> was a Client Component, which forced <code>AppSidebar</code> to be one too. This cascading client boundary is the core problem.</p>
+
+  <div class="code-label">workspace-shell.tsx — The Monolith</div>
+  <pre><code><span class="cmt">// ❌ The entire shell as one big Client Component</span>
+<span class="str">'use client'</span>;
+
+<span class="kw">export function</span> <span class="fn">WorkspaceShell</span>({ children, sidebarVariant, initialLayout }) {
+  <span class="kw">const</span> { state, setOpen, toggleSidebar } = <span class="fn">useSidebar</span>();
+  <span class="kw">const</span> panelRef = <span class="fn">useRef</span>(<span class="kw">null</span>);
+
+  <span class="cmt">// Layout persistence via cookies</span>
+  <span class="kw">const</span> onLayoutChanged = <span class="fn">useCallback</span>((layout) => {
+    document.cookie = <span class="str">`sidebar:layout=${JSON.stringify(layout)}`</span>;
+  }, []);
+
+  <span class="cmt">// Keyboard shortcut</span>
+  <span class="fn">useHotkeys</span>(<span class="str">'mod+b'</span>, (e) => {
+    e.preventDefault();
+    <span class="fn">toggleSidebar</span>();
+  });
+
+  <span class="kw">return</span> (
+    <span class="tag-name">&lt;ResizablePanelGroup&gt;</span>
+      <span class="tag-name">&lt;ResizablePanel&gt;</span>
+        <span class="cmt">{/* AppSidebar INSIDE Client Component = forced client */}</span>
+        <span class="tag-name">&lt;AppSidebar</span> <span class="prop">variant</span>={sidebarVariant} <span class="tag-name">/&gt;</span>
+      <span class="tag-name">&lt;/ResizablePanel&gt;</span>
+      <span class="tag-name">&lt;ResizableHandle /&gt;</span>
+      <span class="tag-name">&lt;ResizablePanel&gt;</span>
+        {children}
+      <span class="tag-name">&lt;/ResizablePanel&gt;</span>
+    <span class="tag-name">&lt;/ResizablePanelGroup&gt;</span>
+  );
+}</code></pre>
+
+  <h3>Why This Was a Problem</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+      <tr>
+        <th>Issue</th>
+        <th>Impact</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><strong>Everything is client JS</strong></td>
+        <td>All icons, link text, sidebar structure — shipped as JavaScript</td>
+      </tr>
+      <tr>
+        <td><strong>Hydration cost</strong></td>
+        <td>React must hydrate every sidebar element before anything is interactive</td>
+      </tr>
+      <tr>
+        <td><strong>Bundle bloat</strong></td>
+        <td>Adding any new sidebar section increases the JS bundle for <em>every</em> page</td>
+      </tr>
+      <tr>
+        <td><strong>Cascading client boundary</strong></td>
+        <td>Because <code>WorkspaceShell</code> is <code>'use client'</code>, everything it imports is also forced client-side</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- After -->
+  <h2>After: The Islands Architecture</h2>
+
+  <p>The refactored shell converts two large Client Components into Server Components, and extracts five tiny Client Islands — each with a single responsibility.</p>
+
+  <div class="compare">
+    <div class="compare-box before">
+      <div class="label">❌ Before</div>
+      <strong>2 large Client Components</strong><br>
+      <code style="font-size:13px">WorkspaceShell</code> + <code style="font-size:13px">AppSidebar</code><br><br>
+      Everything ships as JS. Sidebar can't render until hydration completes.
+    </div>
+    <div class="compare-box after">
+      <div class="label">✅ After</div>
+      <strong>5 tiny Client Islands</strong><br>
+      Each does exactly one thing. The rest is server-rendered HTML, available on the first byte.
+    </div>
+  </div>
+
+  <h3>1. WorkspaceShell — Now a Server Component</h3>
+
+  <p>The biggest change. The shell becomes an <strong>orchestrator</strong> — it decides what goes where, but delegates all interactivity to islands.</p>
+
+  <div class="code-label">workspace-shell.tsx — Server Component</div>
+  <pre><code><span class="cmt">// ✅ No 'use client' — this is a Server Component</span>
+<span class="kw">import</span> { AppSidebar } <span class="kw">from</span> <span class="str">'@/shared/components/app-sidebar'</span>;
+<span class="kw">import</span> { ResizableShell } <span class="kw">from</span> <span class="str">'@/shared/components/resizable-shell'</span>;
+<span class="kw">import</span> { SidebarHotkeys } <span class="kw">from</span> <span class="str">'@/shared/components/sidebar-hotkeys'</span>;
+
+<span class="kw">export function</span> <span class="fn">WorkspaceShell</span>({ children, workspaceId, sidebarVariant, sidebarOpen, initialLayout }) {
+  <span class="kw">return</span> (
+    <span class="tag-name">&lt;&gt;</span>
+      <span class="tag-name">&lt;SidebarHotkeys /&gt;</span>
+      <span class="tag-name">&lt;ResizableShell</span>
+        <span class="prop">sidebarVariant</span>={sidebarVariant}
+        <span class="prop">initialLayout</span>={initialLayout}
+        <span class="prop">sidebar</span>={<span class="tag-name">&lt;AppSidebar</span> <span class="prop">variant</span>={sidebarVariant} <span class="tag-name">/&gt;</span>}
+        <span class="prop">header</span>={
+          <span class="tag-name">&lt;header&gt;</span>
+            <span class="tag-name">&lt;SidebarTrigger /&gt;</span>
+          <span class="tag-name">&lt;/header&gt;</span>
+        }
+      <span class="tag-name">&gt;</span>
+        {children}
+      <span class="tag-name">&lt;/ResizableShell&gt;</span>
+    <span class="tag-name">&lt;/&gt;</span>
+  );
+}</code></pre>
+
+  <div class="callout insight">
+    <code>sidebar</code> and <code>header</code> are passed as <strong>props</strong> to <code>ResizableShell</code>. Because they are rendered by a Server Component and passed as serialized React Elements, they remain server-rendered even though <code>ResizableShell</code> is a Client Component.
+  </div>
+
+  <h3>2. ResizableShell — Client Island (the frame)</h3>
+
+  <p>This island knows nothing about the sidebar's content. It only manages the resizing logic and accepts server-rendered content via props.</p>
+
+  <div class="code-label">resizable-shell.tsx — Client Island</div>
+  <pre><code><span class="str">'use client'</span>;
+
+<span class="kw">export function</span> <span class="fn">ResizableShell</span>({ children, sidebar, header, sidebarVariant, initialLayout }) {
+  <span class="kw">const</span> { state, setOpen } = <span class="fn">useSidebar</span>();
+  <span class="kw">const</span> panelRef = <span class="fn">useRef</span>(<span class="kw">null</span>);
+
+  <span class="cmt">// … resizing logic, layout persistence, panel sync …</span>
+
+  <span class="kw">return</span> (
+    <span class="tag-name">&lt;ResizablePanelGroup&gt;</span>
+      <span class="tag-name">&lt;ResizablePanel&gt;</span>
+        {sidebar} <span class="cmt">// ← server-rendered, just placed here</span>
+      <span class="tag-name">&lt;/ResizablePanel&gt;</span>
+      <span class="tag-name">&lt;ResizableHandle /&gt;</span>
+      <span class="tag-name">&lt;ResizablePanel&gt;</span>
+        <span class="tag-name">&lt;SidebarInset&gt;</span>
+          {header} <span class="cmt">// ← server-rendered, just placed here</span>
+          <span class="tag-name">&lt;div&gt;</span>{children}<span class="tag-name">&lt;/div&gt;</span>
+        <span class="tag-name">&lt;/SidebarInset&gt;</span>
+      <span class="tag-name">&lt;/ResizablePanel&gt;</span>
+    <span class="tag-name">&lt;/ResizablePanelGroup&gt;</span>
+  );
+}</code></pre>
+
+  <h3>3. The Five Islands</h3>
+
+  <p>Each island is a small, focused Client Component with a single responsibility:</p>
+
+  <div class="code-label">SidebarNavLink — highlights the active route</div>
+  <pre><code><span class="str">'use client'</span>;
+
+<span class="kw">export function</span> <span class="fn">SidebarNavLink</span>({ href, label, icon }) {
+  <span class="kw">const</span> pathname = <span class="fn">usePathname</span>();
+  <span class="kw">const</span> isActive = pathname === href;
+
+  <span class="kw">return</span> (
+    <span class="tag-name">&lt;SidebarMenuButton</span> <span class="prop">asChild</span> <span class="prop">isActive</span>={isActive}<span class="tag-name">&gt;</span>
+      <span class="tag-name">&lt;Link</span> <span class="prop">href</span>={href}<span class="tag-name">&gt;</span>{icon}<span class="tag-name">&lt;span&gt;</span>{label}<span class="tag-name">&lt;/span&gt;&lt;/Link&gt;</span>
+    <span class="tag-name">&lt;/SidebarMenuButton&gt;</span>
+  );
+}</code></pre>
+
+  <div class="code-label">SidebarHotkeys — registers keyboard shortcuts (renders nothing)</div>
+  <pre><code><span class="str">'use client'</span>;
+
+<span class="kw">export function</span> <span class="fn">SidebarHotkeys</span>() {
+  <span class="kw">const</span> { toggleSidebar } = <span class="fn">useSidebar</span>();
+  <span class="fn">useHotkeys</span>(<span class="str">'mod+b'</span>, (e) => { e.preventDefault(); <span class="fn">toggleSidebar</span>(); });
+  <span class="kw">return null</span>;
+}</code></pre>
+
+  <div class="code-label">SidebarCollapseButton — toggles the sidebar</div>
+  <pre><code><span class="str">'use client'</span>;
+
+<span class="kw">export function</span> <span class="fn">SidebarCollapseButton</span>() {
+  <span class="kw">const</span> { state, toggleSidebar } = <span class="fn">useSidebar</span>();
+  <span class="kw">const</span> isCollapsed = state === <span class="str">'collapsed'</span>;
+
+  <span class="kw">return</span> (
+    <span class="tag-name">&lt;SidebarMenuButton</span> <span class="prop">onClick</span>={toggleSidebar}<span class="tag-name">&gt;</span>
+      {isCollapsed ? <span class="tag-name">&lt;ChevronsRight /&gt;</span> : <span class="tag-name">&lt;ChevronsLeft /&gt;</span>}
+    <span class="tag-name">&lt;/SidebarMenuButton&gt;</span>
+  );
+}</code></pre>
+
+  <hr>
+
+  <!-- Gotchas -->
+  <h2>Gotchas We Encountered</h2>
+
+  <h3>1. "Event handlers cannot be passed to Client Component props"</h3>
+
+  <p>When we converted <code>AppSidebar</code> to a Server Component, any inline <code>onClick</code> broke the build. Server Components can't pass functions as props.</p>
+
+  <div class="compare">
+    <div class="compare-box before">
+      <div class="label">❌ Breaks</div>
+      <pre style="background:none;padding:0;margin:0"><code style="background:none;color:#1a1a1a;font-size:13px">&lt;Button onClick={() =&gt; {}}&gt;
+  &lt;SquarePen /&gt;
+&lt;/Button&gt;
+<span style="color:#888;font-size:12px">// onClick is a function —
+// can't cross server→client</span></code></pre>
+    </div>
+    <div class="compare-box after">
+      <div class="label">✅ Fix</div>
+      <pre style="background:none;padding:0;margin:0"><code style="background:none;color:#1a1a1a;font-size:13px">&lt;SidebarCreatePageButton /&gt;
+<span style="color:#888;font-size:12px">// Extract into its own
+// Client Island component</span></code></pre>
+    </div>
+  </div>
+
+  <h3>2. "Functions cannot be passed directly to Client Components"</h3>
+
+  <p>We were passing Lucide icon <strong>components</strong> (which are functions) as props. The fix is to render the icon in the Server Component and pass the resulting <strong>element</strong>.</p>
+
+  <div class="compare">
+    <div class="compare-box before">
+      <div class="label">❌ Breaks — component is a function</div>
+      <pre style="background:none;padding:0;margin:0"><code style="background:none;color:#1a1a1a;font-size:13px">&lt;SidebarNavLink
+  icon={item.icon}
+/&gt;</code></pre>
+    </div>
+    <div class="compare-box after">
+      <div class="label">✅ Works — element is serializable data</div>
+      <pre style="background:none;padding:0;margin:0"><code style="background:none;color:#1a1a1a;font-size:13px">&lt;SidebarNavLink
+  icon={&lt;item.icon className="size-4" /&gt;}
+/&gt;</code></pre>
+    </div>
+  </div>
+
+  <p>The distinction matters: a <strong>Component</strong> (<code>Home</code>) is a function — functions can't cross the server→client boundary. An <strong>Element</strong> (<code>&lt;Home /&gt;</code>) is a plain object — objects can be serialized.</p>
+
+  <hr>
+
+  <!-- The Composition Pattern -->
+  <h2>The Composition Pattern: Why Props, Not Imports</h2>
+
+  <blockquote>
+    If a Client Component <strong>imports</strong> another component, that component is forced client-side.<br>
+    If a Client Component <strong>receives</strong> another component via props, it retains its original type.
+  </blockquote>
+
+  <p>Think of it as the <strong>Architect vs. Contractor</strong> pattern. The Server Component (architect) decides <em>what</em> content goes <em>where</em>. The Client Component (contractor) only knows how to build an interactive frame — it doesn't care what you put inside it.</p>
+
+  <div class="code-label">❌ Bad — importing forces AppSidebar to be client-side</div>
+  <pre><code><span class="str">'use client'</span>;
+<span class="kw">import</span> { AppSidebar } <span class="kw">from</span> <span class="str">'./app-sidebar'</span>; <span class="cmt">// ← now it's client JS</span>
+
+<span class="kw">export function</span> <span class="fn">ResizableShell</span>({ children }) {
+  <span class="kw">return</span> <span class="tag-name">&lt;ResizablePanelGroup&gt;&lt;AppSidebar /&gt;&lt;/ResizablePanelGroup&gt;</span>;
+}</code></pre>
+
+  <div class="code-label">✅ Good — receiving via props preserves server rendering</div>
+  <pre><code><span class="str">'use client'</span>;
+<span class="cmt">// No import of AppSidebar!</span>
+
+<span class="kw">export function</span> <span class="fn">ResizableShell</span>({ children, sidebar }) {
+  <span class="kw">return</span> (
+    <span class="tag-name">&lt;ResizablePanelGroup&gt;</span>
+      {sidebar} <span class="cmt">// ← remains server-rendered</span>
+    <span class="tag-name">&lt;/ResizablePanelGroup&gt;</span>
+  );
+}</code></pre>
+
+  <hr>
+
+  <!-- File structure -->
+  <h2>File Structure: Before vs. After</h2>
+
+  <div class="diff">
+    <span class="path">shared/components/</span><br>
+    <span class="unchanged">  app-sidebar.tsx</span>         <span class="added"># Was Client → Now Server ✓</span><br>
+    <span class="unchanged">  workspace-shell.tsx</span>      <span class="added"># Was Client → Now Server ✓</span><br>
+    <span class="unchanged">  workspace-switcher.tsx</span>   <span style="color:#8b949e"># Stays Client (island)</span><br>
+    <span class="added">+ resizable-shell.tsx</span>       <span style="color:#3fb950"># New — resize logic only</span><br>
+    <span class="added">+ sidebar-nav-link.tsx</span>      <span style="color:#3fb950"># New — active state</span><br>
+    <span class="added">+ sidebar-collapse-button.tsx</span> <span style="color:#3fb950"># New — toggle</span><br>
+    <span class="added">+ sidebar-hotkeys.tsx</span>       <span style="color:#3fb950"># New — keyboard shortcuts</span><br>
+    <span class="added">+ sidebar-create-page-button.tsx</span> <span style="color:#3fb950"># New — onClick</span>
+  </div>
+
+  <hr>
+
+  <!-- Results -->
+  <h2>Results</h2>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="metric">Client Components in shell</div>
+      <div class="before-val">2 large</div>
+      <div class="after-val">5 tiny islands</div>
+    </div>
+    <div class="result-card">
+      <div class="metric">Server Components</div>
+      <div class="before-val">1 only</div>
+      <div class="after-val">3 components</div>
+    </div>
+    <div class="result-card">
+      <div class="metric">Navigation links</div>
+      <div class="before-val">Require JS</div>
+      <div class="after-val">Work before JS</div>
+    </div>
+  </div>
+
+  <p>The most meaningful win: sidebar HTML is now rendered in the first byte. Navigation links and structure are visible before any JavaScript loads — which means faster First Contentful Paint and a better experience on slow connections.</p>
+
+  <p>Adding new static sidebar sections now has <strong>zero JavaScript cost</strong>. Only interactive islands add to the bundle.</p>
+
+  <hr>
+
+  <!-- When to use -->
+  <h2>When to Use This Pattern</h2>
+
+  <div class="when-grid">
+    <div class="when-box do">
+      <div class="wh">✓ Use it when</div>
+      <ul>
+        <li>Your layout wraps many routes and will grow over time</li>
+        <li>Most of the layout is structural with pockets of interactivity</li>
+        <li>You care about First Contentful Paint and Time to Interactive</li>
+        <li>You want to add features without growing your JS bundle</li>
+      </ul>
+    </div>
+    <div class="when-box dont">
+      <div class="wh">✗ Skip it when</div>
+      <ul>
+        <li>The entire component is inherently interactive (drawing canvas, real-time chat)</li>
+        <li>The component is small and unlikely to grow</li>
+        <li>You're building a prototype where iteration speed matters more</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- What's Next -->
+  <h2>What's Next</h2>
+
+  <p>With the Islands Architecture in place, the workspace shell is ready for advanced optimizations:</p>
+
+  <ol>
+    <li><strong>Suspense Streaming</strong> — Wrap future data-fetching sidebar sections (like "Spaces List") in <code>&lt;Suspense&gt;</code> boundaries so the shell loads instantly while data streams in.</li>
+    <li><strong>Partial Prerendering (PPR)</strong> — Pre-render the static shell as cached HTML on a CDN. Dynamic islands stream in on request.</li>
+    <li><strong>Dynamic Imports</strong> — Use <code>next/dynamic</code> with <code>ssr: false</code> for heavy features like command palettes that aren't needed on first paint.</li>
+  </ol>
+
+  <p>The beauty of this architecture is that each optimization can be applied <em>incrementally</em> — one island at a time, one section at a time — without rewriting the entire shell.</p>
+
+  <div class="footnote">
+    Built with Next.js App Router, React Server Components, and a healthy respect for the client-side JavaScript budget.
+  </div>
+
+</div>
+</body>
+</html>
