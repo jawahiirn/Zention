@@ -12,7 +12,6 @@ interface WorkspaceShellProps {
 }
 
 export function WorkspaceShell({ children, sidebarVariant, initialLayout }: WorkspaceShellProps) {
-  console.log('TEST CONSOLE');
   return (
     <>
       <SidebarHotkeys />
