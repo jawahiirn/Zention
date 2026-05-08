@@ -30,6 +30,7 @@ const eslintConfig = defineConfig([
     },
     rules: {
       ...reactHooks.configs.recommended.rules, // Apply recommended React Hooks rules
+      'no-console': 'error',
     },
   },
 ]);
