@@ -2,13 +2,13 @@ import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
 
-import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
-import { WorkspaceShell } from '@/shared/components/layout/workspace-shell';
+import { SidebarProvider, SidebarTrigger, type SidebarVariantType } from '@/components/ui/sidebar';
+import { ResizableShell, SidebarHotkeys } from '@/shared/components/layout';
 
 interface DashboardLayoutProps {
   children: ReactNode;
   sidebar: ReactNode;
-  header: ReactNode; // This is our Global Top Header slot
+  header: ReactNode;
   params: Promise<{ workspaceId: string }>;
 }
 
@@ -29,14 +29,20 @@ export default async function DashboardLayout({ children, sidebar, header }: Das
 
   return (
     <SidebarProvider defaultOpen={sidebarOpen} className="h-screen bg-background">
-      <WorkspaceShell
-        sidebar={sidebar}
-        globalHeader={header}
-        initialLayout={initialLayout}
+      <SidebarHotkeys />
+      <ResizableShell
         sidebarVariant={sidebarVariant}
+        initialLayout={initialLayout}
+        topHeader={header}
+        sidebar={sidebar}
+        header={
+          <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+            <SidebarTrigger className="-ml-1" />
+          </header>
+        }
       >
         {children}
-      </WorkspaceShell>
+      </ResizableShell>
     </SidebarProvider>
   );
 }
