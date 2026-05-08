@@ -1,77 +1,10 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo "🔍 Running lint-staged..."
+npx lint-staged
+
 echo ""
-echo "🔍 Checking for console statements in staged files..."
-echo ""
+echo "🔍 Running knip to check for unused code (informational)..."
+npm run knip || echo "⚠️  Knip found unused code. Please review when possible."
 
-# Get all staged TypeScript/JavaScript files (excluding .husky directory)
-# Added || true to prevent script exit if grep finds no matches (set -e behavior)
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx)$' | grep -v '.husky' || true)
-
-if [ -z "$STAGED_FILES" ]; then
-  echo "✅ No TypeScript/JavaScript files to check"
-  echo ""
-  exit 0
-fi
-
-# Check for console statements
-CONSOLE_FOUND=false
-
-for FILE in $STAGED_FILES; do
-  if [ -f "$FILE" ]; then
-    # Check for console.log, console.warn, console.error, etc.
-    MATCHES=$(grep -n -E 'console\.(log|warn  |info|debug|trace)' "$FILE" 2>/dev/null || true)
-    if [ -n "$MATCHES" ]; then
-      CONSOLE_FOUND=true
-      echo "❌ Console statements found in: ${FILE}"
-      echo "$MATCHES"
-      echo ""
-    fi
-  fi
-done
-
-if [ "$CONSOLE_FOUND" = true ]; then
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "❌ COMMIT REJECTED!"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo ""
-  echo "Reason: Console statements detected in staged files (see above)"
-  echo ""
-  echo "📝 What to do:"
-  echo "   • Remove the console statements and try again"
-  echo "   • Add '// eslint-disable-next-line no-console' above specific lines"
-  echo "   • Use 'git commit --no-verify' to bypass this check (not recommended)"
-  echo ""
-  exit 1
-fi
-
-echo "✅ No console statements found - commit allowed"
-echo ""
-
-echo "🔍 Running knip to check for unused code..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-
-# Run knip in pokedex-web directory
-# Using a subshell to isolate the directory change
-(
-  # Capture exit code without triggering set -e exit
-  npm run knip && KNIP_EXIT_CODE=0 || KNIP_EXIT_CODE=$?
-
-  echo ""
-  if [ $KNIP_EXIT_CODE -ne 0 ]; then
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "⚠️  WARNING: Knip found unused code (see above)"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo ""
-    echo "📝 This is informational only - your commit will continue."
-    echo "   Please review the unused code and remove it when appropriate."
-    echo ""
-  else
-    echo "✅ No unused code found"
-    echo ""
-  fi
-)
-
-exit 0

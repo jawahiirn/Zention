@@ -61,7 +61,8 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "biome check --write --no-errors-on-unmatched",
-      "eslint --fix"
+      "eslint --fix",
+      "bash -c 'grep -HnE \"console\\.(log|warn|info|debug|trace)\" \"$@\" && (echo \"\" && echo \"❌ Console statements found! Please remove them before committing.\" && exit 1) || exit 0' --"
     ],
     "*.{json,css,scss,md}": [
       "biome format --write --no-errors-on-unmatched"
