@@ -3,7 +3,7 @@ import * as z from 'zod';
 const emailSchema = z.email();
 
 const onboardingSchema = z.object({
-  purpose: z.string().min(1),
+  purpose: z.string().optional(),
   inviteEmails: z
     .string()
     .optional()
