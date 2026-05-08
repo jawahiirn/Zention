@@ -1,9 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
 import { SidebarTrigger, type SidebarVariantType } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/shared/components/app-sidebar';
-import { ResizableShell } from '@/shared/components/resizable-shell';
-import { SidebarHotkeys } from '@/shared/components/sidebar-hotkeys';
+import { AppSidebar, ResizableShell, SidebarHotkeys } from '@/shared/components/layout';
 
 interface WorkspaceShellProps {
   children: ReactNode;
@@ -13,20 +11,14 @@ interface WorkspaceShellProps {
   initialLayout?: Layout;
 }
 
-export function WorkspaceShell({
-  children,
-  workspaceId,
-  sidebarVariant,
-  sidebarOpen,
-  initialLayout,
-}: WorkspaceShellProps) {
+export function WorkspaceShell({ children, sidebarVariant, initialLayout }: WorkspaceShellProps) {
   return (
     <>
       <SidebarHotkeys />
       <ResizableShell
         sidebarVariant={sidebarVariant}
         initialLayout={initialLayout}
-        sidebar={<AppSidebar variant={sidebarVariant} workspaceId={workspaceId} isCollapsed={!sidebarOpen} />}
+        sidebar={<AppSidebar variant={sidebarVariant} />}
         header={
           <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
             <SidebarTrigger className="-ml-1" />
