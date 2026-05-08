@@ -1,11 +1,11 @@
 import type { ComponentProps } from 'react';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu } from '@/components/ui/sidebar';
+import { NAV_ITEMS, WORKSPACE_DATA } from '@/shared/constants/app-sidebar-constants';
+import { cn } from '@/shared/lib/utils';
 import { SidebarCollapseButton } from './sidebar-collapse-button';
 import { SidebarCreatePageButton } from './sidebar-create-page-button';
 import { SidebarNavLink } from './sidebar-nav-link';
 import { WorkspaceSwitcher } from './workspace-switcher';
-import { NAV_ITEMS, WORKSPACE_DATA } from '@/shared/constants/app-sidebar-constants';
-import { cn } from '@/shared/lib/utils';
 
 type AppSidebarProps = ComponentProps<typeof Sidebar> & {};
 // We will use the workspaceId & isCollapsed later...
@@ -14,7 +14,11 @@ export function AppSidebar({ variant = 'sidebar', className, ...props }: AppSide
     <Sidebar
       variant={variant}
       collapsible="icon"
-      className={cn('min-w-0', variant === 'floating' ? 'pr-0! border-r-0!' : 'border-r', className)}
+      className={cn(
+        'h-full min-h-0 min-w-0 pt-0',
+        variant === 'floating' ? 'pr-0! border-r-0!' : 'border-r',
+        className
+      )}
       {...props}
     >
       <SidebarHeader className="p-2 overflow-hidden">

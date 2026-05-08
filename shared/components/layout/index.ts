@@ -1,3 +1,4 @@
+export * from './app-header';
 export * from './app-sidebar';
 export * from './resizable-shell';
 export * from './sidebar-collapse-button';
