@@ -42,9 +42,9 @@ export function LoginForm() {
 
         if (isOnboarded) {
           toast.success('Welcome back!');
-          router.push('/pokemon');
+          router.replace('/pokemon');
         } else {
-          router.push('/onboarding');
+          router.replace('/onboarding');
         }
       },
     });

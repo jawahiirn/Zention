@@ -34,7 +34,7 @@ export function SignupForm() {
     signup(data, {
       onSuccess: () => {
         toast.success('Account created! Please log in.');
-        router.push('/');
+        router.replace('/');
       },
     });
   };
