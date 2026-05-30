@@ -17,5 +17,10 @@ export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
     method: 'POST',
     data,
   });
+
+  if (!result) {
+    return { token: '' };
+  }
+
   return signupResponseSchema.parse(result);
 };
