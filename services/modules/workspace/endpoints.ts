@@ -11,10 +11,14 @@ const createWorkspace = async (data: CreateWorkspaceRequest): Promise<CreateWork
   return createWorkspaceResponseSchema.parse(result);
 };
 
-const getAllWorkspaces = async (): Promise<WorkspaceList> => {
+const getAllWorkspaces = async (serverToken?: string): Promise<WorkspaceList> => {
+  const headers: Record<string, string> = {};
+  if (serverToken) headers.Authorization = `Bearer ${serverToken}`;
+
   const result = await axiosRequest<WorkspaceList>({
     url: '/workspaces',
     method: 'GET',
+    headers,
   });
   return getAllWorkspacesSchema.parse(result);
 };

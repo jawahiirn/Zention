@@ -1,25 +1,20 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { getAllWorkspaces, workspaceKeys } from '@/services/modules/workspace';
+import { useWorkspacesQuery } from '@/services/modules/workspace';
 
 export default function WorkspaceEntry() {
-  const { data: workspaces, isLoading } = useQuery({
-    queryKey: workspaceKeys.list(),
-    queryFn: getAllWorkspaces,
-  });
+  const { data: workspaces } = useWorkspacesQuery();
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoading) return;
-    if (workspaces && workspaces.length > 0) {
-      router.replace(`/workspace/${workspaces[0].id}`);
+    if (workspaces.length > 0) {
+      router.replace(`/${workspaces[0].id}/home`);
     } else {
       router.replace('/onboarding');
     }
-  }, [workspaces, isLoading, router]);
+  }, [workspaces, router]);
 
   return null;
 }
