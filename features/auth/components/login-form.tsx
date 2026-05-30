@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import Cookies from 'js-cookie';
 import { EyeIcon, EyeOffIcon, Loader2, LockIcon, MailIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
@@ -37,15 +36,8 @@ export function LoginForm() {
     login(data, {
       onSuccess: (loginRes) => {
         setToken(loginRes.accessToken);
-        const isOnboarded = false;
-        Cookies.set('has_onboarded', String(isOnboarded));
-
-        if (isOnboarded) {
-          toast.success('Welcome back!');
-          router.replace('/pokemon');
-        } else {
-          router.replace('/onboarding');
-        }
+        toast.success('Welcome back!');
+        router.replace('/workspace');
       },
     });
   };

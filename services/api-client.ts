@@ -27,7 +27,9 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !isAuthRequest) {
       // Clear token and redirect to login only for PROTECTED requests
-      window.location.href = '/';
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
     }
 
     // 2. Surfacing backend error messages
