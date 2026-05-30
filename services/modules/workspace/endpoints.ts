@@ -1,6 +1,6 @@
 import { axiosRequest } from '@/services/api-client';
 import { createWorkspaceResponseSchema, getAllWorkspacesSchema } from '@/services/schemas';
-import type { CreateWorkspaceRequest, CreateWorkspaceResponse } from '@/services/types';
+import type { CreateWorkspaceRequest, CreateWorkspaceResponse, WorkspaceList } from '@/services/types';
 
 const createWorkspace = async (data: CreateWorkspaceRequest): Promise<CreateWorkspaceResponse> => {
   const result = await axiosRequest<CreateWorkspaceResponse>({
@@ -11,8 +11,8 @@ const createWorkspace = async (data: CreateWorkspaceRequest): Promise<CreateWork
   return createWorkspaceResponseSchema.parse(result);
 };
 
-const getAllWorkspaces = async () => {
-  const result = await axiosRequest<CreateWorkspaceResponse>({
+const getAllWorkspaces = async (): Promise<WorkspaceList> => {
+  const result = await axiosRequest<WorkspaceList>({
     url: '/workspaces',
     method: 'GET',
   });
