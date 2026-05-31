@@ -5,6 +5,6 @@ import { workspaceKeys } from './keys';
 export const useWorkspacesQuery = () => {
   return useSuspenseQuery({
     queryKey: workspaceKeys.list(),
-    queryFn: getAllWorkspaces,
+    queryFn: () => getAllWorkspaces(),
   });
 };
