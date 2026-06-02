@@ -1,5 +1,10 @@
 import type { z } from 'zod';
-import type { createWorkspaceResponseSchema, getAllWorkspacesSchema, workspaceSchema } from '@/services/schemas';
+import type {
+  createWorkspaceResponseSchema,
+  getAllWorkspacesSchema,
+  onboardingConfigSchema,
+  workspaceSchema,
+} from '@/services/schemas';
 
 export interface CreateWorkspaceRequest {
   name: string;
@@ -11,3 +16,4 @@ export interface CreateWorkspaceRequest {
 export type CreateWorkspaceResponse = z.infer<typeof createWorkspaceResponseSchema>;
 export type Workspace = z.infer<typeof workspaceSchema>;
 export type WorkspaceList = z.infer<typeof getAllWorkspacesSchema>;
+export type OnboardingConfig = z.infer<typeof onboardingConfigSchema>;

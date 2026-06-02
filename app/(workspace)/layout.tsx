@@ -1,5 +1,8 @@
 'use client';
 
-export default function WorkspaceGroupLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+import type { ReactNode } from 'react';
+import { WorkspaceConfigProvider } from '@/features/onboarding/contexts/workspace-config-context';
+
+export default function WorkspaceGroupLayout({ children }: { children: ReactNode }) {
+  return <WorkspaceConfigProvider>{children}</WorkspaceConfigProvider>;
 }

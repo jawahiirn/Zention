@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { getAllWorkspaces } from './network';
+import { getAllWorkspaces, getOnboardingConfig } from './network';
 
 export const workspaceQueries = {
   list: () =>
@@ -7,5 +7,11 @@ export const workspaceQueries = {
       queryKey: ['workspace', 'list'] as const,
       queryFn: () => getAllWorkspaces(),
       staleTime: 0,
+    }),
+  config: () =>
+    queryOptions({
+      queryKey: ['workspace', 'config'] as const,
+      queryFn: () => getOnboardingConfig(),
+      staleTime: Infinity,
     }),
 };
