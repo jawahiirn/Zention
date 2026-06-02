@@ -15,9 +15,9 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Logged in -> block auth pages, redirect to workspace entry
+  // Logged in -> block auth pages, redirect to dashboard
   if (isAuthPage) {
-    return NextResponse.redirect(new URL('/workspace', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   return NextResponse.next();
