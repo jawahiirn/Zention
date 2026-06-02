@@ -1,5 +1,5 @@
 import { axiosRequest } from '@/services/api-client';
-import { createWorkspaceResponseSchema, getAllWorkspacesSchema } from '@/services/schemas';
+import { createWorkspaceResponseSchema, getAllWorkspacesSchema, onboardingConfigSchema } from '@/services/schemas';
 import type { CreateWorkspaceRequest, CreateWorkspaceResponse, WorkspaceList } from '@/services/types';
 
 const createWorkspace = async (data: CreateWorkspaceRequest): Promise<CreateWorkspaceResponse> => {
@@ -23,4 +23,12 @@ const getAllWorkspaces = async (serverToken?: string): Promise<WorkspaceList> =>
   return getAllWorkspacesSchema.parse(result);
 };
 
-export { createWorkspace, getAllWorkspaces };
+const getOnboardingConfig = async () => {
+  const result = await axiosRequest<void>({
+    url: '/onboarding/config',
+    method: 'GET',
+  });
+  return onboardingConfigSchema.parse(result);
+};
+
+export { createWorkspace, getAllWorkspaces, getOnboardingConfig };
