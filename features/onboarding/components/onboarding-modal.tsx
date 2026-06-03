@@ -20,8 +20,9 @@ import { WorkspaceNameStep } from './steps/workspace-name-step';
 interface OnboardingModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onComplete?: (data: OnboardingValues) => void;
+  onComplete?: (data: OnboardingValues) => Promise<void>;
   showCloseButton?: boolean;
+  isPending?: boolean;
 }
 
 const TAIL_STEP_IDS = ['invite', 'space-name'] as const;
@@ -43,10 +44,12 @@ function OnboardingForm({
   config,
   onComplete,
   onOpenChange,
+  isPending,
 }: {
   config: OnboardingConfig;
-  onComplete?: (data: OnboardingValues) => void;
+  onComplete?: (data: OnboardingValues) => Promise<void>;
   onOpenChange: (open: boolean) => void;
+  isPending?: boolean;
 }) {
   const allStepIds = useMemo(() => [...config.steps.map((s) => s.id), ...TAIL_STEP_IDS], [config]);
 
@@ -68,9 +71,13 @@ function OnboardingForm({
   });
 
   const handleComplete = useCallback(
-    (data: OnboardingValues) => {
-      onComplete?.(data);
-      onOpenChange(false);
+    async (data: OnboardingValues) => {
+      try {
+        await onComplete?.(data);
+        onOpenChange(false);
+      } catch {
+        // API call failed — keep modal open so user can retry
+      }
     },
     [onComplete, onOpenChange]
   );
@@ -99,14 +106,20 @@ function OnboardingForm({
         </StepperContent>
 
         <div className="p-3 sm:px-5 sm:py-3 border-t border-border/40">
-          <StepNavigation isFormValid={form.formState.isValid} />
+          <StepNavigation isFormValid={form.formState.isValid} isPending={isPending} />
         </div>
       </Stepper>
     </FormProvider>
   );
 }
 
-export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButton = false }: OnboardingModalProps) {
+export function OnboardingModal({
+  open,
+  onOpenChange,
+  onComplete,
+  showCloseButton = false,
+  isPending,
+}: OnboardingModalProps) {
   const { data: config, isLoading } = useQuery(workspaceQueries.config());
 
   return (
@@ -121,7 +134,7 @@ export function OnboardingModal({ open, onOpenChange, onComplete, showCloseButto
             <Loader2 className="size-8 animate-spin text-muted-foreground" />
           </div>
         ) : (
-          <OnboardingForm config={config} onComplete={onComplete} onOpenChange={onOpenChange} />
+          <OnboardingForm config={config} onComplete={onComplete} onOpenChange={onOpenChange} isPending={isPending} />
         )}
       </DialogContent>
     </Dialog>

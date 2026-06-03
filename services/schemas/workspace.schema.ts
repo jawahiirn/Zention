@@ -1,10 +1,4 @@
 import { z } from 'zod';
-import { userSchema } from '@/services/schemas/user.schema';
-
-export const createWorkspaceResponseSchema = z.object({
-  accessToken: z.string(),
-  refreshToken: z.string(),
-});
 
 export const workspaceSchema = z.object({
   id: z.string(),
@@ -13,8 +7,10 @@ export const workspaceSchema = z.object({
   iconColor: z.string(),
   createdAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
-  createdBy: userSchema,
+  createdBy: z.object({ id: z.string() }).passthrough(),
 });
+
+export const createWorkspaceResponseSchema = workspaceSchema;
 
 export const getAllWorkspacesSchema = z.array(workspaceSchema);
 
