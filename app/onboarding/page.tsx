@@ -1,17 +1,20 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import { LogOut, Rocket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
-
 import { Button } from '@/components/ui/button';
 import { OnboardingModal } from '@/features/onboarding/components/onboarding-modal';
 import type { OnboardingValues } from '@/features/onboarding/types/request';
+import { useCreateWorkspaceMutation } from '@/services/modules/workspace';
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(true);
+  const { mutateAsync: createWorkspace, isPending } = useCreateWorkspaceMutation();
 
   const handleLogout = useCallback(() => {
     Cookies.remove('auth_token');
@@ -21,13 +24,25 @@ export default function OnboardingPage() {
   }, [router]);
 
   const handleComplete = useCallback(
-    (data: OnboardingValues) => {
-      Cookies.set('has_onboarded', 'true', { expires: 365 });
+    async (data: OnboardingValues) => {
+      const invitedEmails = data.inviteEmails ? data.inviteEmails.split(/[,\s]+/).filter(Boolean) : [];
+
+      const workspace = await createWorkspace({
+        name: data.spaceName,
+        icon: '',
+        iconColor: '',
+        invitedEmails,
+      });
+
+      queryClient.setQueryData(['workspace', 'list'], (old: unknown) => {
+        const list = Array.isArray(old) ? old : [];
+        return [...list, workspace];
+      });
+
       setOpen(false);
-      router.push('/');
-      router.refresh();
+      router.push(`/${workspace.id}/home`);
     },
-    [router]
+    [createWorkspace, queryClient, router]
   );
 
   return (
@@ -58,7 +73,7 @@ export default function OnboardingPage() {
         </div>
       </div>
 
-      <OnboardingModal open={open} onOpenChange={setOpen} onComplete={handleComplete} />
+      <OnboardingModal open={open} onOpenChange={setOpen} onComplete={handleComplete} isPending={isPending} />
     </div>
   );
 }

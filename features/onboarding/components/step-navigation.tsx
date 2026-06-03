@@ -1,9 +1,9 @@
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Loader2 } from 'lucide-react';
 import { StepperNext, StepperPrevious, useStepper } from '@/components/primitives/stepper';
 import { Button } from '@/components/ui/button';
 
-export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
-  const { isFirst, isLast, currentStep } = useStepper();
+export function StepNavigation({ isFormValid, isPending }: { isFormValid: boolean; isPending?: boolean }) {
+  const { isFirst, isLast } = useStepper();
 
   return (
     <div className="flex justify-between">
@@ -13,10 +13,10 @@ export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
           Back
         </Button>
       </StepperPrevious>
-      <StepperNext asChild disabled={currentStep === 'space-name' && !isFormValid}>
-        <Button className={'h-12 text-lg rounded-xl'}>
-          {isLast ? 'Complete Setup' : currentStep === 'invite' ? 'Continue' : 'Next'}
-          {isLast ? <Check /> : <ArrowRight />}
+      <StepperNext asChild disabled={isLast && (!isFormValid || isPending)}>
+        <Button className="h-12 text-lg rounded-xl" disabled={isPending}>
+          {isPending ? <Loader2 className="size-5 animate-spin" /> : isLast ? <Check /> : <ArrowRight />}
+          {isPending ? 'Creating...' : isLast ? 'Complete Setup' : 'Continue'}
         </Button>
       </StepperNext>
     </div>
