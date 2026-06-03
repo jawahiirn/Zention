@@ -3,7 +3,7 @@ import { StepperNext, StepperPrevious, useStepper } from '@/components/primitive
 import { Button } from '@/components/ui/button';
 
 export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
-  const { isFirst, isLast, currentStep } = useStepper();
+  const { isFirst, isLast } = useStepper();
 
   return (
     <div className="flex justify-between">
@@ -13,9 +13,9 @@ export function StepNavigation({ isFormValid }: { isFormValid: boolean }) {
           Back
         </Button>
       </StepperPrevious>
-      <StepperNext asChild disabled={currentStep === 'space-name' && !isFormValid}>
-        <Button className={'h-12 text-lg rounded-xl'}>
-          {isLast ? 'Complete Setup' : currentStep === 'invite' ? 'Continue' : 'Next'}
+      <StepperNext asChild disabled={isLast && !isFormValid}>
+        <Button className="h-12 text-lg rounded-xl">
+          {isLast ? 'Complete Setup' : 'Continue'}
           {isLast ? <Check /> : <ArrowRight />}
         </Button>
       </StepperNext>
