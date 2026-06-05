@@ -6,7 +6,7 @@ export const workspaceQueries = {
     queryOptions({
       queryKey: ['workspace', 'list'] as const,
       queryFn: () => getAllWorkspaces(),
-      staleTime: 0,
+      staleTime: 60 * 1000,
     }),
   config: () =>
     queryOptions({
