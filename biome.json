@@ -27,7 +27,8 @@
       "!**/public",
       "!**/build",
       "!**/.idea",
-      "!**/.vscode"
+      "!**/.vscode",
+      "!**/*.css"
     ]
   },
   "javascript": {

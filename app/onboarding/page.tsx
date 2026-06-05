@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { OnboardingModal } from '@/features/onboarding/components/onboarding-modal';
 import type { OnboardingValues } from '@/features/onboarding/types/request';
 import { useCreateWorkspaceMutation } from '@/services/modules/workspace';
+import { getRandomColor } from '@/shared/constants/colors';
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function OnboardingPage() {
       const workspace = await createWorkspace({
         name: data.spaceName,
         icon: '',
-        iconColor: '',
+        iconColor: getRandomColor('CREATE_WORKSPACE'),
         invitedEmails,
       });
 
