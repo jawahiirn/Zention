@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./palette.css";
 
 @source "../app";
 @source "../components";
