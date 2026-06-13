@@ -6,7 +6,7 @@ import type { Persister } from '@tanstack/react-query-persist-client';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { createStore, del, get, set } from 'idb-keyval';
 import type { ReactNode } from 'react';
-import { getQueryClient } from '@/services/query-client';
+import { getQueryClient } from '@/lib/query-client';
 
 const zentionStore = createStore('zention-db', 'zention-global');
 

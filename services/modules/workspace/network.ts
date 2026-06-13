@@ -1,4 +1,4 @@
-import { axiosRequest } from '@/services/api-client';
+import { axiosRequest } from '@/lib/api-client';
 import { createWorkspaceResponseSchema, getAllWorkspacesSchema, onboardingConfigSchema } from '@/services/schemas';
 import type { CreateWorkspaceRequest, CreateWorkspaceResponse, WorkspaceList } from '@/services/types';
 

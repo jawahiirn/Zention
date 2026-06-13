@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 import type { OnboardingValues } from '../../types/request';
 
 export function InviteStep() {

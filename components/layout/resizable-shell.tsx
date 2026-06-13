@@ -10,7 +10,7 @@ import {
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
 } from '@/constants/app-sidebar-constants';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/utils';
 
 interface ResizableShellProps {
   children: ReactNode;
