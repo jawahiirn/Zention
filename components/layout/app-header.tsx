@@ -1,6 +1,6 @@
 'use client';
 
-import { WorkspaceSwitcher } from '@/shared/components/layout';
+import { WorkspaceSwitcher } from '@/components/layout/index';
 
 export function AppHeader() {
   return (

@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
+import { ResizableShell, SidebarHotkeys } from '@/components/layout';
 import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
-import { ResizableShell, SidebarHotkeys } from '@/shared/components/layout';
 
 interface DashboardLayoutProps {
   children: ReactNode;

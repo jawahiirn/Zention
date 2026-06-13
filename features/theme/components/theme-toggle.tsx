@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { startTransition, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { themes } from '@/shared/constants/theme-constants';
+import { themes } from '@/constants/theme-constants';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();

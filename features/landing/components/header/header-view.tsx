@@ -1,6 +1,6 @@
 'use client';
 
-import { ThemeToggle } from '@/shared/components/theme-toggle';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { AuthActions } from './auth-actions';
 import { Logo } from './logo';
 

@@ -6,10 +6,10 @@ import { LogOut, Rocket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { getRandomColor } from '@/constants/colors';
 import { OnboardingModal } from '@/features/onboarding/components/onboarding-modal';
 import type { OnboardingValues } from '@/features/onboarding/types/request';
 import { useCreateWorkspaceMutation } from '@/services/modules/workspace';
-import { getRandomColor } from '@/shared/constants/colors';
 
 export default function OnboardingPage() {
   const router = useRouter();
