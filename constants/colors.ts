@@ -36,69 +36,69 @@ export const COLOR_PALETTE: readonly ColorDefinition[] = [
   // Brand colors (800 – 1000)
   // ================================
   // Purple
-  { id: 'purple-800', color: 'rgb(96, 73, 231)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'purple-900', color: 'rgb(85, 62, 208)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'purple-1000', color: 'rgb(90, 67, 214)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'purple-800', color: 'rgb(96, 73, 231)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'purple-900', color: 'rgb(85, 62, 208)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'purple-1000', color: 'rgb(90, 67, 214)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Neon blue
-  { id: 'neon-blue-800', color: 'rgb(62, 99, 221)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'neon-blue-900', color: 'rgb(58, 92, 204)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'neon-blue-1000', color: 'rgb(52, 81, 178)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'neon-blue-800', color: 'rgb(62, 99, 221)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'neon-blue-900', color: 'rgb(58, 92, 204)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'neon-blue-1000', color: 'rgb(52, 81, 178)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Azure blue
-  { id: 'azure-blue-800', color: 'rgb(0, 145, 255)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'azure-blue-900', color: 'rgb(8, 128, 234)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'azure-blue-1000', color: 'rgb(11, 104, 203)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'azure-blue-800', color: 'rgb(0, 145, 255)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'azure-blue-900', color: 'rgb(8, 128, 234)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'azure-blue-1000', color: 'rgb(11, 104, 203)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Teal
-  { id: 'teal-800', color: 'rgb(18, 165, 148)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'teal-900', color: 'rgb(14, 152, 136)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'teal-1000', color: 'rgb(6, 122, 111)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'teal-800', color: 'rgb(18, 165, 148)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'teal-900', color: 'rgb(14, 152, 136)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'teal-1000', color: 'rgb(6, 122, 111)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Mint
-  { id: 'mint-800', color: 'rgb(22, 192, 164)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'mint-900', color: 'rgb(0, 180, 153)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'mint-1000', color: 'rgb(0, 123, 101)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'mint-800', color: 'rgb(22, 192, 164)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'mint-900', color: 'rgb(0, 180, 153)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'mint-1000', color: 'rgb(0, 123, 101)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Green
-  { id: 'green-800', color: 'rgb(48, 164, 108)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'green-900', color: 'rgb(41, 151, 100)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'green-1000', color: 'rgb(24, 121, 78)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'green-800', color: 'rgb(48, 164, 108)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'green-900', color: 'rgb(41, 151, 100)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'green-1000', color: 'rgb(24, 121, 78)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Yellow
-  { id: 'yellow-800', color: 'rgb(255, 197, 61)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'yellow-900', color: 'rgb(255, 186, 26)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'yellow-1000', color: 'rgb(145, 89, 48)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'yellow-800', color: 'rgb(255, 197, 61)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'yellow-900', color: 'rgb(255, 186, 26)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'yellow-1000', color: 'rgb(145, 89, 48)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Orange
-  { id: 'orange-800', color: 'rgb(247, 104, 8)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'orange-900', color: 'rgb(237, 95, 0)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'orange-1000', color: 'rgb(153, 84, 58)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'orange-800', color: 'rgb(247, 104, 8)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'orange-900', color: 'rgb(237, 95, 0)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'orange-1000', color: 'rgb(153, 84, 58)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Red
-  { id: 'red-800', color: 'rgb(229, 72, 77)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'red-900', color: 'rgb(217, 61, 66)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'red-1000', color: 'rgb(198, 42, 47)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'red-800', color: 'rgb(229, 72, 77)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'red-900', color: 'rgb(217, 61, 66)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'red-1000', color: 'rgb(198, 42, 47)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Pink
-  { id: 'pink-800', color: 'rgb(233, 61, 130)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'pink-900', color: 'rgb(220, 49, 117)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'pink-1000', color: 'rgb(203, 29, 99)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'pink-800', color: 'rgb(233, 61, 130)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'pink-900', color: 'rgb(220, 49, 117)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'pink-1000', color: 'rgb(203, 29, 99)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Violet
-  { id: 'violet-800', color: 'rgb(171, 74, 186)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'violet-900', color: 'rgb(164, 60, 180)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'violet-1000', color: 'rgb(156, 43, 173)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'violet-800', color: 'rgb(171, 74, 186)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'violet-900', color: 'rgb(164, 60, 180)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'violet-1000', color: 'rgb(156, 43, 173)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Brown
-  { id: 'brown-800', color: 'rgb(161, 128, 114)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'brown-900', color: 'rgb(148, 116, 103)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'brown-1000', color: 'rgb(125, 94, 84)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'brown-800', color: 'rgb(161, 128, 114)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'brown-900', color: 'rgb(148, 116, 103)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'brown-1000', color: 'rgb(125, 94, 84)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Ink
-  { id: 'ink-800', color: 'rgb(0, 0, 0)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'ink-900', color: 'rgb(45, 45, 50)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'ink-1000', color: 'rgb(98, 99, 107)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'ink-800', color: 'rgb(0, 0, 0)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'ink-900', color: 'rgb(45, 45, 50)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'ink-1000', color: 'rgb(98, 99, 107)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Magenta
-  { id: 'magenta-800', color: 'rgb(255, 2, 240)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'magenta-900', color: 'rgb(241, 0, 227)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'magenta-1000', color: 'rgb(193, 0, 182)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'magenta-800', color: 'rgb(255, 2, 240)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'magenta-900', color: 'rgb(241, 0, 227)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'magenta-1000', color: 'rgb(193, 0, 182)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Bright purple
-  { id: 'bright-purple-800', color: 'rgb(137, 48, 253)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'bright-purple-900', color: 'rgb(122, 41, 227)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'bright-purple-1000', color: 'rgb(122, 40, 247)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'bright-purple-800', color: 'rgb(137, 48, 253)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'bright-purple-900', color: 'rgb(122, 41, 227)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'bright-purple-1000', color: 'rgb(122, 40, 247)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
   // Cyan
-  { id: 'cyan-800', color: 'rgb(65, 197, 242)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'cyan-900', color: 'rgb(53, 186, 230)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
-  { id: 'cyan-1000', color: 'rgb(0, 123, 162)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG'] },
+  { id: 'cyan-800', color: 'rgb(65, 197, 242)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'cyan-900', color: 'rgb(53, 186, 230)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
+  { id: 'cyan-1000', color: 'rgb(0, 123, 162)', tags: ['CREATE_WORKSPACE', 'CREATE_TAG', 'AVATAR'] },
 
   // ================================
   // Example: handpicked custom set
@@ -124,13 +124,12 @@ export const getRandomColor = (tag: ColorTag): string => {
   return options[Math.floor(Math.random() * options.length)].color;
 };
 
-/**
- * Return a random rgb string from the set tagged with `tag`,
- * avoiding any colors in `excluded`. Useful for sibling items
- * that should not share the same color.
- */
-export const getRandomColorExcluding = (tag: ColorTag, excluded: string[]): string => {
-  const options = getColors(tag).filter((c) => !excluded.includes(c.color));
-  if (options.length === 0) return getRandomColor(tag);
-  return options[Math.floor(Math.random() * options.length)].color;
+export const getColorByTagWithSeed = (tag: ColorTag, seed: string): string => {
+  const options = getColors(tag);
+  if (options.length === 0) return 'rgb(90, 67, 214)';
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = ((hash << 5) - hash + seed.charCodeAt(i)) | 0;
+  }
+  return options[Math.abs(hash) % options.length].color;
 };
