@@ -1,6 +1,16 @@
 import { axiosRequest } from '@/lib/api-client';
-import { createWorkspaceResponseSchema, getAllWorkspacesSchema, onboardingConfigSchema } from '@/services/schemas';
-import type { CreateWorkspaceRequest, CreateWorkspaceResponse, WorkspaceList } from '@/services/types';
+import {
+  createWorkspaceResponseSchema,
+  getAllWorkspacesSchema,
+  onboardingConfigSchema,
+  workspaceMembersResponseSchema,
+} from '@/services/schemas';
+import type {
+  CreateWorkspaceRequest,
+  CreateWorkspaceResponse,
+  WorkspaceList,
+  WorkspaceMemberList,
+} from '@/services/types';
 
 const createWorkspace = async (data: CreateWorkspaceRequest): Promise<CreateWorkspaceResponse> => {
   const result = await axiosRequest<CreateWorkspaceResponse>({
@@ -31,4 +41,12 @@ const getOnboardingConfig = async () => {
   return onboardingConfigSchema.parse(result);
 };
 
-export { createWorkspace, getAllWorkspaces, getOnboardingConfig };
+const getWorkspaceMembers = async (workspaceId: string): Promise<WorkspaceMemberList> => {
+  const result = await axiosRequest<WorkspaceMemberList>({
+    url: `/workspaces/${workspaceId}/members`,
+    method: 'GET',
+  });
+  return workspaceMembersResponseSchema.parse(result);
+};
+
+export { createWorkspace, getAllWorkspaces, getOnboardingConfig, getWorkspaceMembers };
