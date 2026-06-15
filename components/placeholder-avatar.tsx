@@ -1,9 +1,12 @@
 'use client';
 
+import type { Style } from '@dicebear/core';
+import { createAvatar } from '@dicebear/core';
+import type { Options as InitialsOptions } from '@dicebear/initials';
+import { create, meta, schema } from '@dicebear/initials';
 import { useMemo } from 'react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { getColorByTagWithSeed } from '@/constants/colors';
-import { getContrastText } from '@/utils/color-utils';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { rgbToHex } from '@/utils/color-utils';
 import { cn } from '@/utils/utils';
 
 const sizeMap = { sm: 24, default: 32, lg: 40 } as const;
@@ -25,6 +28,8 @@ interface PlaceholderAvatarProps {
   rounded?: keyof typeof roundedClasses;
   className?: string;
   chars?: number;
+  src?: string | null;
+  fontSize?: string | number;
 }
 
 export function PlaceholderAvatar({
@@ -35,28 +40,39 @@ export function PlaceholderAvatar({
   rounded,
   className,
   chars = 1,
+  src,
+  fontSize,
 }: PlaceholderAvatarProps) {
   const pixelSize = typeof size === 'number' ? size : sizeMap[size];
 
-  const bgColor = iconColor ?? getColorByTagWithSeed('AVATAR', seed ?? '');
-  const textColor = getContrastText(bgColor);
+  const imageSrc = useMemo(() => {
+    if (src) return src;
 
-  const initials = useMemo(() => {
-    const str = name ?? seed ?? '?';
-    return str.slice(0, chars).toUpperCase();
-  }, [name, seed, chars]);
+    const style: Style<InitialsOptions> = { create, meta, schema };
+    const avatar = createAvatar(style, {
+      seed: name ?? seed ?? '?',
+      backgroundColor: iconColor ? [rgbToHex(iconColor)] : undefined,
+      chars,
+    });
+
+    return `data:image/svg+xml,${encodeURIComponent(avatar.toString())}`;
+  }, [src, name, seed, iconColor, chars]);
+
+  const computedFontSize = fontSize ?? `${Math.round(pixelSize * 0.4)}px`;
 
   return (
     <Avatar
       size={typeof size === 'number' ? 'default' : size}
       className={cn(rounded && rounded !== 'full' && roundedClasses[rounded], className)}
-      style={{
-        backgroundColor: bgColor,
-        color: textColor,
-        ...(typeof size === 'number' ? { width: pixelSize, height: pixelSize } : {}),
-      }}
+      style={typeof size === 'number' ? { width: pixelSize, height: pixelSize } : undefined}
     >
-      <AvatarFallback className="bg-transparent text-inherit text-xs font-semibold">{initials}</AvatarFallback>
+      <AvatarImage src={imageSrc} alt={name ?? ''} />
+      <AvatarFallback
+        className="bg-transparent text-inherit font-semibold"
+        style={{ fontSize: typeof fontSize === 'number' ? `${fontSize}px` : computedFontSize }}
+      >
+        {(name ?? seed ?? '?').slice(0, chars).toUpperCase()}
+      </AvatarFallback>
     </Avatar>
   );
 }

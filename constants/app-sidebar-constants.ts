@@ -5,12 +5,6 @@ export const SIDEBAR_MAX_WIDTH = 480;
 export const SIDEBAR_DEFAULT_WIDTH = 220;
 export const SIDEBAR_COLLAPSED_WIDTH = 64;
 
-export const WORKSPACE_DATA = {
-  name: "Jawahiir's Workspace",
-  memberCount: 1,
-  email: 'jawahiirnabhan@gmail.com',
-};
-
 export const NAV_ITEMS = [
   {
     href: '/home',

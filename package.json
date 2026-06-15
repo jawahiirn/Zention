@@ -16,7 +16,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@dicebear/core": "^10.3.0",
+    "@dicebear/core": "^9.4.2",
+    "@dicebear/initials": "^9.4.2",
     "@eslint/js": "^9.39.1",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-popover": "^1.1.15",

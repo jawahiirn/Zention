@@ -23,3 +23,13 @@ export function getContrastText(color: string): string {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.55 ? '1a1a1a' : 'ffffff';
 }
+
+export function rgbToHex(color: string): string {
+  const rgbMatch = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  if (rgbMatch) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, r, g, b] = rgbMatch;
+    return [r, g, b].map((x) => Number(x).toString(16).padStart(2, '0')).join('');
+  }
+  return color.replace('#', '');
+}
