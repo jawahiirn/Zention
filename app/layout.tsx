@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { QueryProvider, ThemeProvider } from '@/providers';
+import { ModalProvider, QueryProvider, ThemeProvider } from '@/providers';
 import '@/styles/globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -42,7 +42,9 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <ModalProvider>{children}</ModalProvider>
+            </QueryProvider>
             <Toaster richColors position="top-right" />
           </ThemeProvider>
         </NextIntlClientProvider>
