@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { useMounted } from '@/shared/hooks/use-mounted';
+import { useMounted } from '@/hooks/use-mounted';
 
 export function Logo() {
   const { theme, resolvedTheme } = useTheme();

@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { startTransition, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { themes } from '@/shared/constants/theme-constants';
+import { themes } from '@/constants/theme-constants';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -31,6 +31,7 @@ export function ThemeToggle() {
 
               return (
                 <button
+                  type="button"
                   key={themeOption.value}
                   onClick={() => setTheme(themeOption.value)}
                   className={`hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-2 py-2 text-sm transition-colors ${

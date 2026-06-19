@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/features/i18n/use-i18n';
-import { useMounted } from '@/shared/hooks/use-mounted';
+import { useMounted } from '@/hooks/use-mounted';
 
 interface AuthActionsProps {
   action: 'login' | 'signup' | 'none';

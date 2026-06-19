@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import type { Layout } from 'react-resizable-panels';
-import { SidebarProvider, SidebarTrigger, type SidebarVariantType } from '@/components/ui/sidebar';
-import { ResizableShell, SidebarHotkeys } from '@/shared/components/layout';
+import { ResizableShell, SidebarHotkeys } from '@/components/layout';
+import { SidebarProvider, type SidebarVariantType } from '@/components/ui/sidebar';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -34,11 +34,7 @@ export default async function DashboardLayout({ children, sidebar, header }: Das
         initialLayout={initialLayout}
         topHeader={header}
         sidebar={sidebar}
-        header={
-          <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
-          </header>
-        }
+        header={null}
       >
         {children}
       </ResizableShell>

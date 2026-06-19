@@ -3,8 +3,8 @@
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
-import { useMounted } from '@/shared/hooks/use-mounted';
-import { cn } from '@/shared/lib/utils';
+import { useMounted } from '@/hooks/use-mounted';
+import { cn } from '@/utils/utils';
 
 interface ThemeToggleProps {
   className?: string;

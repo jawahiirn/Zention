@@ -2,7 +2,7 @@
 
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/utils/utils';
 
 interface StepperContextValue {
   steps: string[];

@@ -1,4 +1,4 @@
-import { axiosRequest } from '@/services/api-client';
+import { axiosRequest } from '@/lib/api-client';
 import { loginResponseSchema } from '@/services/schemas/auth.schema';
 import type { LoginRequest, LoginResponse, SignupRequest } from '@/services/types/auth.types';
 

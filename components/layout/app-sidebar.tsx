@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarMenu } from '@/components/ui/sidebar';
-import { NAV_ITEMS } from '@/shared/constants/app-sidebar-constants';
-import { cn } from '@/shared/lib/utils';
+import { NAV_ITEMS } from '@/constants/app-sidebar-constants';
+import { cn } from '@/utils/utils';
 import { SidebarCollapseButton } from './sidebar-collapse-button';
 import { SidebarNavLink } from './sidebar-nav-link';
 

@@ -9,8 +9,8 @@ import {
   SIDEBAR_DEFAULT_WIDTH,
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_MIN_WIDTH,
-} from '@/shared/constants/app-sidebar-constants';
-import { cn } from '@/shared/lib/utils';
+} from '@/constants/app-sidebar-constants';
+import { cn } from '@/utils/utils';
 
 interface ResizableShellProps {
   children: ReactNode;
@@ -65,7 +65,7 @@ export function ResizableShell({
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-background">
-      {topHeader}
+      <div className="px-1">{topHeader}</div>
       <ResizablePanelGroup
         onLayoutChanged={onLayoutChanged}
         orientation="horizontal"

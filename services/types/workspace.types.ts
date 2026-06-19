@@ -3,6 +3,8 @@ import type {
   createWorkspaceResponseSchema,
   getAllWorkspacesSchema,
   onboardingConfigSchema,
+  workspaceMemberSchema,
+  workspaceMembersResponseSchema,
   workspaceSchema,
 } from '@/services/schemas';
 
@@ -17,3 +19,5 @@ export type CreateWorkspaceResponse = z.infer<typeof createWorkspaceResponseSche
 export type Workspace = z.infer<typeof workspaceSchema>;
 export type WorkspaceList = z.infer<typeof getAllWorkspacesSchema>;
 export type OnboardingConfig = z.infer<typeof onboardingConfigSchema>;
+export type WorkspaceMember = z.infer<typeof workspaceMemberSchema>;
+export type WorkspaceMemberList = z.infer<typeof workspaceMembersResponseSchema>;

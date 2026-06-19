@@ -1,5 +1,5 @@
 import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
-import { getAuthToken } from '@/shared/hooks/use-auth-token';
+import { getAuthToken } from '@/hooks/use-auth-token';
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || '',

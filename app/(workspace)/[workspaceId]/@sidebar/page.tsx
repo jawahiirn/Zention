@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
+import { AppSidebar } from '@/components/layout/app-sidebar';
 import type { SidebarVariantType } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/shared/components/layout/app-sidebar';
 
 export default async function SidebarLayout() {
   const cookieStore = await cookies();
