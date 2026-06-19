@@ -65,7 +65,7 @@ export function ResizableShell({
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-background">
-      {topHeader}
+      <div className="px-1">{topHeader}</div>
       <ResizablePanelGroup
         onLayoutChanged={onLayoutChanged}
         orientation="horizontal"
