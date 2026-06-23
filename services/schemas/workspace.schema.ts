@@ -15,6 +15,16 @@ export const createWorkspaceResponseSchema = workspaceSchema;
 
 export const getAllWorkspacesSchema = z.array(workspaceSchema);
 
+export const createInvitationResponseSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  status: z.string(),
+  workspace: z.object({ id: z.string() }),
+  invitedBy: z.object({ id: z.string() }),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
+});
+
 export const workspaceMemberInvitationSchema = z.object({
   id: z.string(),
   email: z.string(),

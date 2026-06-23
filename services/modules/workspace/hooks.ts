@@ -1,13 +1,25 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { getMembers, setMembers } from '@/lib/workspace/member-store';
-import type { WorkspaceMemberList } from '@/services/types';
-import { createWorkspace, getWorkspaceMembers } from './network';
+import type { InviteByEmailRequest, WorkspaceMemberList } from '@/services/types';
+import { createWorkspace, getWorkspaceMembers, inviteByEmail } from './network';
 
 export const useCreateWorkspaceMutation = () =>
   useMutation({
     mutationFn: createWorkspace,
   });
+
+export const useInviteByEmailMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ workspaceId, data }: { workspaceId: string; data: InviteByEmailRequest }) =>
+      inviteByEmail(workspaceId, data),
+    onSuccess: (_data, { workspaceId }) => {
+      queryClient.invalidateQueries({ queryKey: ['workspace', 'members', workspaceId] });
+    },
+  });
+};
 
 export const useWorkspaceMembersQuery = (workspaceId: string) => {
   const [cached, setCached] = useState<WorkspaceMemberList>();
