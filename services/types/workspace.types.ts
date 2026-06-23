@@ -1,5 +1,6 @@
 import type { z } from 'zod';
 import type {
+  createInvitationResponseSchema,
   createWorkspaceResponseSchema,
   getAllWorkspacesSchema,
   onboardingConfigSchema,
@@ -15,6 +16,11 @@ export interface CreateWorkspaceRequest {
   invitedEmails: string[];
 }
 
+export interface InviteByEmailRequest {
+  email: string;
+}
+
+export type CreateInvitationResponse = z.infer<typeof createInvitationResponseSchema>;
 export type CreateWorkspaceResponse = z.infer<typeof createWorkspaceResponseSchema>;
 export type Workspace = z.infer<typeof workspaceSchema>;
 export type WorkspaceList = z.infer<typeof getAllWorkspacesSchema>;

@@ -55,7 +55,7 @@ export const WorkspaceSwitcher = () => {
             <SettingsIcon />
             Settings
           </Button>
-          <Button className={'flex-1'}>
+          <Button className={'flex-1'} onClick={() => openModal(ModalTypes.INVITATION)}>
             <UserPlusIcon />
             Invite
           </Button>

@@ -1,13 +1,16 @@
 import { axiosRequest } from '@/lib/api-client';
 import {
+  createInvitationResponseSchema,
   createWorkspaceResponseSchema,
   getAllWorkspacesSchema,
   onboardingConfigSchema,
   workspaceMembersResponseSchema,
 } from '@/services/schemas';
 import type {
+  CreateInvitationResponse,
   CreateWorkspaceRequest,
   CreateWorkspaceResponse,
+  InviteByEmailRequest,
   WorkspaceList,
   WorkspaceMemberList,
 } from '@/services/types';
@@ -49,4 +52,13 @@ const getWorkspaceMembers = async (workspaceId: string): Promise<WorkspaceMember
   return workspaceMembersResponseSchema.parse(result);
 };
 
-export { createWorkspace, getAllWorkspaces, getOnboardingConfig, getWorkspaceMembers };
+const inviteByEmail = async (workspaceId: string, data: InviteByEmailRequest): Promise<CreateInvitationResponse> => {
+  const result = await axiosRequest<CreateInvitationResponse>({
+    url: `/workspaces/${workspaceId}/invitations`,
+    method: 'POST',
+    data,
+  });
+  return createInvitationResponseSchema.parse(result);
+};
+
+export { createWorkspace, getAllWorkspaces, getOnboardingConfig, getWorkspaceMembers, inviteByEmail };

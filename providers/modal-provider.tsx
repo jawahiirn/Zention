@@ -2,11 +2,13 @@
 
 import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { InvitationModal } from '@/features/invitation/components/invitation-modal';
 import { OnboardingModal } from '@/features/onboarding/components/onboarding-modal';
 import { useOnboardingComplete } from '@/features/onboarding/hooks/use-onboarding-complete';
 
 export const ModalTypes = {
   ONBOARDING: 'onboarding',
+  INVITATION: 'invitation',
 } as const;
 
 export type ModalId = (typeof ModalTypes)[keyof typeof ModalTypes];
@@ -63,6 +65,12 @@ export function ModalProvider({ children }: { children: ReactNode }) {
         }}
         onComplete={complete}
         isPending={isPending}
+      />
+      <InvitationModal
+        open={modalState?.id === ModalTypes.INVITATION}
+        onOpenChange={(v) => {
+          if (!v) closeModal();
+        }}
       />
     </ModalContext.Provider>
   );
