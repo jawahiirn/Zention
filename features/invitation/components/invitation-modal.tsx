@@ -12,7 +12,7 @@ export function InvitationModal({ open, onOpenChange }: InvitationModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent showCloseButton={true} className="rounded-2xl flex flex-col p-6">
-        <InvitationContainer />
+        <InvitationContainer onOpenChange={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>
   );

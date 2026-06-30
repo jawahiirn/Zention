@@ -1,5 +1,9 @@
 import { InvitationView } from './invitation-view';
 
-export const InvitationContainer = () => {
-  return <InvitationView />;
+interface Props {
+  onOpenChange: () => void;
+}
+
+export const InvitationContainer = ({ onOpenChange }: Props) => {
+  return <InvitationView onOpenChange={onOpenChange} />;
 };
