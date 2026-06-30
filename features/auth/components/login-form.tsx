@@ -19,7 +19,7 @@ import { AuthCardShell } from './container/auth-card-shell';
 
 export function LoginForm() {
   const { Auth } = useI18n();
-  const { setToken } = useAuthToken();
+  const { setToken, removeToken } = useAuthToken();
   const queryClient = useQueryClient();
   const router = useRouter();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -32,14 +32,17 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   });
-
   const { mutateAsync: login, isPending } = useLoginMutation();
 
   const onSubmit = async (data: LoginFormValues) => {
-    const { accessToken } = await login(data);
-    setToken(accessToken);
-    toast.success('Welcome back!');
-    await postSubmission();
+    try {
+      const { accessToken } = await login(data);
+      setToken(accessToken);
+      await postSubmission();
+      toast.success('Welcome back!');
+    } catch {
+      removeToken();
+    }
   };
 
   const postSubmission = async () => {
