@@ -32,7 +32,7 @@ export const WorkspaceSwitcher = () => {
           <ChevronDownIcon />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align={'start'} side={'bottom'} className={'rounded-lg px-2 !pb-0'}>
+      <PopoverContent align={'start'} side={'bottom'} className={'rounded-lg px-2 !pb-0 w-90'}>
         <div className="py-2">
           <div className="flex items-center gap-2">
             <PlaceholderAvatar
