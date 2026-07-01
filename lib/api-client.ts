@@ -1,5 +1,6 @@
 import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
-import { getAuthToken } from '@/hooks/use-auth-token';
+import Cookies from 'js-cookie';
+import { getAuthToken, TOKEN_KEY } from '@/hooks/use-auth-token';
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || '',
@@ -22,12 +23,15 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // 1. Handle Unauthorized (401)
+    // 1. Handle Unauthorized (401) — only for PROTECTED endpoints
     const isAuthRequest = error.config?.url?.includes('/auth/');
 
     if (error.response?.status === 401 && !isAuthRequest) {
-      // Clear token and redirect to login only for PROTECTED requests
-      if (typeof window !== 'undefined') {
+      // Clear stale token so it doesn't poison subsequent requests
+      Cookies.remove(TOKEN_KEY);
+
+      // Only redirect if we're not already on the login page to avoid reload loops
+      if (typeof window !== 'undefined' && window.location.pathname !== '/') {
         window.location.href = '/';
       }
     }

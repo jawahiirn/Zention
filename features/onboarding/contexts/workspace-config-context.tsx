@@ -13,7 +13,10 @@ interface WorkspaceConfigContextValue {
 const WorkspaceConfigContext = createContext<WorkspaceConfigContextValue | null>(null);
 
 export function WorkspaceConfigProvider({ children }: { children: ReactNode }) {
-  const { data: onboardingConfig, isLoading } = useQuery(workspaceQueries.config());
+  const { data: onboardingConfig, isLoading } = useQuery({
+    ...workspaceQueries.config(),
+    throwOnError: false,
+  });
 
   return (
     <WorkspaceConfigContext.Provider value={{ onboardingConfig, isLoading }}>
