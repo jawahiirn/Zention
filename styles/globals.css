@@ -4,6 +4,7 @@
 
 @source "../app";
 @source "../components";
+@source "../features";
 
 @custom-variant dark (&:is(.dark *, .violet-bloom-dark *));
 
