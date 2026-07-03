@@ -1,9 +1,11 @@
 import type { z } from 'zod';
 import type {
+  configSchema,
   createInvitationResponseSchema,
   createWorkspaceResponseSchema,
   getAllWorkspacesSchema,
   onboardingConfigSchema,
+  onboardingStepSchema,
   workspaceMemberSchema,
   workspaceMembersResponseSchema,
   workspaceSchema,
@@ -24,6 +26,8 @@ export type CreateInvitationResponse = z.infer<typeof createInvitationResponseSc
 export type CreateWorkspaceResponse = z.infer<typeof createWorkspaceResponseSchema>;
 export type Workspace = z.infer<typeof workspaceSchema>;
 export type WorkspaceList = z.infer<typeof getAllWorkspacesSchema>;
+export type ConfigList = z.infer<typeof configSchema>;
 export type OnboardingConfig = z.infer<typeof onboardingConfigSchema>;
+export type OnboardingStep = z.infer<typeof onboardingStepSchema>;
 export type WorkspaceMember = z.infer<typeof workspaceMemberSchema>;
 export type WorkspaceMemberList = z.infer<typeof workspaceMembersResponseSchema>;

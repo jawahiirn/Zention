@@ -43,15 +43,45 @@ export const workspaceMemberSchema = z.object({
 
 export const workspaceMembersResponseSchema = z.array(workspaceMemberSchema);
 
-export const onboardingConfigSchema = z.object({
-  steps: z.array(
-    z.object({
-      id: z.string(),
-      type: z.enum(['select', 'multi-select', 'radio', 'checkbox']),
-      label: z.string(),
-      options: z.array(z.object({ label: z.string(), value: z.string() })),
-      required: z.boolean(),
-      shortDescription: z.string(),
-    })
-  ),
+export const onboardingStepSchema = z.object({
+  id: z.string(),
+  type: z.enum(['select', 'multi-select', 'radio', 'checkbox']),
+  label: z.string(),
+  options: z.array(z.object({ label: z.string(), value: z.string() })),
+  required: z.boolean(),
+  shortDescription: z.string(),
 });
+
+export const onboardingConfigSchema = z.object({
+  steps: z.array(onboardingStepSchema),
+});
+
+export const memberRoleSchema = z.object({
+  role: z.string(),
+  title: z.string(),
+  description: z.string(),
+});
+
+export const memberRolesConfigSchema = z.object({
+  roles: z.array(memberRoleSchema),
+});
+
+export const onboardingConfigItemSchema = z.object({
+  id: z.string(),
+  key: z.literal('default'),
+  config: onboardingConfigSchema,
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export const memberRolesConfigItemSchema = z.object({
+  id: z.string(),
+  key: z.literal('member-roles'),
+  config: memberRolesConfigSchema,
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export const configSchema = z.array(
+  z.discriminatedUnion('key', [onboardingConfigItemSchema, memberRolesConfigItemSchema])
+);

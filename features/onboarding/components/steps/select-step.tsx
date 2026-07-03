@@ -3,11 +3,11 @@
 import { useFormContext } from 'react-hook-form';
 import { StepperNext } from '@/components/primitives/stepper';
 import { Button } from '@/components/ui/button';
-import type { OnboardingConfig } from '@/services/types';
+import type { OnboardingStep } from '@/services/types';
 import type { OnboardingValues } from '../../types/request';
 
 interface SelectStepProps {
-  step: OnboardingConfig['steps'][number];
+  step: OnboardingStep;
 }
 
 export function SelectStep({ step }: SelectStepProps) {

@@ -1,12 +1,13 @@
 import { axiosRequest } from '@/lib/api-client';
 import {
+  configSchema,
   createInvitationResponseSchema,
   createWorkspaceResponseSchema,
   getAllWorkspacesSchema,
-  onboardingConfigSchema,
   workspaceMembersResponseSchema,
 } from '@/services/schemas';
 import type {
+  ConfigList,
   CreateInvitationResponse,
   CreateWorkspaceRequest,
   CreateWorkspaceResponse,
@@ -36,12 +37,12 @@ const getAllWorkspaces = async (serverToken?: string): Promise<WorkspaceList> =>
   return getAllWorkspacesSchema.parse(result);
 };
 
-const getOnboardingConfig = async () => {
-  const result = await axiosRequest<void>({
-    url: '/onboarding/config',
+const getWorkspaceConfigs = async (): Promise<ConfigList> => {
+  const result = await axiosRequest({
+    url: '/config',
     method: 'GET',
   });
-  return onboardingConfigSchema.parse(result);
+  return configSchema.parse(result);
 };
 
 const getWorkspaceMembers = async (workspaceId: string): Promise<WorkspaceMemberList> => {
@@ -61,4 +62,4 @@ const inviteByEmail = async (workspaceId: string, data: InviteByEmailRequest): P
   return createInvitationResponseSchema.parse(result);
 };
 
-export { createWorkspace, getAllWorkspaces, getOnboardingConfig, getWorkspaceMembers, inviteByEmail };
+export { createWorkspace, getAllWorkspaces, getWorkspaceConfigs, getWorkspaceMembers, inviteByEmail };

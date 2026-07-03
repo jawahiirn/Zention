@@ -1,6 +1,6 @@
 import { useStepper } from '@/components/primitives/stepper';
 import { DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import type { OnboardingConfig } from '@/services/types';
+import type { OnboardingStep } from '@/services/types';
 
 const TAIL_METADATA: Record<string, { title: string; description: string }> = {
   invite: { title: 'Invite people to your Space', description: 'Collaboration is better together.' },
@@ -8,7 +8,7 @@ const TAIL_METADATA: Record<string, { title: string; description: string }> = {
 };
 
 interface StepHeaderProps {
-  steps: OnboardingConfig['steps'];
+  steps: OnboardingStep[];
 }
 
 export function StepHeader({ steps }: StepHeaderProps) {

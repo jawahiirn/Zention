@@ -8,7 +8,7 @@ import { FormProvider, type Resolver, useForm } from 'react-hook-form';
 import { Stepper, StepperContent } from '@/components/primitives/stepper';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { workspaceQueries } from '@/services/modules/workspace';
-import type { OnboardingConfig } from '@/services/types';
+import type { OnboardingConfig, OnboardingStep } from '@/services/types';
 import { buildOnboardingSchema } from '../schemas/onboarding.schema';
 import type { OnboardingValues } from '../types/request';
 import { StepHeader } from './step-header';
@@ -27,7 +27,7 @@ interface OnboardingModalProps {
 
 const TAIL_STEP_IDS = ['invite', 'space-name'] as const;
 
-function renderStepContent(step: OnboardingConfig['steps'][number]) {
+function renderStepContent(step: OnboardingStep) {
   switch (step.type) {
     case 'select':
       return <SelectStep step={step} />;
@@ -120,7 +120,9 @@ export function OnboardingModal({
   showCloseButton = false,
   isPending,
 }: OnboardingModalProps) {
-  const { data: config, isLoading } = useQuery(workspaceQueries.config());
+  const { data: allConfigs, isLoading } = useQuery(workspaceQueries.config());
+  const defaultConfigItem = allConfigs?.find((c) => c.key === 'default');
+  const config = defaultConfigItem?.key === 'default' ? defaultConfigItem.config : undefined;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
