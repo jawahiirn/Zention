@@ -15,7 +15,7 @@ interface Props {
 export const InvitationView = ({ tags, onTagsChange, onSubmit, onCancel, isPending }: Props) => {
   return (
     <>
-      <div className="py-4">
+      <div className="py-4 flex flex-col gap-y-4">
         <div className="flex flex-col gap-2">
           <p className={'text-sm font-semibold text-foreground/80'}>Invite by email</p>
           <TagInput
@@ -24,6 +24,9 @@ export const InvitationView = ({ tags, onTagsChange, onSubmit, onCancel, isPendi
             onSubmit={onSubmit}
             placeholder="Email, comma or space separated"
           />
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className={'text-sm font-semibold text-foreground/80'}>Invite by email</p>
         </div>
       </div>
       <DialogFooter>

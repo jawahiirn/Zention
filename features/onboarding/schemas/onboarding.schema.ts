@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { emailSchema } from '@/services/schemas/common.schema';
 import type { OnboardingConfig } from '@/services/types';
 
 export function buildOnboardingSchema(steps: OnboardingConfig['steps']) {
@@ -12,7 +13,6 @@ export function buildOnboardingSchema(steps: OnboardingConfig['steps']) {
     }
   }
 
-  const emailSchema = z.string().email();
   shape.inviteEmails = z
     .string()
     .optional()

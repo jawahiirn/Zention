@@ -2,7 +2,7 @@
 
 import { X } from 'lucide-react';
 import * as React from 'react';
-import { z } from 'zod';
+import { emailSchema } from '@/services/schemas/common.schema';
 import { cn } from '@/utils/utils';
 
 export interface Tag {
@@ -18,8 +18,6 @@ interface TagInputProps {
   className?: string;
   onSubmit?: (finalTags: Tag[]) => void;
 }
-
-const emailSchema = z.string().email();
 
 export function TagInput({ tags, onTagsChange, placeholder, className, onSubmit }: TagInputProps) {
   const [inputValue, setInputValue] = React.useState('');

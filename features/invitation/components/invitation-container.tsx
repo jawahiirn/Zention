@@ -12,11 +12,11 @@ interface Props {
 }
 
 export const InvitationContainer = ({ onOpenChange }: Props) => {
-  const [tags, setTags] = React.useState<Tag[]>([]);
   const params = useParams<{ workspaceId: string }>();
   const workspaceId = params?.workspaceId;
-
   const { mutateAsync: invite, isPending } = useInviteByEmailMutation();
+
+  const [tags, setTags] = React.useState<Tag[]>([]);
 
   const handleSendInvite = React.useCallback(
     async (tagsToSubmit: Tag[]) => {
